@@ -1,0 +1,60 @@
+Gpf4Med - Graph processing framework for medical information
+Copyright 2013 Institute for Molecular Imaging Instrumentation (I3M)
+
+This "NOTICE" text file is part of the distribution. Any derivative works that
+you distribute must include a readable copy of the attribution notices contained
+within this NOTICE file, excluding those notices that do not pertain to any part
+of the derivative works.
+
+Gpf4Med includes software originally developed at the Institute for Molecular 
+Imaging Instrumentation (I3M - http://www.i3m.upv.es) and provided under the 
+terms and conditions of the European Union Public Licence (EUPL), Version 1.1 
+(EUPL_LICENCE-1.1).
+
+Gpf4Med includes software developed by third parties and provided under an open 
+source license (http://www.opensource.org).
+
+Apache Commons, Apache HttpComponents, Apache Tika and Apache jclouds were not
+modified, were produced by The Apache Software Foundation and licensed under 
+the terms and conditions given in:
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Google Guava was not modified, was produced by Google and licensed under the 
+terms and conditions given in:
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Grizzly was not modified, was produced by Oracle Corporation and licensed under 
+the terms and conditions given in:
+
+https://grizzly.java.net/license.html
+
+Joda-Time was not modified, was licensed under the terms and conditions given 
+in:
+
+http://www.joda.org/joda-time/license.html
+
+JSPF was not modified, was licensed under the terms and conditions given in:
+
+http://opensource.org/licenses/BSD-3-Clause
+
+Neo4j was not modified, was produced by Neo Technology and licensed under the 
+terms and conditions given in:
+
+http://www.neo4j.org/learn/licensing
+
+Blueprints was not modified, was produced by TinkerPop and licensed under the 
+terms and conditions given in:
+
+https://github.com/tinkerpop/blueprints/blob/master/LICENSE.txt
+
+Logback was not modified, was produced by Quality Open Software and licensed 
+under the terms and conditions given in:
+
+http://logback.qos.ch/license.html
+
+SLF4J was not modified, was produced by Quality Open Software and licensed under 
+the terms and conditions given in:
+
+http://www.slf4j.org/license.html

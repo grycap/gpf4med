@@ -1,0 +1,2184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright 2013 Institute for Molecular Imaging Instrumentation (I3M)
+
+Licensed under the EUPL, Version 1.1 or - as soon they will be approved by 
+the European Commission - subsequent versions of the EUPL (the "Licence");
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+  http://ec.europa.eu/idabc/eupl
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and 
+limitations under the Licence.
+
+This product combines work with different licenses. See the "NOTICE" text
+file for details on the various modules and licenses.
+The "NOTICE" text file is part of the distribution. Any derivative works
+that you distribute must include a readable copy of the "NOTICE" text file.
+-->
+<DICOM_SR Description="Biopsia Prequirúrgica" IDOntology="8">
+  <CONTAINER>
+    <CONCEPT_NAME>
+      <CODE_VALUE>TRMM0022</CODE_VALUE>
+      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+      <CODE_MEANING>Informe Biopsia Prequirúrgica</CODE_MEANING>
+      <CODE_MEANING2>Biopsy of Breast Report</CODE_MEANING2>
+    </CONCEPT_NAME>
+    <PROPERTIES>
+      <CARDINALITY max="1" min="1"/>
+      <CONDITION_TYPE type="M"/>
+      <INTEGRITY_RESTRICTIONS/>
+    </PROPERTIES>
+    <CHILDS>
+      <DATE>
+        <CONCEPT_NAME>
+          <CODE_VALUE>399651003</CODE_VALUE>
+          <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+          <CODE_MEANING>Fecha Informe</CODE_MEANING>
+          <CODE_MEANING2>Date of Report</CODE_MEANING2>
+        </CONCEPT_NAME>
+        <PROPERTIES>
+          <CARDINALITY max="1" min="1"/>
+          <CONDITION_TYPE type="M"/>
+          <INTEGRITY_RESTRICTIONS/>
+          <DEFAULT_VALUE value="Current_Date()"/>
+        </PROPERTIES>
+      </DATE>
+      <TEXT>
+        <CONCEPT_NAME>
+          <CODE_VALUE>118522005</CODE_VALUE>
+          <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+          <CODE_MEANING>Identificador</CODE_MEANING>
+          <CODE_MEANING2>Identifier</CODE_MEANING2>
+        </CONCEPT_NAME>
+        <PROPERTIES>
+          <CARDINALITY max="1" min="1"/>
+          <CONDITION_TYPE type="M"/>
+          <INTEGRITY_RESTRICTIONS/>
+          <DEFAULT_VALUE value="Generate_IDReport()"/>
+        </PROPERTIES>
+      </TEXT>
+      <TEXT>
+        <CONCEPT_NAME>
+          <CODE_VALUE>RID13159</CODE_VALUE>
+          <CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+          <CODE_MEANING>Identificador del Paciente</CODE_MEANING>
+          <CODE_MEANING2>Patient Identifier</CODE_MEANING2>
+        </CONCEPT_NAME>
+        <PROPERTIES>
+          <CARDINALITY max="1" min="1"/>
+          <CONDITION_TYPE type="M"/>
+          <INTEGRITY_RESTRICTIONS/>
+          <DEFAULT_VALUE value="Get_Parameter_IDPatient()"/>
+        </PROPERTIES>
+      </TEXT>
+      <CONTAINER>
+        <CONCEPT_NAME>
+          <CODE_VALUE>122548005</CODE_VALUE>
+          <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+          <CODE_MEANING>Biopsia de Mama</CODE_MEANING>
+          <CODE_MEANING2>Biopsy of breast</CODE_MEANING2>
+        </CONCEPT_NAME>
+        <PROPERTIES>
+          <CARDINALITY max="-1" min="0"/>
+          <CONDITION_TYPE type="M"/>
+          <INTEGRITY_RESTRICTIONS/>
+        </PROPERTIES>
+        <CHILDS>
+          <TEXT>
+            <CONCEPT_NAME>
+              <CODE_VALUE>118522005</CODE_VALUE>
+              <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+              <CODE_MEANING>Identificador</CODE_MEANING>
+              <CODE_MEANING2>Identifier</CODE_MEANING2>
+            </CONCEPT_NAME>
+            <PROPERTIES>
+              <CARDINALITY max="1" min="1"/>
+              <CONDITION_TYPE type="M"/>
+              <INTEGRITY_RESTRICTIONS/>
+              <DEFAULT_VALUE/>
+            </PROPERTIES>
+          </TEXT>
+          <DATE>
+            <CONCEPT_NAME>
+              <CODE_VALUE>TRMM0023</CODE_VALUE>
+              <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+              <CODE_MEANING>Fecha Realización</CODE_MEANING>
+              <CODE_MEANING2>Date of Biopsy</CODE_MEANING2>
+            </CONCEPT_NAME>
+            <PROPERTIES>
+              <CARDINALITY max="1" min="1"/>
+              <CONDITION_TYPE type="M"/>
+              <INTEGRITY_RESTRICTIONS/>
+              <DEFAULT_VALUE/>
+            </PROPERTIES>
+          </DATE>
+          <CODE>
+            <CONCEPT_NAME>
+              <CODE_VALUE>TRMM0024</CODE_VALUE>
+              <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+              <CODE_MEANING>Categoría Biopsia (BAG)</CODE_MEANING>
+              <CODE_MEANING2>Biopsy Category (Core Needdle)</CODE_MEANING2>
+            </CONCEPT_NAME>
+            <PROPERTIES>
+              <CARDINALITY max="1" min="1"/>
+              <CONDITION_TYPE type="M"/>
+              <INTEGRITY_RESTRICTIONS/>
+              <DEFAULT_CODE_VALUE/>
+              <CODE_VALUES>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0029</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>B1. Normal o No Interpretable</CODE_MEANING>
+                  <CODE_MEANING2>B1. Normal or Uninterpretable</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0030</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>B2. Benigna</CODE_MEANING>
+                  <CODE_MEANING2>B2. Benign</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0031</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>B3. Benigna Pero de Potencial Biológico Incierto</CODE_MEANING>
+                  <CODE_MEANING2>B3. Benign but Uncertain Biological Potential</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0032</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>B4. Sospechosa de Malignidad</CODE_MEANING>
+                  <CODE_MEANING2>B4. Suspicious of Malignancy</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0033</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>B5. Maligna</CODE_MEANING>
+                  <CODE_MEANING2>B5. Malignant</CODE_MEANING2>
+                </CONCEPT_NAME>
+              </CODE_VALUES>
+            </PROPERTIES>
+          </CODE>
+          <CONTAINER>
+            <CONCEPT_NAME>
+              <CODE_VALUE>371441004</CODE_VALUE>
+              <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+              <CODE_MEANING>Tipo Histológico (Clasificación OMS)</CODE_MEANING>
+              <CODE_MEANING2>Histological Type</CODE_MEANING2>
+            </CONCEPT_NAME>
+            <PROPERTIES>
+              <CARDINALITY max="1" min="1"/>
+              <CONDITION_TYPE type="MC" xpath_expresion="boolean(../CODE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0024')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0030')])"/>
+              <INTEGRITY_RESTRICTIONS/>
+            </PROPERTIES>
+            <CHILDS>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>65877006</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Fibroadenoma</CODE_MEANING>
+                  <CODE_MEANING2>Fibroadenoma</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>264505003</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Hiperplasia Ductal Atípica</CODE_MEANING>
+                  <CODE_MEANING2>Atypical ductal hyperplasia</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>86415001</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Hiperplasia Lobulillar Sin Atipia</CODE_MEANING>
+                  <CODE_MEANING2>Lobular Hyperplasia</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>110420004</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Ectasia Ductal</CODE_MEANING>
+                  <CODE_MEANING2>Duct Ectasia</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>112674009 </CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Fibrosis</CODE_MEANING>
+                  <CODE_MEANING2>Fibrosis</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>81274009</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Metaplasia Apocrina</CODE_MEANING>
+                  <CODE_MEANING2>Apocrine Metaplasia</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0090</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Otras Lesiones Histologicamente B2</CODE_MEANING>
+                  <CODE_MEANING2>Other B2 Histologically Benign Lesions</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <TEXT>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0091</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Descripción de Otras Lesiones Histologicamente B2</CODE_MEANING>
+                  <CODE_MEANING2>Other B2 Histologically Lesions Description</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../NUM[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0090') and (VALUE=true)])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE/>
+                </PROPERTIES>
+              </TEXT>
+            </CHILDS>
+          </CONTAINER>
+          <CONTAINER>
+            <CONCEPT_NAME>
+              <CODE_VALUE>371441004</CODE_VALUE>
+              <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+              <CODE_MEANING>Tipo Histológico (Clasificación OMS)</CODE_MEANING>
+              <CODE_MEANING2>Histological Type</CODE_MEANING2>
+            </CONCEPT_NAME>
+            <PROPERTIES>
+              <CARDINALITY max="1" min="1"/>
+              <CONDITION_TYPE type="MC" xpath_expresion="boolean(../CODE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0024')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0031')])"/>
+              <INTEGRITY_RESTRICTIONS/>
+            </PROPERTIES>
+            <CHILDS>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>264505003</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Hiperplasia Ductal Atípica</CODE_MEANING>
+                  <CODE_MEANING2>Atypical ductal hyperplasia</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>109888004</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Carcinoma Lobulillar In Situ / Neoplasia Lobulillar</CODE_MEANING>
+                  <CODE_MEANING2>Lobular Carcinoma in Situ of Breast</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0103</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Lesiones Papilares</CODE_MEANING>
+                  <CODE_MEANING2>XXX</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0092</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Otras Lesiones Histologicamente B3</CODE_MEANING>
+                  <CODE_MEANING2>Other B3 Histologically Benign Lesions</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <TEXT>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0093</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Descripción de Otras Lesiones Histologicamente B3</CODE_MEANING>
+                  <CODE_MEANING2>Other B3 Histologically Lesions Description</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../NUM[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0092') and (VALUE=true)])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE/>
+                </PROPERTIES>
+              </TEXT>
+            </CHILDS>
+          </CONTAINER>
+          <CONTAINER>
+            <CONCEPT_NAME>
+              <CODE_VALUE>371441004</CODE_VALUE>
+              <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+              <CODE_MEANING>Tipo Histológico (Clasificación OMS)</CODE_MEANING>
+              <CODE_MEANING2>Histological Type</CODE_MEANING2>
+            </CONCEPT_NAME>
+            <PROPERTIES>
+              <CARDINALITY max="1" min="1"/>
+              <CONDITION_TYPE type="MC" xpath_expresion="boolean(../CODE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0024')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0032')])"/>
+              <INTEGRITY_RESTRICTIONS/>
+            </PROPERTIES>
+            <CHILDS>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0094</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Problemas Técnicos que Dificultan el Diagnóstico</CODE_MEANING>
+                  <CODE_MEANING2>Technical Problems that They make it difficult the Diagnosis</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0095</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Origen Dudoso</CODE_MEANING>
+                  <CODE_MEANING2>Dubious Origin</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0096</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Otras Lesiones Histologicamente B4</CODE_MEANING>
+                  <CODE_MEANING2>Other B4 Histologically Lesions</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <TEXT>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0097</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Descripción de Otras Lesiones Histologicamente B4</CODE_MEANING>
+                  <CODE_MEANING2>Other B4 Histologically Lesions Description</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../NUM[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0096') and (VALUE=true)])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE/>
+                </PROPERTIES>
+              </TEXT>
+            </CHILDS>
+          </CONTAINER>
+          <CONTAINER>
+            <CONCEPT_NAME>
+              <CODE_VALUE>371441004</CODE_VALUE>
+              <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+              <CODE_MEANING>Tipo Histológico (Clasificación OMS)</CODE_MEANING>
+              <CODE_MEANING2>Histological Type</CODE_MEANING2>
+            </CONCEPT_NAME>
+            <PROPERTIES>
+              <CARDINALITY max="1" min="1"/>
+              <CONDITION_TYPE type="MC" xpath_expresion="boolean(../CODE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0024')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0033')])"/>
+              <INTEGRITY_RESTRICTIONS/>
+            </PROPERTIES>
+            <CHILDS>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>82711006</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Carcinoma Ductal Infiltrante</CODE_MEANING>
+                  <CODE_MEANING2>Infiltrating Duct Carcinoma</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>89740008</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Carcinoma Lobulillar Infiltrante</CODE_MEANING>
+                  <CODE_MEANING2>Lobular carcinoma</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>128880009</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Carcinoma Ductal In Situ</CODE_MEANING>
+                  <CODE_MEANING2>Ductal Carcinoma In Situ, Solid Type</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>77284006</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Carcinoma Lobulillar in Situ </CODE_MEANING>
+                  <CODE_MEANING2>Lobular Carcinoma in Situ</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <CONTAINER>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0089</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Otros Tipos Histológicos (Clasificación OMS)</CODE_MEANING>
+                  <CODE_MEANING2>Others Histological Types</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../../CODE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0024')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0033')])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                </PROPERTIES>
+                <CHILDS>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>72495009</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Mucinoso</CODE_MEANING>
+                      <CODE_MEANING2>Mucinous Adenocarcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>32913002</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Medular</CODE_MEANING>
+                      <CODE_MEANING2>Medullary Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>64524002</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Papilar Infiltrante </CODE_MEANING>
+                      <CODE_MEANING2>Intraductal Papillary Adenocarcinoma with Invasion</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>4631006</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Tubular</CODE_MEANING>
+                      <CODE_MEANING2>Tubular Adenocarcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>32968003</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Inflamatorio</CODE_MEANING>
+                      <CODE_MEANING2>Inflammatory Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>315004001</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Metástasis</CODE_MEANING>
+                      <CODE_MEANING2>Metastasis from Malignant Tumor of Breast</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>2424003</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Sarcoma</CODE_MEANING>
+                      <CODE_MEANING2>Sarcoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>21964009</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Linfoma</CODE_MEANING>
+                      <CODE_MEANING2>Malignant Lymphoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>444057000</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma de Tipo Mixto</CODE_MEANING>
+                      <CODE_MEANING2>Infiltrating Carcinoma with Ductal and Lobular Features</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>16741004</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Pleomórfico</CODE_MEANING>
+                      <CODE_MEANING2>Pleomorphic Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>128631001</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Gigantocelular, Células Osteoclastoides</CODE_MEANING>
+                      <CODE_MEANING2>Carcinoma with Osteoclast-like Giant Cells</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>8734000</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Coriocarcinoma con Rasgos de Coriocarcinoma</CODE_MEANING>
+                      <CODE_MEANING2>Choriocarcinoma Combined with other Germ Cell Elements</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>30156004</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Cribiforme </CODE_MEANING>
+                      <CODE_MEANING2>Cribiform Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>115217007</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Mucinoso y otros Tumores con Abundante Mucina</CODE_MEANING>
+                      <CODE_MEANING2>Cystic, Mucinous AND/OR Serous Neoplasm </CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>79143006</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Cistoadecocarcinoma y Carcinoma Mucinoso de Células Comumnares</CODE_MEANING>
+                      <CODE_MEANING2>XXX</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>87737001</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma de Células en Anillo de Sello</CODE_MEANING>
+                      <CODE_MEANING2>Signet Ring Cell Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>127575007</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Tumores Neuroendocrinos</CODE_MEANING>
+                      <CODE_MEANING2>Malignant Neuroendocrine Neoplasm, Epithelial</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>55937004</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Neuroendocrino Sólido</CODE_MEANING>
+                      <CODE_MEANING2>Neuroendocrine Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>128658008</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Tumor Carcinoide Atípico</CODE_MEANING>
+                      <CODE_MEANING2>Atypical Carcinoid Tumor</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>74364000</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma de Células Pequeñas </CODE_MEANING>
+                      <CODE_MEANING2>Small Cell Carcinoma </CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>128628002</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Neuroendocrino de Células Grandes</CODE_MEANING>
+                      <CODE_MEANING2>Large Cell Neuroendocrine Carcinoma </CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>128696009</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>carcinoma Micropapilar Infiltrante</CODE_MEANING>
+                      <CODE_MEANING2>Intraductal Micropapillary Carcinoma </CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>57141000</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Apocrino</CODE_MEANING>
+                      <CODE_MEANING2>Apocrine Adenocarcinoma </CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>128705006</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Metaplásico</CODE_MEANING>
+                      <CODE_MEANING2>Metaplastic Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>28899001</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma de Células Escamosas</CODE_MEANING>
+                      <CODE_MEANING2>Squamous Cell Carcinoma  </CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>68358000</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Adenocarcinoma con Metaplasia Fusocelular</CODE_MEANING>
+                      <CODE_MEANING2>Adenocarcinoma with Spindle Cell Metaplasia</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>59367005</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Adenoescamoso</CODE_MEANING>
+                      <CODE_MEANING2>Adenosquamous Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>4079000</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Mucoepidermoide</CODE_MEANING>
+                      <CODE_MEANING2>Mucoepidermoid Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>3839000</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Rico en Lípidos</CODE_MEANING>
+                      <CODE_MEANING2>Lipid-rich Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>41919003</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Secretor</CODE_MEANING>
+                      <CODE_MEANING2>Juvenile Carcinoma of the Breast</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>57596004</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Oncocítico</CODE_MEANING>
+                      <CODE_MEANING2>Oxyphilic Adenocarcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>11671000</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Adenoide Quístico</CODE_MEANING>
+                      <CODE_MEANING2>Adenoid Cystic Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>45410002</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma de Células Acinares</CODE_MEANING>
+                      <CODE_MEANING2>Acinar Cell Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>74280008</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma de Células Claras Rico en Glucógeno</CODE_MEANING>
+                      <CODE_MEANING2>Glycogen-rich Carcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                  <NUM>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>54734006</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Sebáceo</CODE_MEANING>
+                      <CODE_MEANING2>Sebaceous Adenocarcinoma</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <PROPERTIES>
+                      <CARDINALITY max="1" min="1"/>
+                      <CONDITION_TYPE type="M"/>
+                      <INTEGRITY_RESTRICTIONS/>
+                      <DEFAULT_VALUE value="0"/>
+                      <UNIT_MEASUREMENT>
+                        <CONCEPT_NAME>
+                          <CODE_VALUE>000000001</CODE_VALUE>
+                          <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                          <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                          <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                        </CONCEPT_NAME>
+                      </UNIT_MEASUREMENT>
+                    </PROPERTIES>
+                  </NUM>
+                </CHILDS>
+              </CONTAINER>
+            </CHILDS>
+          </CONTAINER>
+          <CONTAINER>
+            <CONCEPT_NAME>
+              <CODE_VALUE>314810007</CODE_VALUE>
+              <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+              <CODE_MEANING>Características Histológicas</CODE_MEANING>
+              <CODE_MEANING2>Histologic Descriptor</CODE_MEANING2>
+            </CONCEPT_NAME>
+            <PROPERTIES>
+              <CARDINALITY max="1" min="1"/>
+              <CONDITION_TYPE type="MC" xpath_expresion="boolean(../CODE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0024')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0033')])"/>
+              <INTEGRITY_RESTRICTIONS/>
+            </PROPERTIES>
+            <CHILDS>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>373378009</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Grado</CODE_MEANING>
+                  <CODE_MEANING2>Nottingham Combined Grade Finding</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>369790002</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Grado I (3-5 Puntos)</CODE_MEANING>
+                      <CODE_MEANING2>Nottingham Combined Grade I: 3-5 Points</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>369791003</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Grado II (6-7 Puntos)</CODE_MEANING>
+                      <CODE_MEANING2>Nottingham Combined Grade II: 6-7 Points</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>369792005</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Grado III (8-9 Puntos)</CODE_MEANING>
+                      <CODE_MEANING2>Nottingham Combined Grade III: 8-9 Points</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>385419004</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Invasión Vascular/Linfática</CODE_MEANING>
+                  <CODE_MEANING2>Venous Large Vessel)/Lymphatic (Small Vessel) Tumor Invasion Finding</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>395553001</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Invasión Vascular/Linfática, Presente</CODE_MEANING>
+                      <CODE_MEANING2>Venous (Large Vessel)/Lymphatic (Small Vessel) Invasion by Tumor Present</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>395552006</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Invasión Vascular/Linfática, Ausente</CODE_MEANING>
+                      <CODE_MEANING2>Venous (Large Vessel)/Lymphatic (Small Vessel) Invasion by Tumor Absent</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>259981004</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Ki-67 Rapidly proliferating cell marker</CODE_MEANING>
+                  <CODE_MEANING2>Rapidly Proliferating Cell Marke</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="1"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0101</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>% de Positividad</CODE_MEANING>
+                  <CODE_MEANING2>XXX</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../NUM[(CODE_SCHEMA='SNOMED-CT') and (CODE_VALUE='259981004') and (VALUE=true)])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000004</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>% de Células Teñidas</CODE_MEANING>
+                      <CODE_MEANING2>XXXXX</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>259987000</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Citoqueratina 19</CODE_MEANING>
+                  <CODE_MEANING2>Cytokeratin 19</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0041</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>No Realizado</CODE_MEANING>
+                      <CODE_MEANING2>Unrealized</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0045</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Positivo</CODE_MEANING>
+                      <CODE_MEANING2>Positive</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0046</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Negativo</CODE_MEANING>
+                      <CODE_MEANING2>Negative</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>21381006</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Necrosis Asociada al CDIS</CODE_MEANING>
+                  <CODE_MEANING2>Fat Necrosis of Breast</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>405910006</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Necrosis Tumoral, Ausente</CODE_MEANING>
+                      <CODE_MEANING2>Tumor Necrosis Absent</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0102</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Necrosis Tumoral, Presente</CODE_MEANING>
+                      <CODE_MEANING2>XXX</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>263698008</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Calcificación</CODE_MEANING>
+                  <CODE_MEANING2>Calcification</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>369752008</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>NecrosisTumoral Infiltrante</CODE_MEANING>
+                  <CODE_MEANING2>Infiltrative tumor Configuration, Macroscopic</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>34823008</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Necrosis Tumoral, Presente</CODE_MEANING>
+                      <CODE_MEANING2>Tumor Necrosis</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>405910006</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Necrosis Tumoral, Ausente</CODE_MEANING>
+                      <CODE_MEANING2>Tumor Necrosis Absent</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0025</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Intensidad de Tinción Receptores Estrogenos</CODE_MEANING>
+                  <CODE_MEANING2>Staining Intensity of Estrogen Receptors</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE code_meaning="No Realizado" code_meaning2="Unrealized" code_schema="TRENCADIS_MAMO" code_value="TRMM0041"/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0041</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>No Realizado</CODE_MEANING>
+                      <CODE_MEANING2>Unrealized</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0037</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>0</CODE_MEANING>
+                      <CODE_MEANING2>0</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0038</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>1</CODE_MEANING>
+                      <CODE_MEANING2>1</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0039</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>2</CODE_MEANING>
+                      <CODE_MEANING2>2</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0040</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>3</CODE_MEANING>
+                      <CODE_MEANING2>3</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0026</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING> % de Células Teñidas En Receptores de Estrogenos</CODE_MEANING>
+                  <CODE_MEANING2> % of Stained Cells in Estrogen Receptor</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="not(../CODE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0025')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0041')])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000004</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>% de Células Teñidas</CODE_MEANING>
+                      <CODE_MEANING2>XXXXX</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0027</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Intensidad de Tinción Receptores Progesterona</CODE_MEANING>
+                  <CODE_MEANING2>Staining Intensity of Progesterone Receptors</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE code_meaning="No Realizado" code_meaning2="Unrealized" code_schema="TRENCADIS_MAMO" code_value="TRMM0041"/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0041</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>No Realizado</CODE_MEANING>
+                      <CODE_MEANING2>Unrealized</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0037</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>0</CODE_MEANING>
+                      <CODE_MEANING2>0</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0038</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>1</CODE_MEANING>
+                      <CODE_MEANING2>1</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0039</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>2</CODE_MEANING>
+                      <CODE_MEANING2>2</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0040</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>3</CODE_MEANING>
+                      <CODE_MEANING2>3</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0028</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>% de Células Teñidas En  Receptores Progesterona</CODE_MEANING>
+                  <CODE_MEANING2> % of Stained Cells in Progesterone Receptor</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="not(../CODE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0027')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0041')])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000004</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>% de Células Teñidas</CODE_MEANING>
+                      <CODE_MEANING2>XXXXX</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>427685000</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Herceptest (C-ERBB-2)</CODE_MEANING>
+                  <CODE_MEANING2>HER2-positive carcinoma of breast</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0041</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>No Realizado</CODE_MEANING>
+                      <CODE_MEANING2>Unrealized</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0042</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Negativo (0 o 1+)</CODE_MEANING>
+                      <CODE_MEANING2>Negative 0 o 1+</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0044</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Medio (2+ no indt)</CODE_MEANING>
+                      <CODE_MEANING2>Indeterminate</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0043</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Positivo (3 +)</CODE_MEANING>
+                      <CODE_MEANING2>Positive 2+ o 3 +</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>426329006</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Fish</CODE_MEANING>
+                  <CODE_MEANING2>Fluorescence in Situ Hybridization</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../CODE[(CODE_SCHEMA='SNOMED-CT') and (CODE_VALUE='427685000')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0044')])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE code_meaning="Realizado" code_meaning2="Realized" code_schema="TRENCADIS_MAMO" code_value="TRMM0083"/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0083</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Realizado</CODE_MEANING>
+                      <CODE_MEANING2>Realized</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0041</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>No Realizado</CODE_MEANING>
+                      <CODE_MEANING2>Unrealized</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0084</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Resultado FISH</CODE_MEANING>
+                  <CODE_MEANING2>FISH Result</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../CODE[(CODE_SCHEMA='SNOMED-CT') and (CODE_VALUE='426329006')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0083')])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0053</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>FISH Amplificado</CODE_MEANING>
+                      <CODE_MEANING2>FISH Amplified</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0081</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>FISH NO Amplificado</CODE_MEANING>
+                      <CODE_MEANING2>FISH NO Amplified</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0082</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>FISH Indeterminado</CODE_MEANING>
+                      <CODE_MEANING2>FISH Indeterminate</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>116219004</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Biopsia Axilar</CODE_MEANING>
+                  <CODE_MEANING2>Excisional Biopsy of Lesion of Breast with Axillary Contents</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE code_meaning="No Realizado" code_meaning2="Unrealized" code_schema="TRENCADIS_MAMO" code_value="TRMM0041"/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0041</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>No Realizado</CODE_MEANING>
+                      <CODE_MEANING2>Unrealized</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0045</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Positivo</CODE_MEANING>
+                      <CODE_MEANING2>Positive</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0046</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Negativo</CODE_MEANING>
+                      <CODE_MEANING2>Negative</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0047</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Insuficiente</CODE_MEANING>
+                      <CODE_MEANING2>Insufficient</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0085</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Adenopatia Metastásica</CODE_MEANING>
+                  <CODE_MEANING2>Metastatic Adenopathy</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../CODE[(CODE_SCHEMA='SNOMED-CT') and (CODE_VALUE='116219004')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0045')])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0086</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Micrometásis</CODE_MEANING>
+                  <CODE_MEANING2>XXX</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../CODE[(CODE_SCHEMA='SNOMED-CT') and (CODE_VALUE='116219004')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0045')])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>TRMM0071</CODE_VALUE>
+                  <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                  <CODE_MEANING>Célumas Tumorales Aisladas (CTA)</CODE_MEANING>
+                  <CODE_MEANING2>XXX</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../CODE[(CODE_SCHEMA='SNOMED-CT') and (CODE_VALUE='116219004')]/CODE_VALUE[(CODE_SCHEMA='TRENCADIS_MAMO') and (CODE_VALUE='TRMM0045')])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>387736007</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Punción-Aspiración con Aguja Fina (P.A.A.F) Axilar </CODE_MEANING>
+                  <CODE_MEANING2>Fine Needle Aspiration of Breast</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE code_meaning="No Realizado" code_meaning2="Unrealized" code_schema="TRENCADIS_MAMO" code_value="TRMM0041"/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0041</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>No Realizado</CODE_MEANING>
+                      <CODE_MEANING2>Unrealized</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0045</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Positivo</CODE_MEANING>
+                      <CODE_MEANING2>Positive</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0046</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Negativo</CODE_MEANING>
+                      <CODE_MEANING2>Negative</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0047</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>Insuficiente</CODE_MEANING>
+                      <CODE_MEANING2>Insufficient</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <NUM>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>189336000</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Carcinoma in Situ de la Mama</CODE_MEANING>
+                  <CODE_MEANING2>Carcinoma in Situ of Breast</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="M"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_VALUE value="0"/>
+                  <UNIT_MEASUREMENT>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>000000001</CODE_VALUE>
+                      <CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+                      <CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+                      <CODE_MEANING2>Boolean Units</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </UNIT_MEASUREMENT>
+                </PROPERTIES>
+              </NUM>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>371441004</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Tipo Histológico</CODE_MEANING>
+                  <CODE_MEANING2>Histologic Type</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../NUM[(CODE_SCHEMA='SNOMED-CT') and (CODE_VALUE='189336000') and (VALUE=true)])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>109888004</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Lobulillar In Situ / Neoplasia Lobulillar</CODE_MEANING>
+                      <CODE_MEANING2>Lobular Carcinoma in Situ of Breast</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>TRMM0098</CODE_VALUE>
+                      <CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+                      <CODE_MEANING>No Especificado</CODE_MEANING>
+                      <CODE_MEANING2>Not Specified</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>128879006</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Cribiforme in Situ (Anomalía Morfológica)</CODE_MEANING>
+                      <CODE_MEANING2>Cribriform Carcinoma in Situ </CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>128880009</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Ductal In Situ, Sólido</CODE_MEANING>
+                      <CODE_MEANING2>Ductal Carcinoma In Situ, Solid Type</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>10376009</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carinoma Papilar In Situ</CODE_MEANING>
+                      <CODE_MEANING2>Papillary Carcinoma in Situ</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>128696009</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Intraductal in Situ, Micropapilar</CODE_MEANING>
+                      <CODE_MEANING2>Intraductal Micropapillary Carcinoma </CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>78197004</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Carcinoma Ductal in Situ, Tipo Comedón</CODE_MEANING>
+                      <CODE_MEANING2>Comedocarcinoma, Noninfiltrating </CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+              <CODE>
+                <CONCEPT_NAME>
+                  <CODE_VALUE>384736003</CODE_VALUE>
+                  <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                  <CODE_MEANING>Grado Nuclear</CODE_MEANING>
+                  <CODE_MEANING2>Nuclear Grade Finding</CODE_MEANING2>
+                </CONCEPT_NAME>
+                <PROPERTIES>
+                  <CARDINALITY max="1" min="1"/>
+                  <CONDITION_TYPE type="MC" xpath_expresion="boolean(../NUM[(CODE_SCHEMA='SNOMED-CT') and (CODE_VALUE='189336000') and (VALUE=true)])"/>
+                  <INTEGRITY_RESTRICTIONS/>
+                  <DEFAULT_CODE_VALUE/>
+                  <CODE_VALUES>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>369782002</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Grado Nuclear Bajo (1/3)</CODE_MEANING>
+                      <CODE_MEANING2>DCIS Nuclear Pleomorphism, Grade 1 Monotonous Nuclei, 1.5 - 2.0 RBC Diameters, with Finely Dispersed Chromatin and Only Occasional Nucleoli</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>369781009</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Grado Nuclear Medio (2/3)</CODE_MEANING>
+                      <CODE_MEANING2>DCIS Nuclear Pleomorphism, Grade 2 Neither Nuclear Grade 3 nor Nuclear Grade 3</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                    <CONCEPT_NAME>
+                      <CODE_VALUE>369783007</CODE_VALUE>
+                      <CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+                      <CODE_MEANING>Grado Nuclear Alto (3/3)</CODE_MEANING>
+                      <CODE_MEANING2>DCIS Nuclear Pleomorphism, Grade 3 Markedly Pleomorphic Nuclei, Usually &gt;2.5 RBC Diameters, with Coarse Chromatin and Multiple Nucleoli</CODE_MEANING2>
+                    </CONCEPT_NAME>
+                  </CODE_VALUES>
+                </PROPERTIES>
+              </CODE>
+            </CHILDS>
+          </CONTAINER>
+        </CHILDS>
+      </CONTAINER>
+    </CHILDS>
+  </CONTAINER>
+</DICOM_SR>

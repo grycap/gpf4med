@@ -1,0 +1,67 @@
+/*
+ * Copyright 2013 Institute for Molecular Imaging Instrumentation (I3M)
+ * 
+ * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by 
+ * the European Commission - subsequent versions of the EUPL (the "Licence");
+ * You may not use this work except in compliance with the Licence.
+ * You may obtain a copy of the Licence at:
+ * 
+ *   http://ec.europa.eu/idabc/eupl
+ * 
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the Licence is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the Licence for the specific language governing permissions and 
+ * limitations under the Licence.
+ * 
+ * This product combines work with different licenses. See the "NOTICE" text
+ * file for details on the various modules and licenses.
+ * The "NOTICE" text file is part of the distribution. Any derivative works
+ * that you distribute must include a readable copy of the "NOTICE" text file.
+ */
+
+package org.grycap.gpf4med.cloud.ovf;
+
+import javax.inject.Inject;
+
+import org.jclouds.http.functions.ParseSax;
+import org.jclouds.ovf.VirtualHardwareSection;
+import org.jclouds.ovf.xml.VirtualHardwareSectionHandler;
+import org.xml.sax.Attributes;
+
+/**
+ * OVF file processing helper that extracts the resource allocation data that is used to
+ * compose the minimum hardware settings.
+ * @author Erik Torres <ertorser@upv.es>
+ */
+public class MinimumVirtualHardwareHandler extends ParseSax.HandlerWithResult<VirtualHardwareSection> {
+
+	private final VirtualHardwareSectionHandler hardwareHandler;
+
+	@Inject
+	public MinimumVirtualHardwareHandler(final VirtualHardwareSectionHandler hardwareHandler) {
+		this.hardwareHandler = hardwareHandler;
+	}
+
+	@Override
+	public VirtualHardwareSection getResult() {
+		final VirtualHardwareSection hardware = hardwareHandler.getResult();
+		return new VirtualHardwareSection(hardware.getInfo(), hardware.getTransports(), hardware.getSystem(), hardware.getItems());		
+	}
+
+	public void startElement(final String uri, final String localName,final  String qName, final Attributes attrs) {
+		hardwareHandler.startElement(uri, localName, qName, attrs);
+	}
+
+	@Override
+	public void endElement(final String uri, final String localName, final String qName) {
+		hardwareHandler.endElement(uri, localName, qName);
+
+	}
+
+	@Override
+	public void characters(final char ch[], final int start, final int length) {
+		hardwareHandler.characters(ch, start, length);
+	}
+
+}

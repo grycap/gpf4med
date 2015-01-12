@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<!-- 
+Copyright 2013 Institute for Molecular Imaging Instrumentation (I3M)
+
+Licensed under the EUPL, Version 1.1 or - as soon they will be approved by 
+the European Commission - subsequent versions of the EUPL (the "Licence");
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+  http://ec.europa.eu/idabc/eupl
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and 
+limitations under the Licence.
+
+This product combines work with different licenses. See the "NOTICE" text
+file for details on the various modules and licenses.
+The "NOTICE" text file is part of the distribution. Any derivative works
+that you distribute must include a readable copy of the "NOTICE" text file.
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Graph processing framework for medical information (Gpf4Med) - Documentation</title>
+</head>
+<body>
+
+<h1>Gpf4Med -- Graph processing framework for medical information</h1>
+
+<p>Gpf4Med is a modular framework for the integration and study of medical information, which is 
+distributed under the European Union Public License (EUPL v.1.1). Currently, a module is available 
+that allows the study of clinical reports on breast cancer. The framework supports DICOM-SR to 
+facilitate interoperability among studies collected at different centres using clinical examination, 
+medical imaging (mammography, ultrasound, magnetic resonance imaging -- MRI) and biopsy.</p>
+
+<p>The data is combined in a graph and the different medical terminologies and ontologies annotations 
+are used to interconnect the objects represented in the graph (e.g. patient, lesion, exploration). Other 
+types of information may be integrated in the future when other information becomes available, such 
+as genetic, histopathological, biomolecular and pharmacological data.</p>
+
+<p>A RESTful service is provided that allows users to query the graph. The framework can leverage on
+Cloud computing resources to address the study of large datasets. Indeed, the framework aims at 
+supporting studies that cannot be addressed solely using the traditional storage and computing systems
+of the hospital.</p>
+
+<h2>Installation</h2>
+
+<p>Gpf4Med is provided as a single JAR file that contains all software dependencies within. This JAR is 
+intended to be deployed with a POSIX-based server and consists of a HTTP server and a graph database.</p>
+
+<p>To install the <em>DICOM graph study service</em>, create the directory <em>/opt/gpf4med/</em> and 
+extract the latest version of the framework. For example:</p>
+
+<code>$ mkdir /opt/gpf4med/ ; cd /opt/gpf4med/ ; tar xvzf gpf4med-distro-1.0.0.tar.gz</code>
+
+<p>After the framework is installed, you can execute the JAR with Java to run the service with the 
+default configuration parameters:</p>
+
+<code>$ java -jar lib/java/gpf4med.jar</code>
+
+<p>This will start the <em>DICOM graph study service</em> with WADL available in:</p>
+
+<code>http://&lt;hostname&gt;:8080/gpf4med/application.wadl</code>
+
+<p>Optionally, you can pass the option <em>--daemon|-d</em> to the service to start the service in 
+daemon mode (detached from the console):</p>
+
+<code>$ java -jar lib/java/gpf4med.jar -d</code>
+
+<p>You may deploy as many instances of the <em>DICOM graph study service</em> as you need to address 
+large-scale studies. In order to do so, you should deploy an instance of the <em>DICOM graph manager 
+service</em> to configure and use the <em>DICOM graph study service</em> instances in your study.</p>
+
+<p>Next sections provide further details about configuration options.</p>
+
+<h2>Service configuration</h2>
+
+<p>You should have the following structure of directories, after you installed the <em>DICOM graph 
+study service</em> in your local file-system:</p>
+
+<code>
+/opt/gpf4med<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-&gt; bin/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;`-&gt; gpf4med<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-&gt; etc/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|-&gt; gpf4med.xml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|-&gt; gpf4med-container.xml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;`-&gt; logback.xml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-&gt; htdocs/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;`-&gt; *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-&gt; lib/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;`-&gt; java/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`-&gt; gpf4med.jar<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`-&gt; LICENSE
+</code>
+
+<p>The directory <em>etc/</em> contains the base configuration file of the service and the service 
+container. You can edit the file <em>gpf4med.xml</em> to set the location of the graph plugins and the 
+report templates. Also, you can edit the file <em>gpf4med-container.xml</em> to set the host name or IP 
+address where the service will be binded. Similarly, you can set in this file the network port where the 
+service listens for incoming connections.</p>
+
+<p>To specify different configuration files you can pass the option <em>--configuration|-c</em> to the
+service:</p>
+
+<code>$ java -jar lib/java/gpf4med.jar -c /opt/gpf4med/etc/</code>
+
+<p>The file <em>logback.xml</em> contains the configuration of the logging system. This file uses the  
+<a href="http://logback.qos.ch/manual/configuration.html#syntax"> logback configuration file syntax</a>.
+</p>
+
+<p>To specify a different logging configuration you can pass the option <em>-Dlogback.configurationFile</em>
+to the Java Virtual Machine:</p>
+
+<code>$ java -Dlogback.configurationFile=/opt/gpf4med/etc/logback.xml -jar lib/java/gpf4med.jar</code>
+
+<p>The <em>gpf4med</em> script in the directory <em>bin/</em> provides a simple manner to start and stop 
+the service in daemon mode, reading the default configurations from the directory: 
+<em>/opt/gpf4med/etc/</em>.</p>
+
+<p>You can add this script to the path of the default user by creating a link in <em>/usr/local/bin/</em>:
+</p>
+
+<code>$ sudo ln -s /opt/gpf4med/bin/gpf4med /usr/local/bin/gpf4med</code>
+
+<p>You can start/stop the service with <em>gpf4med</em> following manner:</p>
+
+<code>$ gpf4med start</code>
+
+<br>
+
+<code>$ gpf4med stop</code>
+
+<p>By default, a service started in this manner will write its logging messages to the directory: 
+<em>/opt/gpf4med/var/log/</em>. The main log file is: <em>gpf4med.log</em>.</p>
+
+<h3>System architecture</h3>
+
+<p>Gpf4Med consists of a graph store and a search engine that are provided in the <em>DICOM graph study 
+service</em>. This service uses the <em>Document fetcher</em> to download the clinical reports from the
+<em>DICOM store</em> where the information is stored and caches a copy in the local file-system of the
+server. The <em>Document fetcher</em> can optionally encrypt the cached copy with strong cryptography.</p>
+
+<p>The <em>Graph driver</em> is used to load the reports to the graph. The graph can be accessed directly
+through the RESTful interface of the <em>DICOM graph study service</em>, or in the case of large studies,
+through the <em>DICOM graph manager service</em>. The <em>DICOM graph manager service</em> uses the 
+<em>Infrastructure manager</em> to allocate computing and storage resources in a Cloud infrastructure to
+execute the instances of the <em>DICOM graph study service</em> needed for a specific study. Graph 
+operations that are executed in the <em>DICOM graph manager service</em>, such as searching the graph, 
+will be executed over the complete graph distributed among the instances of the <em>DICOM graph study 
+service</em>.</p>
+
+<img src="img/system.png" alt="Gpf4Med architecture" />
+
+<h3>Graph plugins</h3>
+
+<p>The framework can be extended with new graphs and operations by adding new plugins to the <em>DICOM 
+graph study service</em>. The list of available plugins are read from a text file (one link per line) and 
+loaded in the service during startup. The plugins can be configured in the <em>gpf4med.xml</em> file.</p>
+
+<p>The plugins can be loaded from the <code>htdocs/</code> directory of the <em>DICOM graph study 
+service</em>. For example, to load the plugins from <code>htdocs/connectors</code>, configure your 
+service to load connectors from:</p>
+
+<code>http://localhost/connectors</code>
+
+<p>or</p>
+
+<code>file:///opt/gpf4med/htdocs/connectors</code>
+
+<h3>Report templates</h3>
+
+<p>In a similar manner as new plugins are loaded during service startup, new templates can be loaded too.
+The list of available templates are read from a text file (one link per line) and can be configured in 
+the <em>gpf4med.xml</em> file.</p>
+
+<p>The templates can be loaded from the <code>htdocs/</code> directory of the <em>DICOM graph study 
+service</em>. For example, to load the templates from <code>htdocs/templates</code>, configure your 
+service to load templates from:</p>
+
+<code>http://localhost/templates</code>
+
+<p>or</p>
+
+<code>file:///opt/gpf4med/htdocs/templates</code>
+
+<h3>Advanced configuration</h3>
+
+<p>Gpf4Med can be configured to allocate computing and storage resources from an infrastructure manager.
+The current version of the framework uses Apache jclouds to provide the <em>DICOM graph manager 
+service</em> with access to a variety of Cloud infrastructure provider. This configuration has been 
+tested with Amazon EC2 and OpenNebula.</p>
+
+<h4>Large-scale deployments</h4>
+
+<p><em>To be completed...</em></p>
+
+<h2>Security</h2>
+
+<h3>Configure the access to the DICOM stores</h3>
+
+<p>The container has a list of authorized DICOM stores and connector providers.</p>
+
+<p><em>To be completed...</em></p>
+
+<h3>Secure local cache</h3>
+
+<p>Two configuration parameters are available that allows to encrypt the local storage &amp; cache and to 
+use strong cryptography when available.</p>
+
+<h2>Quick build</h2>
+
+<p>Gpf4Med is organized as a Maven project with a bill of materials (BOM) pattern. To build the project,
+download the latest source code and enter the base directory of the project:</p>
+
+<code>$ cd &lt;WORKSPACE&gt;/gpf4med/</code>
+
+<p>Install the Gpf4Med and the main project POM into your local Maven repository by executing the 
+following Maven command:</p>
+
+<code>$ mvn install:install-file -Dfile=pom.xml -DpomFile=pom.xml</code>
+
+<br><br>
+
+<code>$ mvn clean install -pl gpf4med-project</code>
+
+<p>During the installation of the base BOM and POM, several additional Maven packages and dependencies 
+will be installed in your repository. This step will no longer needed until you upgrade the major version 
+of Gpf4Med (for example from 1.0.0 to 1.1.0).</p>
+
+<p>After the installation is completed, change to the directory of the base project directory and then
+compile and install the framework to your local Maven repository:</p>
+
+<code>$ cd &lt;WORKSPACE&gt;/gpf4med/gpf4med-project/</code>
+
+<br><br>
+
+<code>$ mvn clean install -pl gpf4med-core,gpf4med-data,gpf4med-service</code>
+
+<p>As with any other Maven-based project, you can skip unit tests by passing the 
+<em>-Dmaven.test.skip=true</em> parameter to Maven:</p>
+
+<code>$ mvn clean install -pl gpf4med-core,gpf4med-data,gpf4med-service -Dmaven.test.skip=true</code>
+
+<p>Optionally, you can create a distribution package to facilitate installation:</p>
+
+<code>$ mvn clean package -pl gpf4med-distro</code>
+
+<p>Finally, you may build the graph plugins and make them available to the <em>DICOM graph study 
+service</em>, for example by serving the plugin JAR file with a HTTP server:</p>
+
+<code>$ mvn clean package -pl gpf4med-graph-base</code>
+
+<br><br>
+
+<code>$ scp gpf4med-graph-base/target/gpf4med-graph-base-&lt;VERSION&gt;.jar 
+&lt;hostname&gt;:/var/www/gpf4med/connectors/&lt;VERSION&gt;/</code>
+
+<p>You must update your configuration to include the new plugin. For example, if in your 
+<em>gpf4med.xml</em> the graph plugins are loaded from:</p>
+
+<code>http://&lt;hostname&gt;/gpf4med/connectors/&lt;VERSION&gt;/index.txt</code>
+
+<p>Then, you must add a new line to this file in the following manner:</p>
+
+<code>http://&lt;hostname&gt;/gpf4med/connectors/&lt;VERSION&gt;/gpf4med-graph-base-&lt;VERSION&gt;.jar</code>
+
+<p>Also, you must make available the DICOM-SR templates to the <em>DICOM graph study service</em>. For 
+example, you can copy the default templates in the following manner:</p>
+
+<code>$ scp gpf4med-core/src/test/resources/files/templates/* 
+&lt;hostname&gt;:/var/www/gpf4med/templates/&lt;VERSION&gt;/</code>
+
+<p>Similarly to the graph plugins, update your configuration to include the new templates. For this
+purpose, update the file from where the templates are loaded. For example:</p>
+
+<code>http://&lt;hostname&gt;/gpf4med/templates/&lt;VERSION&gt;/index.txt</code>
+
+<p>Adding the following lines:</p>
+
+<code>http://&lt;hostname&gt;/gpf4med/templates/&lt;VERSION&gt;/01_Exploration_of_Breast.xml</code>
+<br>
+<code>http://&lt;hostname&gt;/gpf4med/templates/&lt;VERSION&gt;/02_Mamography.xml</code>
+<br>
+<code>http://&lt;hostname&gt;/gpf4med/templates/&lt;VERSION&gt;/03_UltrasoundScan.xml</code>
+<br>
+<code>http://&lt;hostname&gt;/gpf4med/templates/&lt;VERSION&gt;/04_RM.xml</code>
+<br>
+<code>http://&lt;hostname&gt;/gpf4med/templates/&lt;VERSION&gt;/05_BiopsiaPre.xml</code>
+<br>
+<code>http://&lt;hostname&gt;/gpf4med/templates/&lt;VERSION&gt;/06_BiopsiaPost.xml</code>
+<br>
+
+<p>Start the <em>DICOM graph study service</em> and check that the graph plugins and the report templates
+are successfully loaded:</p>
+
+<code>http://&lt;hostname&gt;:8080/gpf4med/graphrs/list/graphs</code>
+
+<br><br>
+
+<code>http://&lt;hostname&gt;:8080/gpf4med/graphrs/list/templates</code>
+
+<h2>Extending the framework</h2>
+
+<p>The framework needs at minimum Java 7. If you have more that one version of Java installed at your
+workspace, you may need to add Java 7 to your path. For example, you can do so with the following:</p>
+
+<code>$ export JAVA_HOME=/usr/local/sw/java/jdk1.7.0_45 ; export PATH=$JAVA_HOME/bin:$PATH ; java -version</code>
+
+<p>The Maven module <em>gpf4med-service</em> contains the code of the <em>DICOM graph study service</em>.
+This module was created from the Maven archetype for JAX-RS services with Jervey and Grizzly:</p>
+
+<code>$ mvn archetype:generate -DarchetypeGroupId=org.glassfish.jersey.archetypes
+-DarchetypeArtifactId=jersey-quickstart-grizzly2 -DarchetypeVersion=2.5.1</code>
+
+<p>You can check how your changes affects the framework, after you introduced a new update in the code of 
+the <em>DICOM graph study service</em> by executing Maven with the following parameters:</p>
+
+<code>$ mvn clean compile exec:java -pl gpf4med-service</code>
+
+<p>The Maven module <em>gpf4med-enactor</em> contains the code of the <em>DICOM graph manager service</em>.
+This module was created from the Maven archetype for Jersey-based web application projects:</p>
+
+<code>$ mvn archetype:generate -DarchetypeGroupId=org.glassfish.jersey.archetypes 
+-DarchetypeArtifactId=jersey-quickstart-webapp -DarchetypeVersion=2.5.1</code>
+
+<p>Further documentation resources:</p>
+
+<ul>
+<li><a href="http://maven-repository.com/artifact/org.glassfish.jersey.archetypes">List of Maven archetypes and available versions for generating Jersey-based applications</a>.</li>
+<li><a href="https://jersey.java.net/apidocs/latest/jersey/index.html?org/glassfish/jersey/grizzly2/httpserver/GrizzlyHttpServerFactory.html">Jersey Grizzly support</a>.</li>
+<li><a href="https://grizzly.java.net/coreconfig.html">Grizzly core configuration</a>.</li>
+</ul>
+
+<h3>Creating new graph connectors</h3>
+
+<p>To create a new graph plugin (connectors), implements the interface 
+<em>org.grycap.gpf4med.ext.GraphConnector</em> and annotate your class with the information about
+authorship and version of your plugin. For example:</p>
+
+<code>
+package my_package;<br>
+<br>
+@Author(name = "MY INSTITUTION")<br>
+@Version(version = 10000)<br>
+@PluginImplementation<br>
+public class MyConnector implements GraphConnector {<br>	
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@Override<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public String path() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "my-graph";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;...
+<br>
+}</code>
+
+<p>You can use the Maven module <em>gpf4med-graph-base</em> as a reference for the development of new 
+graph connectors.</p>
+
+<h3>Testing the framework</h3>
+
+<p>The framework uses the new assertion mechanism based on Hamcrest, which is available as of JUnit 4.4.
+For additional information see:</p>
+
+<ul>
+<li><a href="https://code.google.com/p/hamcrest/">Hamcrest - library of matchers for building test expressions</a></li>
+<li><a href="http://junit.sourceforge.net/doc/ReleaseNotes4.4.html">JUnit 4.4 release notes</a></li>
+</ul>
+
+<p><a href="https://code.google.com/p/mockito/">Mockito</a> is also used when Java mocks are needed.</p>
+
+<hr>
+
+<footer>
+<small>Version 1.0.0</small><br>
+<small>Author: Grid and High-Performance Computing Group (GRyCAP)</small>
+<address><small>http://www.grycap.upv.es/</small></address>
+</footer>
+
+</body>
+</html>

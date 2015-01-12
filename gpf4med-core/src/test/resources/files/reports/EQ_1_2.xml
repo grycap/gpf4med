@@ -1,0 +1,1225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright 2013 Institute for Molecular Imaging Instrumentation (I3M)
+
+Licensed under the EUPL, Version 1.1 or - as soon they will be approved by 
+the European Commission - subsequent versions of the EUPL (the "Licence");
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+  http://ec.europa.eu/idabc/eupl
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and 
+limitations under the Licence.
+
+This product combines work with different licenses. See the "NOTICE" text
+file for details on the various modules and licenses.
+The "NOTICE" text file is part of the distribution. Any derivative works
+that you distribute must include a readable copy of the "NOTICE" text file.
+-->
+<DICOM_SR IDOntology="4" IDReport="EQ_1_2" IDTRENCADISReport="" >
+<CONTAINER>
+	<CONCEPT_NAME>
+		<CODE_VALUE>172117008</CODE_VALUE>
+		<CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+		<CODE_MEANING>Exploración  de la Mama</CODE_MEANING>
+	</CONCEPT_NAME>
+	<CHILDS>
+		<DATE>
+			<CONCEPT_NAME>
+				<CODE_VALUE>399651003</CODE_VALUE>
+				<CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+				<CODE_MEANING>Fecha Informe</CODE_MEANING>
+			</CONCEPT_NAME>
+			<VALUE>14/11/2013</VALUE>
+		</DATE>
+		<TEXT>
+			<CONCEPT_NAME>
+				<CODE_VALUE>118522005</CODE_VALUE>
+				<CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+				<CODE_MEANING>Identificador</CODE_MEANING>
+			</CONCEPT_NAME>
+			<VALUE>EQ_1_2</VALUE>
+		</TEXT>
+		<TEXT>
+			<CONCEPT_NAME>
+				<CODE_VALUE>RID13159</CODE_VALUE>
+				<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+				<CODE_MEANING>Identificador del Paciente</CODE_MEANING>
+			</CONCEPT_NAME>
+			<VALUE>1</VALUE>
+		</TEXT>
+		<CONTAINER>
+			<CONCEPT_NAME>
+				<CODE_VALUE>RID29896</CODE_VALUE>
+				<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+				<CODE_MEANING>Mama Derecha</CODE_MEANING>
+			</CONCEPT_NAME>
+			<CHILDS>
+				<CONTAINER>
+					<CONCEPT_NAME>
+						<CODE_VALUE>TRMM0009</CODE_VALUE>
+						<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+						<CODE_MEANING>Nódulo-Masa</CODE_MEANING>
+					</CONCEPT_NAME>
+					<CHILDS>
+						<TEXT>
+							<CONCEPT_NAME>
+								<CODE_VALUE>118522005</CODE_VALUE>
+								<CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+								<CODE_MEANING>Identificador</CODE_MEANING>
+							</CONCEPT_NAME>
+							<VALUE>LESION_34</VALUE>
+						</TEXT>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29929</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Supero-Externo (CSE) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>1</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29935</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Infero-Externo (CIE) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29932</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Supero-Interno (CSI) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29938</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Infero-Interno (CII) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29947</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Externa (LIE) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29941</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercuadrántica Superior (LIS) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29953</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Inferior (LIInf) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29944</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Interna (LIInt) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29950</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Retroareolar de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29907</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Pezón de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29918</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Areola de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0001</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Prolongación Axilar de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0003</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Axila de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0005</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Surco Inframamario de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0007</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Surco Intermamario de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+					</CHILDS>
+				</CONTAINER>
+				<CONTAINER>
+					<CONCEPT_NAME>
+						<CODE_VALUE>TRMM0124</CODE_VALUE>
+						<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+						<CODE_MEANING>Induración</CODE_MEANING>
+					</CONCEPT_NAME>
+					<CHILDS>
+						<TEXT>
+							<CONCEPT_NAME>
+								<CODE_VALUE>118522005</CODE_VALUE>
+								<CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+								<CODE_MEANING>Identificador</CODE_MEANING>
+							</CONCEPT_NAME>
+							<VALUE>LESION_35</VALUE>
+						</TEXT>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29929</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Supero-Externo (CSE) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29935</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Infero-Externo (CIE) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29932</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Supero-Interno (CSI) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29938</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Infero-Interno (CII) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29947</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Externa (LIE) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>1</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29941</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercuadrántica Superior (LIS) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29953</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Inferior (LIInf) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29944</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Interna (LIInt) de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29950</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Retroareolar de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29907</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Pezón de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29918</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Areola de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0001</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Prolongación Axilar de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0003</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Axila de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0005</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Surco Inframamario de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0007</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Surco Intermamario de la Mama Derecha</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+					</CHILDS>
+				</CONTAINER>
+				<CONTAINER>
+					<CONCEPT_NAME>
+						<CODE_VALUE>TRMM0011</CODE_VALUE>
+						<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+						<CODE_MEANING>Hallazgos Asociados</CODE_MEANING>
+					</CONCEPT_NAME>
+					<CHILDS>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID34272</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Adenopatías Axilares</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0012</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Adenopatías Supraclaviculares</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>54302000</CODE_VALUE>
+								<CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+								<CODE_MEANING>Secreción</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>1</VALUE>
+						</NUM>
+						<CODE>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0125</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Características de la Secreción</CODE_MEANING>
+							</CONCEPT_NAME>
+							<VALUE>
+								<CODE_VALUE>TRMM0126</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Telorragia</CODE_MEANING>
+							</VALUE>
+						</CODE>
+						<CODE>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0128</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Transtornos Funcionales</CODE_MEANING>
+							</CONCEPT_NAME>
+							<VALUE>
+								<CODE_VALUE>TRMM0098</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING></CODE_MEANING>
+							</VALUE>
+						</CODE>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID34314</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Alteraciones Pezón</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID34267</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Alteraciones Cutaneas</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0141</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Otros Hallazgos Asociados</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+					</CHILDS>
+				</CONTAINER>
+			</CHILDS>
+		</CONTAINER>
+		<CONTAINER>
+			<CONCEPT_NAME>
+				<CODE_VALUE>RID29897</CODE_VALUE>
+				<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+				<CODE_MEANING>Mama Izquierda</CODE_MEANING>
+			</CONCEPT_NAME>
+			<CHILDS>
+				<CONTAINER>
+					<CONCEPT_NAME>
+						<CODE_VALUE>TRMM0009</CODE_VALUE>
+						<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+						<CODE_MEANING>Nódulo-Masa</CODE_MEANING>
+					</CONCEPT_NAME>
+					<CHILDS>
+						<TEXT>
+							<CONCEPT_NAME>
+								<CODE_VALUE>118522005</CODE_VALUE>
+								<CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+								<CODE_MEANING>Identificador</CODE_MEANING>
+							</CONCEPT_NAME>
+							<VALUE>LESION_46</VALUE>
+						</TEXT>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29930</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Supero-Externo (CSE) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29936</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Infero-Externo (CIE) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>1</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29933</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Supero-Interno (CSI) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29939</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Infero-Interno (CII) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29948</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Externa (LIE) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29942</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercuadrántica Superior (LIS) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29954</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Inferior (LIInf) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29945</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Interna (LIInt) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29951</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Retroareolar de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29908</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Pezón de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29919</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Areola de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0002</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Prolongación Axilar de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0004</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Axila de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0006</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Surco Inframamario de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0008</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Surco Intermamario de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+					</CHILDS>
+				</CONTAINER>
+				<CONTAINER>
+					<CONCEPT_NAME>
+						<CODE_VALUE>TRMM0124</CODE_VALUE>
+						<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+						<CODE_MEANING>Induración</CODE_MEANING>
+					</CONCEPT_NAME>
+					<CHILDS>
+						<TEXT>
+							<CONCEPT_NAME>
+								<CODE_VALUE>118522005</CODE_VALUE>
+								<CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+								<CODE_MEANING>Identificador</CODE_MEANING>
+							</CONCEPT_NAME>
+							<VALUE>LESION_47</VALUE>
+						</TEXT>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29930</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Supero-Externo (CSE) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>1</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29936</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Infero-Externo (CIE) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29933</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Supero-Interno (CSI) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29939</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Cuadrante Infero-Interno (CII) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29948</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Externa (LIE) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29942</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercuadrántica Superior (LIS) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29954</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Inferior (LIInf) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29945</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Línea Intercudrántica Interna (LIInt) de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29951</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Retroareolar de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29908</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Pezón de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID29919</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Areola de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0002</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Prolongación Axilar de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0004</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Axila de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0006</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Surco Inframamario de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0008</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Surco Intermamario de la Mama Izquierda</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+					</CHILDS>
+				</CONTAINER>
+				<CONTAINER>
+					<CONCEPT_NAME>
+						<CODE_VALUE>TRMM0011</CODE_VALUE>
+						<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+						<CODE_MEANING>Hallazgos Asociados</CODE_MEANING>
+					</CONCEPT_NAME>
+					<CHILDS>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID34272</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Adenopatías Axilares</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0012</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Adenopatías Supraclaviculares</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>54302000</CODE_VALUE>
+								<CODE_SCHEMA>SNOMED-CT</CODE_SCHEMA>
+								<CODE_MEANING>Secreción</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID34314</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Alteraciones Pezón</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID34267</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Alteraciones Cutaneas</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>1</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>RID34383</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Retracción de Piel</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0134</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Edema de Piel (Piel de Naranja)</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>1</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0135</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Edema de Piel (Sin Piel de Naranja)</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>1</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0136</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Cutánides</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0137</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Ulceración de la Piel de la Mama</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0138</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Ganglios Cutáneos Satélite en la Mama</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0139</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Signos Inflamatorios (Carcinoma Inflamatorio)</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0140</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Otras Alteraciones Cutáneas</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+						<NUM>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0141</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Otros Hallazgos Asociados</CODE_MEANING>
+							</CONCEPT_NAME>
+							<UNIT_MEASUREMENT>
+								<CODE_VALUE>000000001</CODE_VALUE>
+								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+							</UNIT_MEASUREMENT>
+							<VALUE>0</VALUE>
+						</NUM>
+					</CHILDS>
+				</CONTAINER>
+			</CHILDS>
+		</CONTAINER>
+	</CHILDS>
+</CONTAINER>
+</DICOM_SR>

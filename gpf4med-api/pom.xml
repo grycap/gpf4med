@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!-- Copyright 2013 Institute for Molecular Imaging Instrumentation (I3M) 
+	Licensed under the EUPL, Version 1.1 or - as soon they will be approved by 
+	the European Commission - subsequent versions of the EUPL (the "Licence"); 
+	You may not use this work except in compliance with the Licence. You may 
+	obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	Licence is distributed on an "AS IS" basis, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the Licence for the specific 
+	language governing permissions and limitations under the Licence. This product 
+	combines work with different licenses. See the "NOTICE" text file for details 
+	on the various modules and licenses. The "NOTICE" text file is part of the 
+	distribution. Any derivative works that you distribute must include a readable 
+	copy of the "NOTICE" text file. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.grycap.gpf4med</groupId>
+		<artifactId>gpf4med</artifactId>
+		<version>1.1.0</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<artifactId>gpf4med-api</artifactId>
+	<name>gpf4med-api</name>
+	<description>Gpf4Med API</description>
+	<url>https://github.com/grycap/gpf4med</url>
+
+	<dependencies>
+		<!-- Gpf4Med modules -->
+		<dependency>
+			<groupId>org.grycap.gpf4med</groupId>
+			<artifactId>gpf4med-core</artifactId>
+			<version>${gpf4med.version}</version>
+		</dependency>
+
+		<!-- Java Simple Plugin Framework (JSPF) -->
+		<dependency>
+			<groupId>net.xeoh.jspf</groupId>
+			<artifactId>jspf-core</artifactId>
+		</dependency>
+
+		<!-- JAX-RS reference implementation -->
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- The javax.inject API -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Logback and SLF4J logging framework -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

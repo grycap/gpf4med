@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 
+Copyright 2013 Institute for Molecular Imaging Instrumentation (I3M)
+
+Licensed under the EUPL, Version 1.1 or - as soon they will be approved by 
+the European Commission - subsequent versions of the EUPL (the "Licence");
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+  http://ec.europa.eu/idabc/eupl
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and 
+limitations under the Licence.
+
+This product combines work with different licenses. See the "NOTICE" text
+file for details on the various modules and licenses.
+The "NOTICE" text file is part of the distribution. Any derivative works
+that you distribute must include a readable copy of the "NOTICE" text file.
+-->
+
+<!-- =============================================================== -->
+<!-- Configure the Gpf4Med Study Enactment Service                   -->
+<!-- =============================================================== -->
+
+<config>
+
+	<!-- Cloud providers configuration -->
+	<enactor>
+
+		<!-- The name of your cloud provider or the name of the API it supports 
+			(e.g. ec2, openstack-nova, byon -bring your own node). Check jclouds 
+			documentation for the complete list of supported providers 
+			(http://jclouds.apache.org/documentation/reference/supported-providers/) -->
+		<provider>openstack-nova</provider>
+
+		<!-- The identity to access the cloud provider (e.g. access key, user name) -->
+		<identity>${gpf4med-root}/etc/provider/key.id</identity>
+
+		<!-- The credential to access the cloud provider (e.g. secret key, password) -->
+		<credential>${gpf4med-root}/etc/provider/key.secret</credential>
+
+		<!-- Additional configuration parameters specific to the cloud provider -->
+
+		<!-- BYON configuration example -->
+		<byon>
+			<endpoint>${gpf4med-root}/etc/provider/byon.yaml</endpoint>
+		</byon>
+
+		<!-- OpenStack configuration example -->
+		<openstack-nova>
+			<endpoint>http://localhost:5000/v2.0/</endpoint>
+			<image-id>6940bd10-82c4-4fae-85c3-416fc17f9021</image-id>
+			<login-user>fedora</login-user>
+			<endpoint>http://8.21.28.222:5000/v2.0</endpoint>
+		</openstack-nova>		
+
+	</enactor>
+	
+	<!-- Container server configuration -->
+	<container-server>
+	
+		<!-- The version of the container that is compatible with this service -->
+		<version>1.0.0</version>
+		
+		<!-- The base URL where the installer of the container is stored (HTTP 
+			and HTTPS are currently supported) -->
+		<installer>
+			<url>http://sourceforge.net/projects/gpf4med/files/gpf4med/${container-server.version}/install-gpf4med.sh/download</url>
+		</installer>
+		
+		<!-- The base directory where the container will be installed in the 
+			server -->
+		<home>$TMP/gpf4med</home>
+	
+	</container-server>
+
+</config>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright 2013 Institute for Molecular Imaging Instrumentation (I3M)
+
+Licensed under the EUPL, Version 1.1 or - as soon they will be approved by 
+the European Commission - subsequent versions of the EUPL (the "Licence");
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+  http://ec.europa.eu/idabc/eupl
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and 
+limitations under the Licence.
+
+This product combines work with different licenses. See the "NOTICE" text
+file for details on the various modules and licenses.
+The "NOTICE" text file is part of the distribution. Any derivative works
+that you distribute must include a readable copy of the "NOTICE" text file.
+-->
+<ovf:ResourceAllocationSection
+	xmlns:cim="http://schemas.dmtf.org/wbem/wscim/1/common"
+	xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/2"
+	xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" xmlns:xenc11="http://www.w3.org/2009/xmlenc11#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">	
+	
+	<ovf:Info>Defines minimum reservations for CPU, memory &amp; (optionally) disk, and maximum number of reports per node</ovf:Info>
+	
+	<ovf:Item ovf:required="true" ovf:bound="min">
+		<rasd:AllocationUnits>hertz * 10^6</rasd:AllocationUnits>
+		<rasd:Description>Virtual CPU(s)</rasd:Description>
+		<rasd:ElementName>1 GHz virtual CPU</rasd:ElementName>
+		<rasd:InstanceID>0</rasd:InstanceID>
+		<rasd:Reservation>1</rasd:Reservation>
+		<rasd:ResourceType>3</rasd:ResourceType>
+		<rasd:VirtualQuantity>1</rasd:VirtualQuantity>
+		<rasd:Weight>0</rasd:Weight>
+	</ovf:Item>
+	
+	<ovf:Item ovf:required="true" ovf:bound="min">
+		<rasd:AllocationUnits>byte * 2^20</rasd:AllocationUnits>
+		<rasd:Description>Memory</rasd:Description>
+		<rasd:ElementName>512 MByte of memory</rasd:ElementName>
+		<rasd:InstanceID>1</rasd:InstanceID>
+		<rasd:Reservation>512</rasd:Reservation>
+		<rasd:ResourceType>4</rasd:ResourceType>
+		<rasd:VirtualQuantity>512</rasd:VirtualQuantity>
+		<rasd:Weight>0</rasd:Weight>
+	</ovf:Item>
+	
+	<ovf:Item ovf:required="true" ovf:bound="max">
+		<rasd:AllocationUnits>units</rasd:AllocationUnits>
+		<rasd:Description>Number of Reports per Node</rasd:Description>
+		<rasd:ElementName>1000 reports</rasd:ElementName>
+		<rasd:InstanceID>2</rasd:InstanceID>
+		<rasd:Reservation>0</rasd:Reservation>
+		<rasd:ResourceType>1</rasd:ResourceType>
+		<rasd:VirtualQuantity>10000</rasd:VirtualQuantity>
+		<rasd:Weight>0</rasd:Weight>
+	</ovf:Item>
+	
+	<ovf:Item ovf:required="false" ovf:bound="min">
+		<rasd:AllocationUnits>byte * 2^30</rasd:AllocationUnits>
+		<rasd:Description>Virtual Disk</rasd:Description>
+		<rasd:ElementName>8 GByte Virtual Disk</rasd:ElementName>
+		<rasd:InstanceID>3</rasd:InstanceID>
+		<rasd:Reservation>8</rasd:Reservation>
+		<rasd:ResourceType>31</rasd:ResourceType>
+		<rasd:VirtualQuantity>8</rasd:VirtualQuantity>
+		<rasd:Weight>0</rasd:Weight>
+	</ovf:Item>
+	
+</ovf:ResourceAllocationSection>
