@@ -27,7 +27,7 @@ the hospital.
 The most recent version of the documentation is available in the following
 directory inside the project:
 
-<WORKSPACE>/gpf4med/gpf4med-project/gpf4med-distro/src/main/doc/
+``<WORKSPACE>/gpf4med/gpf4med-project/gpf4med-distro/src/main/doc/``
 
 ## Release History
 
