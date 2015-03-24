@@ -84,7 +84,7 @@ public class DocumentLoader extends XmlParser<Document> implements DocumentLoade
 				encryptionProvider.decrypt(new FileInputStream(file), new FileOutputStream(clearFile));
 			}
 			final String filename = clearFile.getCanonicalPath();
-			LOGGER.trace("Loading template from file: " + filename);
+			LOGGER.trace("Loading document from file: " + filename);
 			// setup input factory
 			final XMLInputFactory xmlif = XMLInputFactory.newInstance();
 			xmlif.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, Boolean.TRUE);
@@ -106,8 +106,14 @@ public class DocumentLoader extends XmlParser<Document> implements DocumentLoade
 						for (int i = 0 ; i < xmlr.getAttributeCount() ; i++) {
 							if ("IDOntology".equals(xmlr.getAttributeName(i).toString())) {
 								document.setIdOntology(Integer.parseInt(xmlr.getAttributeValue(i)));
-							} else if ("Description".equals(xmlr.getAttributeName(i).toString())) {
-								document.setDescription(xmlr.getAttributeValue(i));
+							} else if ("IDReport".equals(xmlr.getAttributeName(i).toString())) {
+								document.setIdReport(xmlr.getAttributeValue(i));
+							} else if ("IDTRENCADISReport".equals(xmlr.getAttributeName(i).toString())) {
+								document.setIdTrencadisReport(xmlr.getAttributeValue(i));
+							} else if ("DateTimeEnd".equals(xmlr.getAttributeName(i).toString())) {
+								document.setDateEnd(xmlr.getAttributeValue(i));
+							} else if ("DateTimeStart".equals(xmlr.getAttributeName(i).toString())) {
+								document.setDateStart(xmlr.getAttributeValue(i));
 							}
 						}
 					} else if ("CONTAINER".equals(name)) {
@@ -138,7 +144,7 @@ public class DocumentLoader extends XmlParser<Document> implements DocumentLoade
 						final Value value = new Value();
 						value.setConceptName(new ConceptName());
 						stack.push(value);
-					} else if ("CHILDS".equals(name)) {
+					} else if ("CHILDREN".equals(name)) {
 						parent = stack.peek();
 						checkState(parent instanceof Container, "Unsupported parent type found: " + parent.getClass().getCanonicalName() 
 								+ ", while trying to process: " + name + ", event " + getEventTypeString(eventType));
@@ -231,7 +237,7 @@ public class DocumentLoader extends XmlParser<Document> implements DocumentLoade
 							throw new IllegalStateException("Unsupported parent type found: " + parent.getClass().getCanonicalName() 
 									+ ", while trying to process: " + name + ", event " + getEventTypeString(eventType));
 						}
-					} else if ("CHILDS".equals(name)) {
+					} else if ("CHILDREN".equals(name)) {
 						parent = stack.peek();
 						checkState(parent instanceof Container, "Unsupported parent type found: " + parent.getClass().getCanonicalName() 
 								+ ", while trying to process: " + name + ", event " + getEventTypeString(eventType));

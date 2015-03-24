@@ -37,11 +37,30 @@ import com.google.common.base.Optional;
  */
 public class Document {
 
+	private String dateStart;
+	private String dateEnd;
 	private Integer idOntology;
-	private Optional<String> description = Optional.absent();
+	private String idReport;
+	private String idTrencadisReport;
 	private Container container;
 
 	public Document() { }
+
+	public String getDateStart() {
+		return dateStart;
+	}
+
+	public void setDateStart(String dateStart) {
+		this.dateStart = dateStart;
+	}
+
+	public String getDateEnd() {
+		return dateEnd;
+	}
+
+	public void setDateEnd(String dateEnd) {
+		this.dateEnd = dateEnd;
+	}
 
 	public Integer getIdOntology() {
 		return idOntology;
@@ -51,13 +70,22 @@ public class Document {
 		this.idOntology = checkNotNull(idOntology, "Uninitialized ontology");
 	}
 
-	public @Nullable String getDescription() {
-		return description.orNull();
+	public String getIdReport() {
+		return idReport;
 	}
 
-	public void setDescription(final @Nullable String description) {
-		this.description = Optional.fromNullable(description);
+	public void setIdReport(String idReport) {
+		this.idReport = checkNotNull(idReport, "Uninitialized report identifier");
 	}
+
+	public String getIdTrencadisReport() {
+		return idTrencadisReport;
+	}
+
+	public void setIdTrencadisReport(String idTrencadisReport) {
+		this.idTrencadisReport = checkNotNull(idTrencadisReport, "Uninitialized TRENCADIS report identifier");
+	}
+
 
 	public Container getContainer() {
 		return container;
@@ -70,10 +98,14 @@ public class Document {
 	@Override
 	public String toString() {
 		return toStringHelper(this)
+				.add("DateTimeStart", dateStart)
+				.add("DateTimeEnd", dateEnd)
 				.add("idOntology", idOntology)
-				.add("description", "\"" + StringUtils.trimToEmpty(description.orNull()) + "\"")
+				.add("idReport", idReport)
+				.add("idTRENCADISReport", idTrencadisReport)
 				.add("container", container)
 				.toString();
+				
 	}
 
 }

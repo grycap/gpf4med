@@ -35,6 +35,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.grycap.gpf4med.Group;
 import org.grycap.gpf4med.model.util.AvailableGraphs;
+import org.grycap.gpf4med.model.util.AvailableReports;
 import org.grycap.gpf4med.model.util.AvailableTemplates;
 import org.grycap.gpf4med.model.util.GraphStatistics;
 import org.grycap.gpf4med.model.util.LinkSet;
@@ -76,13 +77,51 @@ public interface Gpf4MedResource {
 	PingResponse ping();
 
 	/**
-	 * Lists medical format templates (e.g. DICOM-SR) available to this service.
-	 * @return medical format templates available to this service.
+	 * Lists medical reports (e.g. DICOM-SR) available to this service.
+	 * @return medical reports available to this service.
 	 */
 	@Path("list/templates")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	AvailableTemplates listTemplates();
+	
+	/**
+	 * Lists medical format templates (e.g. DICOM-SR) available to this service.
+	 * @return medical reports available to this service.
+	 */
+	@Path("list/reports")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	AvailableReports listReports();
+	
+	/**
+	 * Lists medical format templates (e.g. DICOM-SR) available to this service
+	 * from a given center.
+	 * @return medical format templates available to this service.
+	 */
+	@Path("list/reports/center/{center}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	AvailableReports listReports(@PathParam("center") int idCenter);
+	
+	/**
+	 * Lists medical format templates (e.g. DICOM-SR) available to this service
+	 * with a given ontology.
+	 * @return medical reports available to this service.
+	 */
+	@Path("list/reports/ontology/{ontology}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	AvailableReports listReports(@PathParam("ontology") String idOntology);
+	/**
+	 * Lists medical format templates (e.g. DICOM-SR) available to this service
+	 * from a given center with a given ontology.
+	 * @return medical reports available to this service.
+	 */
+	@Path("list/reports/center/{center}/ontology/{ontology}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	AvailableReports listReports(@PathParam("center") int idCenter, @PathParam("ontology") String idOntology);
 
 	/**
 	 * Lists graph connectors available to this service.

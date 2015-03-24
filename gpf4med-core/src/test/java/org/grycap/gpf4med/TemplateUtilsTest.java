@@ -26,11 +26,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.grycap.gpf4med.model.ConceptName;
 import org.grycap.gpf4med.model.ConceptName.CodeSchema;
@@ -53,11 +48,11 @@ public class TemplateUtilsTest {
 		System.out.println("TemplateUtilsTest.test()");
 		try {
 			// load default templates
-			final Collection<File> files = TestUtils.getTemplateFiles();
-			TemplateManager.INSTANCE.setup(Arrays.asList(FileUtils.toURLs(files.toArray(new File[files.size()]))));
+			TestUtils.getTemplateFiles();
 			final ImmutableCollection<DocumentTemplate> templates = TemplateManager.INSTANCE.listTemplates();
 			assertThat("template list is not null", templates, notNullValue());
 			assertThat("template list is not empty", !templates.isEmpty());
+			
 			DocumentTemplate template = null;
 			for (final DocumentTemplate item : templates) {
 				if (new Integer(5).equals(item.getIdOntology())) {
@@ -65,7 +60,7 @@ public class TemplateUtilsTest {
 				}
 			}
 			assertThat("template is not null", template,notNullValue());
-			// find BI-RADS 4
+			// find BI-RADS 4A
 			final CodeValue value = new CodeValue();
 			value.setValue("RID36031");
 			final ConceptName conceptName = new ConceptName();

@@ -177,8 +177,8 @@ public class TemplateLoader extends XmlParser<DocumentTemplate> implements Templ
 					} else if ("NUM".equals(name)) {
 						stack.push(new NumTemplate());					
 					} else if ("CODE".equals(name)) {
-						stack.push(new CodeTemplate());			
-					} else if ("CHILDS".equals(name)) {
+						stack.push(new CodeTemplate());
+					} else if ("CHILDREN".equals(name)) {
 						parent = stack.peek();
 						checkState(parent instanceof ContainerTemplate, "Unsupported parent type found: " + parent.getClass().getCanonicalName() 
 								+ ", while trying to process: " + name + ", event " + getEventTypeString(eventType));
@@ -296,7 +296,7 @@ public class TemplateLoader extends XmlParser<DocumentTemplate> implements Templ
 						element = stack.pop();
 						parent = stack.peek();
 						((ContainerTemplate)parent).getChildrenTemplate().add((CodeTemplate)element);
-					} else if ("CHILDS".equals(name)) {
+					} else if ("CHILDREN".equals(name)) {
 						parent = stack.peek();
 						checkState(parent instanceof ContainerTemplate, "Unsupported parent type found: " + parent.getClass().getCanonicalName() 
 								+ ", while trying to process: " + name + ", event " + getEventTypeString(eventType));

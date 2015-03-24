@@ -39,10 +39,13 @@ import org.apache.commons.lang.StringUtils;
 import org.grycap.gpf4med.conf.ConfigurationManager;
 import org.grycap.gpf4med.model.ConceptName;
 import org.grycap.gpf4med.model.DocumentTemplate;
+import org.grycap.gpf4med.util.TRENCADISUtils;
 import org.grycap.gpf4med.util.NamingUtils;
 import org.grycap.gpf4med.util.URLUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import trencadis.middleware.login.TRENCADIS_SESSION;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
@@ -85,44 +88,68 @@ public enum TemplateManager implements Closeable2 {
 
 	public @Nullable DocumentTemplate getTemplate(final ConceptName conceptName) {
 		checkArgument(conceptName != null, "Uninitialized or invalid concept name");
-		final ImmutableMap<String, DocumentTemplate> templates = templates();
+		final ImmutableMap<String, DocumentTemplate> templates = templates(null);
 		return templates != null ? templates.get(conceptName.id()) : null;
 	}
 
 	public ImmutableCollection<DocumentTemplate> listTemplates() {
-		final ImmutableMap<String, DocumentTemplate> templates = templates();
+		final ImmutableMap<String, DocumentTemplate> templates = templates(null);
+		return templates != null ? templates.values() : new ImmutableList.Builder<DocumentTemplate>().build();
+	}
+	public ImmutableCollection<DocumentTemplate> listTemplates(String idOntology) {
+		final ImmutableMap<String, DocumentTemplate> templates = templates(idOntology);
 		return templates != null ? templates.values() : new ImmutableList.Builder<DocumentTemplate>().build();
 	}
 
 	/**
-	 * Lazy load.
+	 * Lazy load -> Adapted to consider TRENCADIS storage
 	 * @return the list of available templates.
 	 */
-	private ImmutableMap<String, DocumentTemplate> templates() {
+	private ImmutableMap<String, DocumentTemplate> templates(String idOntology) {
 		if (dont_use == null) {
 			synchronized (TemplateManager.class) {
 				if (dont_use == null) {
-					// templates can be loaded from class-path, local files, or through HTTP
+					// templates can be loaded from class-path, local files, through HTTP or using TRENCADIS plug-in
 					File templatesCacheDir = null;
 					try {
 						// prepare local cache directory
 						templatesCacheDir = new File(ConfigurationManager.INSTANCE.getLocalCacheDir(), 
 								"templates" + File.separator + ConfigurationManager.INSTANCE.getTemplatesVersion());
-						FileUtils.deleteQuietly(templatesCacheDir);
-						FileUtils.forceMkdir(templatesCacheDir);
 						// read index
-						if (urls == null) {							
+						if (urls == null && ConfigurationManager.INSTANCE.getTrencadisConfigFile() == null) {
+							System.out.println(" <<<< trencadis config file is null");
 							final URL index = ConfigurationManager.INSTANCE.getTemplatesIndex();
 							urls = Arrays.asList(URLUtils.readIndex(index));
 						}
-						// get a local copy of the connectors			
-						for (final URL url : urls) {
+						if (ConfigurationManager.INSTANCE.getTrencadisConfigFile() != null
+							&& ConfigurationManager.INSTANCE.getTrencadisPassword() != null) {
+							urls = null;
+						}
+						FileUtils.deleteQuietly(templatesCacheDir);
+						FileUtils.forceMkdir(templatesCacheDir);
+						// get a local copy of the connectors
+						if (urls != null) {
+							for (final URL url : urls) {
+								try {
+									final File destination = new File(templatesCacheDir, NamingUtils
+											.genSafeFilename(new String[] { url.toString() }, null, ".xml"));
+									URLUtils.download(url, destination);
+								} catch (Exception e2) {
+									LOGGER.warn("Failed to get template from URL: " + url.toString(), e2);
+								}
+							}
+						}
+						else {
 							try {
-								final File destination = new File(templatesCacheDir, NamingUtils
-										.genSafeFilename(new String[] { url.toString() }, null, ".xml"));
-								URLUtils.download(url, destination);
-							} catch (Exception e2) {
-								LOGGER.warn("Failed to get template from URL: " + url.toString(), e2);
+								TRENCADIS_SESSION trencadisSession = new TRENCADIS_SESSION(
+									ConfigurationManager.INSTANCE.getTrencadisConfigFile(),
+									ConfigurationManager.INSTANCE.getTrencadisPassword());
+								if (idOntology != null)
+									TRENCADISUtils.downloadOntology(trencadisSession, idOntology, templatesCacheDir.getAbsolutePath());
+								else	
+									TRENCADISUtils.downloadAllOntologies(trencadisSession, templatesCacheDir.getAbsolutePath());
+							} catch (Exception e3) {
+								LOGGER.warn("Failed to get templates from TRENCADIS" , e3);
 							}
 						}
 					} catch (Exception e) {

@@ -46,7 +46,7 @@ that you distribute must include a readable copy of the "NOTICE" text file.
 
 		<!-- The base URL where the DICOM-SR templates that are common to all the 
 			studies are stored (HTTP, HTTPS and local file-system are currently supported). 
-			For example: For example: ${gpf4med-root}/templates, http://localhost/templates -->
+			For example: ${gpf4med-root}/templates, http://localhost/templates -->
 		<templates>http://158.42.105.13/gpf4med/templates</templates>
 
 		<!-- The base URL where the connector plug-ins are stored (HTTP, HTTPS and 

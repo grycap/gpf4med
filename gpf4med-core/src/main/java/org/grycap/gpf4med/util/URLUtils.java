@@ -339,6 +339,6 @@ public final class URLUtils {
 			}			
 		}
 		return url != null;
-	}
-
+	}	
+	
 }

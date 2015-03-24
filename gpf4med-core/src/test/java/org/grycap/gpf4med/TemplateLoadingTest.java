@@ -48,8 +48,7 @@ public class TemplateLoadingTest {
 		System.out.println("TemplateLoadingTest.test()");
 		try {
 			// load default templates
-			final Collection<File> files = TestUtils.getTemplateFiles();
-			TemplateManager.INSTANCE.setup(Arrays.asList(FileUtils.toURLs(files.toArray(new File[files.size()]))));
+			TestUtils.getTemplateFiles();
 			final ImmutableCollection<DocumentTemplate> templates = TemplateManager.INSTANCE.listTemplates();
 			assertThat("template list is not null", templates, notNullValue());
 			assertThat("template list is not empty", !templates.isEmpty());

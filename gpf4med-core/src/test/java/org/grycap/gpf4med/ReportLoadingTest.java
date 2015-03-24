@@ -26,36 +26,40 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
-import java.io.File;
-import java.util.Collection;
-
 import org.grycap.gpf4med.model.Document;
 import org.grycap.gpf4med.util.TestUtils;
 import org.junit.Test;
 
+import com.google.common.collect.ImmutableCollection;
+
 /**
  * Test report loading.
+ * 
  * @author Erik Torres <ertorser@upv.es>
  */
 public class ReportLoadingTest {
 
 	@Test
 	public void test() {
-		System.out.println("ResportLoadingTest.test()");
+		System.out.println("ReportLoadingTest.test()");
 		try {
-			// load example reports
-			final Collection<File> files = TestUtils.getReportFiles();
-			for (final File file : files) {
-				final Document document = DocumentLoader.create(file).load();
-				assertThat("document is not null", document, notNullValue());
-				/* uncomment for additional output
-				System.out.println(" >> Document\n" + document.toString() + "\n"); */
+			// load reports
+			TestUtils.getReportFiles();
+			final ImmutableCollection<Document> reports = DocumentManager.INSTANCE.listDocuments(1,"5");
+			assertThat("report list is not null", reports, notNullValue());
+			assertThat("report list is not empty", !reports.isEmpty());
+			/* uncomment for additional output */
+			for (final Document file : reports) {
+				System.out.println(" >> Report identifier: "
+						+ file.getIdReport() + " with TRENCADIS idenfier: "
+						+ file.getIdTrencadisReport());
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
-			fail("ResportLoadingTest.test() failed: " + e.getMessage());
-		} finally {            
-			System.out.println("ResportLoadingTest.test() has finished");
+			fail("ReportLoadingTest.test() failed: " + e.getMessage());
+		} finally {
+			System.out.println("ReportLoadingTest.test() has finished");
 		}
 	}
 

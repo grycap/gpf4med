@@ -23,12 +23,16 @@
 package org.grycap.gpf4med.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.grycap.gpf4med.AllUnitTests;
+import org.grycap.gpf4med.DocumentManager;
+import org.grycap.gpf4med.TemplateManager;
 
 /**
  * Test utilities.
@@ -52,15 +56,29 @@ public class TestUtils {
 		}
 		RESOURCES_FOLDER = anchorFile.getParent();
 	}
-
+	/*
 	public static Collection<File> getTemplateFiles() {
 		final File dir = new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, TEMPLATES_FOLDER));
 		return FileUtils.listFiles(dir, new String[] { "xml" }, false);
+	}*/
+	public static void getTemplateFiles() {
+		final File dir = new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, TEMPLATES_FOLDER));
+		Collection<File> files = FileUtils.listFiles(dir, new String[] { "xml" }, false);
+		try {
+			TemplateManager.INSTANCE.setup(Arrays.asList(FileUtils.toURLs(files.toArray(new File[files.size()]))));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public static Collection<File> getReportFiles() {
+	public static void getReportFiles() {
 		final File dir = new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, REPORTS_FOLDER));
-		return FileUtils.listFiles(dir, new String[] { "xml" }, false);
-	}
-
+		Collection<File> files = FileUtils.listFiles(dir, new String[] { "xml" }, false);
+		try {
+			DocumentManager.INSTANCE.setup(Arrays.asList(FileUtils.toURLs(files.toArray(new File[files.size()]))));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}	
+	
 }

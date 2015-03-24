@@ -29,14 +29,18 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.grycap.gpf4med.DocumentManager;
 import org.grycap.gpf4med.Group;
 import org.grycap.gpf4med.Statistics;
 import org.grycap.gpf4med.StudyManager;
 import org.grycap.gpf4med.TemplateManager;
 import org.grycap.gpf4med.ext.GraphConnector;
 import org.grycap.gpf4med.ext.GraphConnectorManager;
+import org.grycap.gpf4med.model.Document;
 import org.grycap.gpf4med.model.DocumentTemplate;
 import org.grycap.gpf4med.model.util.AvailableGraphs;
+import org.grycap.gpf4med.model.util.AvailableReport;
+import org.grycap.gpf4med.model.util.AvailableReports;
 import org.grycap.gpf4med.model.util.AvailableTemplate;
 import org.grycap.gpf4med.model.util.AvailableTemplates;
 import org.grycap.gpf4med.model.util.GraphStatistics;
@@ -85,6 +89,83 @@ public class Gpf4MedResourceImpl implements Gpf4MedResource {
 		return templates;
 	}
 
+	@Override
+	public AvailableReports listReports() {
+		final AvailableReports reports = new AvailableReports();
+		reports.setReports(new ArrayList<AvailableReport>());
+		final ImmutableCollection<Document> documents = DocumentManager.INSTANCE.listDocuments();
+		if (documents != null) {
+			for (final Document item : documents) {
+				final AvailableReport report = new AvailableReport();
+				report.setIdOntology(item.getIdOntology());
+				report.setIdReport(item.getIdReport());
+				report.setIdTrencadisReport(item.getIdTrencadisReport());
+				report.setDateStart(item.getDateStart());
+				report.setDateEnd(item.getDateEnd());
+				reports.getReports().add(report);
+			}
+		}
+		return reports;
+	}	
+
+	@Override
+	public AvailableReports listReports(int idCenter) {
+		final AvailableReports reports = new AvailableReports();
+		reports.setReports(new ArrayList<AvailableReport>());
+		final ImmutableCollection<Document> documents = DocumentManager.INSTANCE.listDocuments(idCenter);
+		if (documents != null) {
+			for (final Document item : documents) {
+				final AvailableReport report = new AvailableReport();
+				report.setIdOntology(item.getIdOntology());
+				report.setIdReport(item.getIdReport());
+				report.setIdTrencadisReport(item.getIdTrencadisReport());
+				report.setDateStart(item.getDateStart());
+				report.setDateEnd(item.getDateEnd());
+				reports.getReports().add(report);
+			}
+		}
+		return reports;
+	}
+
+	@Override
+	public AvailableReports listReports(String idOntology) {
+		final AvailableReports reports = new AvailableReports();
+		reports.setReports(new ArrayList<AvailableReport>());
+		final ImmutableCollection<Document> documents = DocumentManager.INSTANCE.listDocuments(idOntology);
+		if (documents != null) {
+			for (final Document item : documents) {
+				final AvailableReport report = new AvailableReport();
+				report.setIdOntology(item.getIdOntology());
+				report.setIdReport(item.getIdReport());
+				report.setIdTrencadisReport(item.getIdTrencadisReport());
+				report.setDateStart(item.getDateStart());
+				report.setDateEnd(item.getDateEnd());
+				reports.getReports().add(report);
+			}
+		}
+		return reports;
+	}
+
+	@Override
+	public AvailableReports listReports(int idCenter, String idOntology) {
+		final AvailableReports reports = new AvailableReports();
+		reports.setReports(new ArrayList<AvailableReport>());
+		final ImmutableCollection<Document> documents = DocumentManager.INSTANCE.listDocuments(idCenter, idOntology);
+		if (documents != null) {
+			for (final Document item : documents) {
+				final AvailableReport report = new AvailableReport();
+				report.setIdOntology(item.getIdOntology());
+				report.setIdReport(item.getIdReport());
+				report.setIdTrencadisReport(item.getIdTrencadisReport());
+				report.setDateStart(item.getDateStart());
+				report.setDateEnd(item.getDateEnd());
+				reports.getReports().add(report);
+			}
+		}
+		return reports;
+	}
+
+	
 	@Override
 	public AvailableGraphs listGraphs() {
 		final AvailableGraphs graphs = new AvailableGraphs();

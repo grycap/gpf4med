@@ -22,23 +22,40 @@
 
 package org.grycap.gpf4med;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 
+import java.awt.List;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.apache.commons.lang.StringUtils;
+import org.grycap.gpf4med.conf.ConfigurationManager;
 import org.grycap.gpf4med.event.FileEnqueuedEvent;
+import org.grycap.gpf4med.model.ConceptName;
 import org.grycap.gpf4med.model.Document;
+import org.grycap.gpf4med.util.TRENCADISUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import trencadis.infrastructure.services.DICOMStorage.impl.wrapper.xmlOutputDownloadAllReportsID.DICOM_SR_ID;
+import trencadis.infrastructure.services.dicomstorage.backend.BackEnd;
+import trencadis.middleware.login.TRENCADIS_SESSION;
+import trencadis.middleware.operations.DICOMStorage.TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE;
+
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.util.concurrent.SimpleTimeLimiter;
 import com.google.common.util.concurrent.UncheckedTimeoutException;
@@ -58,6 +75,9 @@ public enum DocumentManager implements Closeable2 {
 
 	private final ExecutorService executor;
 	private final SimpleTimeLimiter limiter;
+	
+	private Collection<URL> urls = null;
+	private ImmutableMap<String, Document> dont_use = null;
 
 	private DocumentManager() {
 		executor = Executors.newCachedThreadPool();
@@ -89,12 +109,19 @@ public enum DocumentManager implements Closeable2 {
 
 	@Override
 	public void setup(final @Nullable Collection<URL> urls) {
-		// nothing to do
+		this.urls = urls;
+		this.dont_use = null;
 	}
 	
 	@Override
 	public void preload() {
-		// nothing to do
+		// lazy load, so initial access is needed
+		final ImmutableCollection<Document> documents = listDocuments();		
+		if (documents != null && documents.size() > 0) {
+			LOGGER.info(documents.size() + " DICOM-SR Documents loaded");
+		} else {
+			LOGGER.warn("No DICOM-SR Documents loaded");
+		}
 	}
 
 	@Override
@@ -118,6 +145,113 @@ public enum DocumentManager implements Closeable2 {
 		} finally {
 			LOGGER.trace("Document fetcher terminated");
 		}
-	}	
-
+	}
+	
+	public @Nullable Document getDocument(final ConceptName conceptName) {
+		checkArgument(conceptName != null, "Unninitialized or invalid concept name");
+		final ImmutableMap<String, Document> documents = documents(-1, null);
+		return documents != null ? documents.get(conceptName.id()) : null;
+	}
+	
+	public ImmutableCollection<Document> listDocuments() {
+		final ImmutableMap<String, Document> documents = documents(-1, null);
+		return documents != null ? documents.values() : new ImmutableList.Builder<Document>().build();
+	}
+	public ImmutableCollection<Document> listDocuments(int idCenter) {
+		final ImmutableMap<String, Document> documents = documents(idCenter, null);
+		return documents != null ? documents.values() : new ImmutableList.Builder<Document>().build();
+	}
+	public ImmutableCollection<Document> listDocuments(String idOntology) {
+		final ImmutableMap<String, Document> documents = documents(-1, idOntology);
+		return documents != null ? documents.values() : new ImmutableList.Builder<Document>().build();
+	}
+	public ImmutableCollection<Document> listDocuments(int idCenter, String idOntology) {
+		final ImmutableMap<String, Document> documents = documents(idCenter, idOntology);
+		return documents != null ? documents.values() : new ImmutableList.Builder<Document>().build();
+	}
+	
+	/**
+	 * Lazy load -> Adapted to consider TRENCADIS storage
+	 * @return the list of available document Documents.
+	 */
+	public ImmutableMap<String, Document> documents(int idCenter, String idOntology) {
+		if (dont_use == null) {
+			synchronized (DocumentManager.class) {
+				if (dont_use == null) {
+					// Documents can be loaded from class-path, local files, through HTTP or through TRENCADIS plug-in 
+					File DocumentsCacheDir = null;
+					try {
+						// prepare local cache directory
+						DocumentsCacheDir = new File(ConfigurationManager.INSTANCE.getLocalCacheDir(), 
+								"reports" + File.separator + ConfigurationManager.INSTANCE.getTemplatesVersion());
+						if (urls == null && ConfigurationManager.INSTANCE.getTrencadisConfigFile() == null) {
+							LOGGER.debug("Source of report not found");
+						}
+						if (ConfigurationManager.INSTANCE.getTrencadisConfigFile() != null
+								&& ConfigurationManager.INSTANCE.getTrencadisPassword() != null) {
+							urls = null;
+						}
+						FileUtils.deleteQuietly(DocumentsCacheDir);
+						FileUtils.forceMkdir(DocumentsCacheDir);
+						if  (urls == null) {
+							try {
+								TRENCADIS_SESSION trencadisSession = new TRENCADIS_SESSION(
+									ConfigurationManager.INSTANCE.getTrencadisConfigFile(),
+									ConfigurationManager.INSTANCE.getTrencadisPassword());
+								
+								if (idCenter == -1 && idOntology == null) {
+									TRENCADISUtils.getReportsID(trencadisSession);
+								} else if(idCenter != -1 && idOntology == null) {
+									TRENCADISUtils.getReportsID(trencadisSession, idCenter);
+								} else if(idCenter == -1 && idOntology != null) {
+									TRENCADISUtils.getReportsID(trencadisSession, idOntology);
+								} else if(idCenter != -1 && idOntology != null){
+									TRENCADISUtils.getReportsID(trencadisSession, idCenter, idOntology);
+								}
+								
+								Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorage = TRENCADISUtils.getDicomStorage();
+								
+								// TODO - Multithreading
+								if (dicomStorage != null) {
+									for (TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE dicomStorageIDS : dicomStorage) {
+										BackEnd backend = new BackEnd(dicomStorageIDS.getBackend().toString());
+										for (DICOM_SR_ID id : dicomStorageIDS.getDICOM_DSR_IDS()) {
+											TRENCADISUtils.downloadReport(trencadisSession, backend, id.getValue(), DocumentsCacheDir.getAbsolutePath());
+										}
+									}
+								}							
+								
+							} catch (Exception e3) {
+								LOGGER.warn("Failed to get reports from TRENCADIS" , e3);
+							}
+						}
+					} catch (Exception e) {
+						LOGGER.warn("Failed to prepare reports for access" , e);
+					}
+					checkArgument(DocumentsCacheDir != null, "Uninitialized reports local cache directory");
+					
+					final ImmutableMap.Builder<String, Document> builder = new ImmutableMap.Builder<String, Document>();
+					for (final File file : FileUtils.listFiles(DocumentsCacheDir, TrueFileFilter.INSTANCE, null)) {
+						String filename = null;
+						try {
+							filename = file.getCanonicalPath();
+							final Document report = DocumentLoader.create(file).load();
+							checkState(report != null && report.getContainer() != null 
+									&& report.getContainer().getConceptNameValue() != null, "No report found");
+							final String id = report.getIdTrencadisReport();
+							checkState(StringUtils.isNotBlank(id), "Uninitialized or invalid concept name");
+							builder.put(id, report);
+							LOGGER.trace("New report " + report.getIdReport() + ", ontology " + report.getIdOntology() 
+									+ ", loaded from: " + filename);
+						} catch (Exception e) {						
+							LOGGER.error("Failed to load report: " + filename, e);
+						}
+					}
+					dont_use = builder.build();
+				}
+			}
+		}
+		return dont_use;
+	}
+	
 }

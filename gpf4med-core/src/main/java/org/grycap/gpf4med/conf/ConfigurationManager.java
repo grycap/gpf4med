@@ -74,6 +74,7 @@ public enum ConfigurationManager implements Closeable2 {
 	private final static Logger LOGGER = LoggerFactory.getLogger(ConfigurationManager.class);
 
 	public static final String MAIN_CONFIGURATION = "gpf4med.xml";
+	public static final String TRENCADIS_CONFIGURATION = "gpf4med-trencadis.xml";
 	public static final String CONTAINER_CONFIGURATION = "gpf4med-container.xml";
 	public static final String ENACTOR_CONFIGURATION = "gpf4med-enactor.xml";
 
@@ -170,6 +171,14 @@ public enum ConfigurationManager implements Closeable2 {
 		return configuration().getServerHome().orNull();
 	}
 
+	public @Nullable File getTrencadisConfigFile() {
+		return configuration().getTrencadisConfigFile().orNull();
+	}
+	
+	public @Nullable String getTrencadisPassword() {
+		return configuration().getTrencadisPassword().orNull();
+	}
+	
 	public @Nullable String getProperty(final String name, final @Nullable String defaultValue) {
 		return configuration().getProperty(name, defaultValue);
 	}
@@ -242,7 +251,7 @@ public enum ConfigurationManager implements Closeable2 {
 							final boolean encryptLocalStorage = getBoolean("security.encrypt-local-storage", configuration, foundNameList, true);
 							final boolean useStrongCryptography = getBoolean("security.use-strong-cryptography", configuration, foundNameList, false);
 							final String templatesVersion = getString("dicom.version", configuration, foundNameList, null);
-							final URL templatesIndex = getUrl("dicom.index", configuration, foundNameList, null);						
+							final URL templatesIndex = getUrl("dicom.index", configuration, foundNameList, null);
 							final String connectorsVersion = getString("graph.version", configuration, foundNameList, null);
 							final URL connectorsIndex = getUrl("graph.index", configuration, foundNameList, null);
 							// get secondary property will return null if the requested property is missing
@@ -255,6 +264,11 @@ public enum ConfigurationManager implements Closeable2 {
 							final String serverVersion = getString("container-server.version", configuration, foundNameList, null);
 							final URL serverInstallerUrl = getUrl("container-server.installer.url", configuration, foundNameList, null);
 							final File serverHome = getFile("container-server.home", configuration, foundNameList, false, null);
+							
+							// Add this for read the TRENCADIS configuration
+							final File trencadisConfiguration = getFile("trencadis.config-file", configuration, foundNameList, false, null);
+							final String trencadisPassword = getString("trencadis.pass", configuration, foundNameList, null);
+							
 							// get other (free-format) properties
 							final Iterator<String> keyIterator = configuration.getKeys();
 							final Map<String, String> othersMap = new Hashtable<String, String>();
@@ -270,7 +284,8 @@ public enum ConfigurationManager implements Closeable2 {
 							dont_use = new Configuration(rootDir, templatesUrl, connectorsUrl, localCacheDir, htdocsDir, 
 									encryptLocalStorage, useStrongCryptography, templatesVersion, templatesIndex, 
 									connectorsVersion, connectorsIndex, containerHostname, containerPort, enactorProvider, 
-									enactorIdentity, enactorCredential, serverVersion, serverInstallerUrl, serverHome, othersMap);
+									enactorIdentity, enactorCredential, serverVersion, serverInstallerUrl, serverHome,
+									trencadisConfiguration, trencadisPassword, othersMap);
 							LOGGER.info(dont_use.toString());
 						} else {
 							throw new IllegalStateException("Main configuration not found");
@@ -289,8 +304,10 @@ public enum ConfigurationManager implements Closeable2 {
 	}
 
 	private static ImmutableList<URL> getDefaultConfiguration() {
+		
 		return new ImmutableList.Builder<URL>()
 				.add(ConfigurationManager.class.getClassLoader().getResource(MAIN_CONFIGURATION))
+				.add(ConfigurationManager.class.getClassLoader().getResource(TRENCADIS_CONFIGURATION))
 				.add(ConfigurationManager.class.getClassLoader().getResource(CONTAINER_CONFIGURATION))
 				.add(ConfigurationManager.class.getClassLoader().getResource(ENACTOR_CONFIGURATION))
 				.build();
@@ -376,6 +393,9 @@ public enum ConfigurationManager implements Closeable2 {
 		private final Optional<String> serverVersion;
 		private final Optional<URL> serverInstallerUrl;
 		private final Optional<File> serverHome;
+		// TRENCADIS
+		private final Optional<File> trencadisConfiguration;
+		private final Optional<String> trencadisPassword;
 		// other configurations
 		private final ImmutableMap<String, String> othersMap;
 		// file encryption provider
@@ -386,7 +406,8 @@ public enum ConfigurationManager implements Closeable2 {
 				final URL connectorsIndex, final @Nullable String containerHostname, final int containerPort,
 				final @Nullable String enactorProvider, final @Nullable File enactorIdentity, 
 				final @Nullable File enactorCredential, final @Nullable String serverVersion,
-				final @Nullable URL serverInstallerUrl, final @Nullable File serverHome,				
+				final @Nullable URL serverInstallerUrl, final @Nullable File serverHome,
+				final @Nullable File trencadisConfiguration, final @Nullable String trencadisPassword, 
 				final @Nullable Map<String, String> othersMap) {
 			this.rootDir = checkNotNull(rootDir, "Uninitialized root directory");
 			this.templatesUrl = checkNotNull(templatesUrl, "Uninitialized templates URL");
@@ -421,7 +442,9 @@ public enum ConfigurationManager implements Closeable2 {
 			this.enactorCredential = Optional.fromNullable(readFromFile(enactorCredential));			
 			this.serverVersion = Optional.fromNullable(StringUtils.trimToNull(serverVersion));
 			this.serverInstallerUrl = Optional.fromNullable(serverInstallerUrl);
-			this.serverHome = Optional.fromNullable(serverHome);			
+			this.serverHome = Optional.fromNullable(serverHome);
+			this.trencadisConfiguration = Optional.fromNullable(trencadisConfiguration);
+			this.trencadisPassword = Optional.fromNullable(StringUtils.trimToNull(trencadisPassword));
 			this.othersMap = new ImmutableMap.Builder<String, String>().putAll(othersMap).build();			
 		}		
 		public File getRootDir() {
@@ -481,6 +504,12 @@ public enum ConfigurationManager implements Closeable2 {
 		public Optional<File> getServerHome() {
 			return serverHome;
 		}
+		public Optional<File> getTrencadisConfigFile() {
+			return trencadisConfiguration;
+		}
+		public Optional<String> getTrencadisPassword() {
+			return trencadisPassword;
+		}
 		public ImmutableMap<String, String> getOthersMap() {
 			return othersMap;
 		}
@@ -516,6 +545,8 @@ public enum ConfigurationManager implements Closeable2 {
 					.add("serverVersion", serverVersion.orNull())
 					.add("serverInstallerUrl", serverInstallerUrl.orNull())
 					.add("serverHome", serverHome.orNull())
+					.add("trencadisConfiguration", trencadisConfiguration.orNull())
+					.add("trencadisPassword", trencadisPassword.orNull())
 					.add("customProperties", customPropertiesToString())
 					.toString();
 		}

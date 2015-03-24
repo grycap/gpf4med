@@ -55,8 +55,8 @@ public enum CloserServiceMock implements CloserServiceIf {
 		EventBusHandler.INSTANCE.preload();
 		register(EventBusHandler.INSTANCE);
 		// load document manager and register it for closing
-		DocumentManager.INSTANCE.preload();
-		register(DocumentManager.INSTANCE);
+		//DocumentManager.INSTANCE.preload();
+		//register(DocumentManager.INSTANCE);
 		// register subscribers
 		EventBusHandler.INSTANCE.register(DocumentManager.INSTANCE);
 	}
