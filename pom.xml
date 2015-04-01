@@ -169,7 +169,13 @@
 				<groupId>commons-httpclient</groupId>
 				<artifactId>commons-httpclient</artifactId>
 				<version>3.1</version>
-			</dependency>		
+			</dependency>
+		
+			<dependency> <!-- Client fluent API -->
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>fluent-hc</artifactId>
+				<version>4.4</version>
+			</dependency>	
 
 			<!-- Apache jclouds: an open source abstraction library for Cloud computing 
 				(core components and selected providers & APIs are included here, if your 
