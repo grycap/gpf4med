@@ -22,6 +22,10 @@
 
 package org.grycap.gpf4med;
 
+import static org.grycap.gpf4med.concurrent.TaskRunner.TASK_RUNNER;
+import static org.grycap.gpf4med.concurrent.TaskScheduler.TASK_SCHEDULER;
+import static org.grycap.gpf4med.concurrent.TaskStorage.TASK_STORAGE;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -38,8 +42,7 @@ import org.junit.runners.Suite.SuiteClasses;
 //@SuiteClasses({ LogManagerTest.class, URLUtilsTest.class, TemplateUtilsTest.class, 
 //	DownloadServiceTest.class, FileEncryptionProviderTest.class, TemplateLoadingTest.class,
 //	ReportLoadingTest.class })
-//@SuiteClasses({ReportLoadingTest.class, TemplateLoadingTest.class })
-@SuiteClasses({ ReportLoadingTest.class })
+@SuiteClasses({ ReportDownloadTasksTest.class })
 public class AllUnitTests {
 
 	public static final String ANCHOR_FILENAME = "m2anchor";
@@ -70,8 +73,25 @@ public class AllUnitTests {
 		LogManager.INSTANCE.preload();
 		// system pre-loading
 		CloserServiceMock.INSTANCE.preload();
+		TASK_RUNNER.preload();
+		TASK_STORAGE.preload();
+		TASK_SCHEDULER.preload();
 	}
-
+	
 	public static String TEST_RESOURCES_PATH;
-
+	/*
+	@AfterClass
+	public static void release() {
+		System.out.println("AllUnitTests.release()");
+		try {
+			TASK_SCHEDULER.close();			
+		} catch (IOException ignore) { }
+		try {
+			TASK_STORAGE.close();			
+		} catch (IOException ignore) { }
+		try {
+			TASK_RUNNER.close();			
+		} catch (IOException ignore) { }		
+	}
+	*/
 }
