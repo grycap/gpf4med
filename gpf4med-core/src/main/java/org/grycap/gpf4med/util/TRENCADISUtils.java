@@ -7,16 +7,14 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import trencadis.infrastructure.services.DICOMStorage.impl.wrapper.xmlOutputDownloadAllReportsID.DICOM_SR_ID;
 import trencadis.infrastructure.services.dicomstorage.backend.BackEnd;
 import trencadis.middleware.files.TRENCADIS_XML_DICOM_SR_FILE;
 import trencadis.middleware.files.TRENCADIS_XML_ONTOLOGY_FILE;
 import trencadis.middleware.login.TRENCADIS_SESSION;
 import trencadis.middleware.operations.DICOMStorage.TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE;
-import trencadis.middleware.operations.DICOMStorage.TRENCADIS_XMLDSR_BACKEND;
+import trencadis.middleware.operations.DICOMStorage.TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS;
 import trencadis.middleware.operations.DICOMStorage.TRENCADIS_XMLDSR_DOWNLOAD;
 import trencadis.middleware.operations.DICOMStorage.TRENCADIS_XMLDSR_DOWNLOAD_ALL;
-import trencadis.middleware.operations.DICOMStorage.TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS;
 import trencadis.middleware.operations.OntologiesServer.TRENCADIS_GET_ALL_ONTOLOGIES;
 import trencadis.middleware.operations.OntologiesServer.TRENCADIS_GET_ONTOLOGY;
 
@@ -45,12 +43,12 @@ public class TRENCADISUtils {
 	 * @param destination Directory in which will be stored the reports 
 	 */
 	public static void downloadAllReports(TRENCADIS_SESSION session,
-			String idOntology, String idCenter, String destination) {
+			String idOntology, int idCenter, String destination) {
 
 		Vector<TRENCADIS_XML_DICOM_SR_FILE> v_dsr = null;
 		TRENCADIS_XMLDSR_DOWNLOAD_ALL get_dsr = null;
 		try {
-			get_dsr = new TRENCADIS_XMLDSR_DOWNLOAD_ALL(session);
+			get_dsr = new TRENCADIS_XMLDSR_DOWNLOAD_ALL(session, idCenter);
 			v_dsr = get_dsr.execute();
 			for (TRENCADIS_XML_DICOM_SR_FILE dsr : v_dsr) {
 				FileUtils.writeStringToFile(new File(destination + File.separator
