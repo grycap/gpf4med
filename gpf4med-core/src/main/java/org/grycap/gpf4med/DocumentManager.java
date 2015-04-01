@@ -24,11 +24,13 @@ package org.grycap.gpf4med;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
+import static org.grycap.gpf4med.concurrent.TaskStorage.TASK_STORAGE;
 
-import java.awt.List;
+import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
@@ -44,6 +46,7 @@ import org.grycap.gpf4med.conf.ConfigurationManager;
 import org.grycap.gpf4med.event.FileEnqueuedEvent;
 import org.grycap.gpf4med.model.ConceptName;
 import org.grycap.gpf4med.model.Document;
+import org.grycap.gpf4med.threads.ImportReportsGroupTask;
 import org.grycap.gpf4med.util.TRENCADISUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +72,8 @@ public enum DocumentManager implements Closeable2 {
 	INSTANCE;
 
 	private final static Logger LOGGER = LoggerFactory.getLogger(DocumentManager.class);
-
+	
+	public static final int PARTITION = 5;
 	public static final int TIMEOUT_SECONDS = 60;
 	public static final int SHUTDOWN_TIMEOUT_SECONDS = 5;
 
@@ -210,16 +214,21 @@ public enum DocumentManager implements Closeable2 {
 								}
 								
 								Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorage = TRENCADISUtils.getDicomStorage();
-								
-								// TODO - Multithreading
+								final ImportReportsGroupTask groupTask = new ImportReportsGroupTask();
 								if (dicomStorage != null) {
 									for (TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE dicomStorageIDS : dicomStorage) {
-										BackEnd backend = new BackEnd(dicomStorageIDS.getBackend().toString());
+										final List<String> ids = new ArrayList<String>();
+										final String centerName = dicomStorageIDS.getCenterName();
+										final BackEnd backend = new BackEnd(dicomStorageIDS.getBackend().toString());
 										for (DICOM_SR_ID id : dicomStorageIDS.getDICOM_DSR_IDS()) {
-											TRENCADISUtils.downloadReport(trencadisSession, backend, id.getValue(), DocumentsCacheDir.getAbsolutePath());
+											ids.add(id.getValue());
 										}
+										groupTask.addTask(backend, centerName, trencadisSession.getX509VOMSCredential(), ids, PARTITION, DocumentsCacheDir);
 									}
-								}							
+									groupTask.sumbitAll();
+								}
+								TASK_STORAGE.add(groupTask);
+								
 								
 							} catch (Exception e3) {
 								LOGGER.warn("Failed to get reports from TRENCADIS" , e3);
