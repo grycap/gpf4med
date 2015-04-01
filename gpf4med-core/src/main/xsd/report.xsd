@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	
+	<xs:annotation>
+		<xs:documentation>Reporting</xs:documentation>
+	</xs:annotation>
+	
+	<xs:element name="DICOM_SR" type="ReportType" />
+	<xs:element name="DICOM_REPORTS" type="ReportsType" />
+	
+	<xs:complexType name="ReportType">
+		<xs:sequence>
+			<xs:element name="CONTAINER" 		type="xs:string" />			 
+		</xs:sequence>
+		<xs:attribute name="IDReport" 			type="xs:string" />
+		<xs:attribute name="IDOntology" 		type="xs:string" />
+		<xs:attribute name="DateTimeStart" 		type="xs:string" />
+		<xs:attribute name="DateTimeEnd" 		type="xs:string" />
+		<xs:attribute name="IDTRENCADISReport" 	type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="ReportsType">
+		<xs:sequence>
+			<xs:element name="DICOM_SR" type="ReportType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>
