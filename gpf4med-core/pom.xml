@@ -67,6 +67,12 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpasyncclient</artifactId>
 		</dependency>
+		
+		<!-- Client fluent API -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+		</dependency>	
 
 		<!-- Guava: Google Core Libraries for Java -->
 		<dependency>
