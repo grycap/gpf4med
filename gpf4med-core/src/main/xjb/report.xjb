@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:annox="http://annox.dev.java.net"
+	jaxb:extensionBindingPrefixes="annox" jaxb:version="2.1">
+	<jaxb:bindings schemaLocation="../xsd/report.xsd" node="/xs:schema">
+		<jaxb:bindings node="//xs:complexType[@name='ReportsType']">
+			<annox:annotate target="class">
+				<annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement"
+					name="DICOM_REPORTS" />
+			</annox:annotate>
+		</jaxb:bindings>
+		<jaxb:bindings node="//xs:complexType[@name='ReportType']">
+			<annox:annotate target="class">
+				<annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement"
+					name="DICOM_SR" />
+			</annox:annotate>
+		</jaxb:bindings>
+	</jaxb:bindings>	
+</jaxb:bindings>
