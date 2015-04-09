@@ -56,11 +56,7 @@ public class TestUtils {
 		}
 		RESOURCES_FOLDER = anchorFile.getParent();
 	}
-	/*
-	public static Collection<File> getTemplateFiles() {
-		final File dir = new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, TEMPLATES_FOLDER));
-		return FileUtils.listFiles(dir, new String[] { "xml" }, false);
-	}*/
+
 	public static void getTemplateFiles() {
 		final File dir = new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, TEMPLATES_FOLDER));
 		Collection<File> files = FileUtils.listFiles(dir, new String[] { "xml" }, false);
@@ -81,4 +77,7 @@ public class TestUtils {
 		}
 	}	
 	
+	public static File getTestDirectoy() {
+		return new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, REPORTS_FOLDER));
+	}
 }
