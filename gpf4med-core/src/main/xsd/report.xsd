@@ -5,12 +5,132 @@
 		<xs:documentation>Reporting</xs:documentation>
 	</xs:annotation>
 	
-	<xs:element name="DICOM_SR" type="ReportType" />
-	<xs:element name="DICOM_REPORTS" type="ReportsType" />
+	<xs:element name="DICOM_SR" 	 	type="ReportType"      		/>
+	<xs:element name="DICOM_REPORTS" 	type="ReportsType"     		/>
+	
+	
+	<xs:complexType name="UnitMeasurementType">
+		<xs:sequence>
+			<xs:element name="CODE_VALUE" 			type="xs:string" />
+			<xs:element name="CODE_SCHEMA"			type="xs:string" />
+			<xs:element name="CODE_MEANING"			type="xs:string" />
+			<xs:element name="CODE_MEANING2"		type="xs:string" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ValueType">
+		<xs:sequence>
+			<xs:element name="CODE_VALUE" 			type="xs:string" />
+			<xs:element name="CODE_SCHEMA"			type="xs:string" />
+			<xs:element name="CODE_MEANING"			type="xs:string" />
+			<xs:element name="CODE_MEANING2"		type="xs:string" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="NumType">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME" 	type="ConceptNameType" 	   />
+			<xs:element name="UNIT_MEASUREMENT"	type="UnitMeasurementType" />
+			<xs:element name="VALUE"			type="xs:string"	   	   />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="CodeType">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME" type="ConceptNameType" />
+			<xs:element name="VALUE"		type="ValueType"	   />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="DateType">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME" type="ConceptNameType" />
+			<xs:element name="VALUE"		type="xs:string"	   />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="TextType">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME" type="ConceptNameType" />
+			<xs:element name="VALUE"		type="xs:string"	   />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ChildrenTypeDepth3">
+		<xs:sequence>
+			<xs:element name="TEXT"			type="TextType" 	 		minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="CODE" 		type="CodeType" 	 		minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="NUM" 			type="NumType" 	 			minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ContainerTypeDepth3">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME"		type="ConceptNameType" 		 />
+			<xs:element name="CHILDREN"			type="ChildrenTypeDepth3"    />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ChildrenTypeDepth2">
+		<xs:sequence>
+			<xs:element name="TEXT"			type="TextType" 	 		minOccurs="0" maxOccurs="unbounded" />			
+			<xs:element name="CODE" 		type="CodeType" 	 		minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="NUM" 			type="NumType" 	 			minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="CONTAINER" 	type="ContainerTypeDepth3" 	maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+	<xs:complexType name="ContainerTypeDepth2">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME"		type="ConceptNameType" 		 />
+			<xs:element name="CHILDREN"			type="ChildrenTypeDepth2"    />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ChildrenTypeDepth1">
+		<xs:sequence>
+			<xs:element name="TEXT"			type="TextType" 	 		minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="CODE" 		type="CodeType" 	 		minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="NUM" 			type="NumType" 	 			minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="CONTAINER" 	type="ContainerTypeDepth2" 	maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ContainerTypeDepth1">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME"		type="ConceptNameType" />
+			<xs:element name="CHILDREN"			type="ChildrenTypeDepth1"    />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ChildrenTypeDepth0">
+		<xs:sequence>
+			<xs:element name="TEXT"			type="TextType" 	 		minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="DATE"			type="DateType" 	 		minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="CONTAINER" 	type="ContainerTypeDepth1" 	maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ConceptNameType">
+		<xs:sequence>
+			<xs:element name="CODE_VALUE" 			type="xs:string" />
+			<xs:element name="CODE_SCHEMA"			type="xs:string" />
+			<xs:element name="CODE_MEANING"			type="xs:string" />
+			<xs:element name="CODE_MEANING2"		type="xs:string" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ContainerTypeDepth0">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME"		type="ConceptNameType" 		 />
+			<xs:element name="CHILDREN"			type="ChildrenTypeDepth0"    />
+		</xs:sequence>
+	</xs:complexType>
 	
 	<xs:complexType name="ReportType">
 		<xs:sequence>
-			<xs:element name="CONTAINER" 		type="xs:string" />			 
+			<xs:element name="CONTAINER" 		type="ContainerTypeDepth0" />			 
 		</xs:sequence>
 		<xs:attribute name="IDReport" 			type="xs:string" />
 		<xs:attribute name="IDOntology" 		type="xs:string" />
