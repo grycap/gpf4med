@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.11 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.04.14 a las 09:38:00 AM CEST 
+// Generado el: 2015.04.14 a las 12:27:01 PM CEST 
 //
 
 
@@ -31,7 +31,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="CONTAINER" type="{}ContainerDepth0"/&gt;
+ *         &lt;element name="CONTAINER" type="{}Container"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="IDReport" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="IDOntology" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
@@ -50,26 +50,26 @@ import org.apache.commons.lang3.builder.ToStringStyle;
     "container"
 })
 @XmlRootElement(name = "DICOM_SR")
-@Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+@Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
 public class Document {
 
     @XmlElement(name = "CONTAINER", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
-    protected ContainerDepth0 container;
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
+    protected Container container;
     @XmlAttribute(name = "IDReport")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected String idReport;
     @XmlAttribute(name = "IDOntology")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected String idOntology;
     @XmlAttribute(name = "DateTimeStart")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected String dateTimeStart;
     @XmlAttribute(name = "DateTimeEnd")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected String dateTimeEnd;
     @XmlAttribute(name = "IDTRENCADISReport")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected String idtrencadisReport;
 
     /**
@@ -77,11 +77,11 @@ public class Document {
      * 
      * @return
      *     possible object is
-     *     {@link ContainerDepth0 }
+     *     {@link Container }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
-    public ContainerDepth0 getCONTAINER() {
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
+    public Container getCONTAINER() {
         return container;
     }
 
@@ -90,11 +90,11 @@ public class Document {
      * 
      * @param value
      *     allowed object is
-     *     {@link ContainerDepth0 }
+     *     {@link Container }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
-    public void setCONTAINER(ContainerDepth0 value) {
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
+    public void setCONTAINER(Container value) {
         this.container = value;
     }
 
@@ -106,7 +106,7 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String getIDReport() {
         return idReport;
     }
@@ -119,7 +119,7 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setIDReport(String value) {
         this.idReport = value;
     }
@@ -132,7 +132,7 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String getIDOntology() {
         return idOntology;
     }
@@ -145,7 +145,7 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setIDOntology(String value) {
         this.idOntology = value;
     }
@@ -158,7 +158,7 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String getDateTimeStart() {
         return dateTimeStart;
     }
@@ -171,7 +171,7 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setDateTimeStart(String value) {
         this.dateTimeStart = value;
     }
@@ -184,7 +184,7 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String getDateTimeEnd() {
         return dateTimeEnd;
     }
@@ -197,7 +197,7 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setDateTimeEnd(String value) {
         this.dateTimeEnd = value;
     }
@@ -210,7 +210,7 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String getIDTRENCADISReport() {
         return idtrencadisReport;
     }
@@ -223,61 +223,61 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setIDTRENCADISReport(String value) {
         this.idtrencadisReport = value;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
-    public Document withCONTAINER(ContainerDepth0 value) {
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
+    public Document withCONTAINER(Container value) {
         setCONTAINER(value);
         return this;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public Document withIDReport(String value) {
         setIDReport(value);
         return this;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public Document withIDOntology(String value) {
         setIDOntology(value);
         return this;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public Document withDateTimeStart(String value) {
         setDateTimeStart(value);
         return this;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public Document withDateTimeEnd(String value) {
         setDateTimeEnd(value);
         return this;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public Document withIDTRENCADISReport(String value) {
         setIDTRENCADISReport(value);
         return this;
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public boolean equals(Object that) {
         return EqualsBuilder.reflectionEquals(this, that);
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }

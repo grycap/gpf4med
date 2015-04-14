@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.11 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.04.14 a las 09:38:00 AM CEST 
+// Generado el: 2015.04.14 a las 12:27:01 PM CEST 
 //
 
 
@@ -47,11 +47,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
     "dicomsr"
 })
 @XmlRootElement(name = "DICOM_REPORTS")
-@Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+@Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
 public class Documents {
 
     @XmlElement(name = "DICOM_SR")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected List<Document> dicomsr;
 
     /**
@@ -76,7 +76,7 @@ public class Documents {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public List<Document> getDICOMSR() {
         if (dicomsr == null) {
             dicomsr = new ArrayList<Document>();
@@ -84,7 +84,7 @@ public class Documents {
         return this.dicomsr;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public Documents withDICOMSR(Document... values) {
         if (values!= null) {
             for (Document value: values) {
@@ -94,7 +94,7 @@ public class Documents {
         return this;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public Documents withDICOMSR(Collection<Document> values) {
         if (values!= null) {
             getDICOMSR().addAll(values);
@@ -103,19 +103,19 @@ public class Documents {
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public boolean equals(Object that) {
         return EqualsBuilder.reflectionEquals(this, that);
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }

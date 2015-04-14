@@ -13,6 +13,7 @@ import java.io.File;
 import org.apache.commons.io.FileUtils;
 import org.grycap.gpf4med.util.TestUtils;
 import org.grycap.gpf4med.xml.report.Document;
+import org.grycap.gpf4med.xml.report.Value;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -43,7 +44,8 @@ public class XmlBindingTest {
 			assertThat("report is not null", report, notNullValue());
 			// uncomment for additional output
 			//System.out.println(" >> REPORT: " + report);
-			
+			Value value = report.getCONTAINER().getCHILDREN().getCONTAINER().get(0).getCHILDREN().getCONTAINER().get(0).getCHILDREN().getCONTAINER().get(0).getCHILDREN().getCODE().get(0).getVALUE();
+			System.out.println(value.getCODEMEANING());
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
 			fail("ReportBinding() failed: " + e.getMessage());

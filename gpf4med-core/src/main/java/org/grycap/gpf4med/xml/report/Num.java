@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.11 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.04.14 a las 09:38:00 AM CEST 
+// Generado el: 2015.04.14 a las 12:27:01 PM CEST 
 //
 
 
@@ -46,17 +46,17 @@ import org.apache.commons.lang3.builder.ToStringStyle;
     "unitmeasurement",
     "value"
 })
-@Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+@Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
 public class Num {
 
     @XmlElement(name = "CONCEPT_NAME", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected ConceptName conceptname;
     @XmlElement(name = "UNIT_MEASUREMENT", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected UnitMeasurement unitmeasurement;
     @XmlElement(name = "VALUE", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected String value;
 
     /**
@@ -67,7 +67,7 @@ public class Num {
      *     {@link ConceptName }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public ConceptName getCONCEPTNAME() {
         return conceptname;
     }
@@ -80,7 +80,7 @@ public class Num {
      *     {@link ConceptName }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setCONCEPTNAME(ConceptName value) {
         this.conceptname = value;
     }
@@ -93,7 +93,7 @@ public class Num {
      *     {@link UnitMeasurement }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public UnitMeasurement getUNITMEASUREMENT() {
         return unitmeasurement;
     }
@@ -106,7 +106,7 @@ public class Num {
      *     {@link UnitMeasurement }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setUNITMEASUREMENT(UnitMeasurement value) {
         this.unitmeasurement = value;
     }
@@ -119,7 +119,7 @@ public class Num {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String getVALUE() {
         return value;
     }
@@ -132,43 +132,43 @@ public class Num {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setVALUE(String value) {
         this.value = value;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public Num withCONCEPTNAME(ConceptName value) {
         setCONCEPTNAME(value);
         return this;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public Num withUNITMEASUREMENT(UnitMeasurement value) {
         setUNITMEASUREMENT(value);
         return this;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public Num withVALUE(String value) {
         setVALUE(value);
         return this;
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public boolean equals(Object that) {
         return EqualsBuilder.reflectionEquals(this, that);
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }

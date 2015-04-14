@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.11 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.04.14 a las 09:38:00 AM CEST 
+// Generado el: 2015.04.14 a las 12:27:01 PM CEST 
 //
 
 
@@ -48,20 +48,20 @@ import org.apache.commons.lang3.builder.ToStringStyle;
     "codemeaning",
     "codemeaning2"
 })
-@Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+@Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
 public class ConceptName {
 
     @XmlElement(name = "CODE_VALUE", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected String codevalue;
     @XmlElement(name = "CODE_SCHEMA", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected String codeschema;
     @XmlElement(name = "CODE_MEANING", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected String codemeaning;
     @XmlElement(name = "CODE_MEANING2")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     protected String codemeaning2;
 
     /**
@@ -72,7 +72,7 @@ public class ConceptName {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String getCODEVALUE() {
         return codevalue;
     }
@@ -85,7 +85,7 @@ public class ConceptName {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setCODEVALUE(String value) {
         this.codevalue = value;
     }
@@ -98,7 +98,7 @@ public class ConceptName {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String getCODESCHEMA() {
         return codeschema;
     }
@@ -111,7 +111,7 @@ public class ConceptName {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setCODESCHEMA(String value) {
         this.codeschema = value;
     }
@@ -124,7 +124,7 @@ public class ConceptName {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String getCODEMEANING() {
         return codemeaning;
     }
@@ -137,7 +137,7 @@ public class ConceptName {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setCODEMEANING(String value) {
         this.codemeaning = value;
     }
@@ -150,7 +150,7 @@ public class ConceptName {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String getCODEMEANING2() {
         return codemeaning2;
     }
@@ -163,49 +163,49 @@ public class ConceptName {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public void setCODEMEANING2(String value) {
         this.codemeaning2 = value;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public ConceptName withCODEVALUE(String value) {
         setCODEVALUE(value);
         return this;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public ConceptName withCODESCHEMA(String value) {
         setCODESCHEMA(value);
         return this;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public ConceptName withCODEMEANING(String value) {
         setCODEMEANING(value);
         return this;
     }
 
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public ConceptName withCODEMEANING2(String value) {
         setCODEMEANING2(value);
         return this;
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public boolean equals(Object that) {
         return EqualsBuilder.reflectionEquals(this, that);
     }
 
     @Override
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T09:38:00+02:00", comments = "JAXB RI v2.2.11")
+    @Generated(value = "com.sun.tools.xjc.Driver", date = "2015-04-14T12:27:01+02:00", comments = "JAXB RI v2.2.11")
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }

@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.11 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.04.14 a las 09:38:00 AM CEST 
+// Generado el: 2015.04.14 a las 12:27:01 PM CEST 
 //
 
 
@@ -106,59 +106,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ChildrenDepth3 }
+     * Create an instance of {@link Children }
      * 
      */
-    public ChildrenDepth3 createChildrenDepth3() {
-        return new ChildrenDepth3();
-    }
-
-    /**
-     * Create an instance of {@link ContainerDepth3 }
-     * 
-     */
-    public ContainerDepth3 createContainerDepth3() {
-        return new ContainerDepth3();
-    }
-
-    /**
-     * Create an instance of {@link ChildrenDepth2 }
-     * 
-     */
-    public ChildrenDepth2 createChildrenDepth2() {
-        return new ChildrenDepth2();
-    }
-
-    /**
-     * Create an instance of {@link ContainerDepth2 }
-     * 
-     */
-    public ContainerDepth2 createContainerDepth2() {
-        return new ContainerDepth2();
-    }
-
-    /**
-     * Create an instance of {@link ChildrenDepth1 }
-     * 
-     */
-    public ChildrenDepth1 createChildrenDepth1() {
-        return new ChildrenDepth1();
-    }
-
-    /**
-     * Create an instance of {@link ContainerDepth1 }
-     * 
-     */
-    public ContainerDepth1 createContainerDepth1() {
-        return new ContainerDepth1();
-    }
-
-    /**
-     * Create an instance of {@link ChildrenDepth0 }
-     * 
-     */
-    public ChildrenDepth0 createChildrenDepth0() {
-        return new ChildrenDepth0();
+    public Children createChildren() {
+        return new Children();
     }
 
     /**
@@ -170,11 +122,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ContainerDepth0 }
+     * Create an instance of {@link Container }
      * 
      */
-    public ContainerDepth0 createContainerDepth0() {
-        return new ContainerDepth0();
+    public Container createContainer() {
+        return new Container();
     }
 
     /**
