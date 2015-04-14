@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 
 import org.grycap.gpf4med.xml.report.Document;
 import org.grycap.gpf4med.xml.report.Documents;
@@ -84,8 +83,7 @@ public final class FecthClient {
 			}
 		});
 		// wait for files to be processed
-		future.get(1l, TimeUnit.MINUTES);
-		//future.get(); 
+		future.get(); 
 	}
 
 }
