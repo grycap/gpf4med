@@ -6,6 +6,8 @@
 
 ``$ cd WORKSPACE/gpf4med/``
 
+``$ cd clean generate-sources -P generate``
+
 ``$ mvn clean install -pl gpf4med-external-deps,gpf4med-core,gpf4med-api,gpf4med-data,gpf4med-service``
 
 ``$ mvn clean package -pl gpf4med-distro``
