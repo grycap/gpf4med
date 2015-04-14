@@ -18,8 +18,8 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-import org.grycap.gpf4med.xml.report.ReportType;
-import org.grycap.gpf4med.xml.report.ReportsType;
+import org.grycap.gpf4med.xml.report.Document;
+import org.grycap.gpf4med.xml.report.Documents;
 import org.slf4j.Logger;
 
 import trencadis.infrastructure.services.dicomstorage.backend.BackEnd;
@@ -51,17 +51,16 @@ public final class FecthClient {
 			@Override
 			public String[] call() throws Exception {
 				final Set<String> files = newHashSet();
-				final ReportsType reports = REPORT_XMLB.typeFromFile(tmpFile);
+				final Documents reports = REPORT_XMLB.typeFromFile(tmpFile);
 				checkState(reports != null, "Expected reports set XML, but no content read from downloaded file");
 				if (reports.getDICOMSR() != null) {
-					final List<ReportType> reportList = reports.getDICOMSR();
-					for (final ReportType report : reportList) {						
+					final List<Document> reportList = reports.getDICOMSR();
+					for (final Document report : reportList) {						
 						final String id = report.getIDTRENCADISReport();
 						if (id != null) {
 							final File file = new File(directory, id + ".xml");							
 							REPORT_XMLB.typeToFile(report, file);
 							files.add(file.getCanonicalPath());
-							//LOGGER.trace("File " + file.toPath() + " saved.");
 						} else {
 							LOGGER.warn("Ignoring malformed report (id not found) in backend response");
 						}

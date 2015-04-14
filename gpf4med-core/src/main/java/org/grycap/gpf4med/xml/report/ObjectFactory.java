@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.11 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2015.04.09 a las 10:28:13 AM CEST 
+// Generado el: 2015.04.14 a las 09:38:00 AM CEST 
 //
 
 
@@ -42,157 +42,157 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ReportType }
+     * Create an instance of {@link Document }
      * 
      */
-    public ReportType createReportType() {
-        return new ReportType();
+    public Document createDocument() {
+        return new Document();
     }
 
     /**
-     * Create an instance of {@link ReportsType }
+     * Create an instance of {@link Documents }
      * 
      */
-    public ReportsType createReportsType() {
-        return new ReportsType();
+    public Documents createDocuments() {
+        return new Documents();
     }
 
     /**
-     * Create an instance of {@link UnitMeasurementType }
+     * Create an instance of {@link UnitMeasurement }
      * 
      */
-    public UnitMeasurementType createUnitMeasurementType() {
-        return new UnitMeasurementType();
+    public UnitMeasurement createUnitMeasurement() {
+        return new UnitMeasurement();
     }
 
     /**
-     * Create an instance of {@link ValueType }
+     * Create an instance of {@link Value }
      * 
      */
-    public ValueType createValueType() {
-        return new ValueType();
+    public Value createValue() {
+        return new Value();
     }
 
     /**
-     * Create an instance of {@link NumType }
+     * Create an instance of {@link Num }
      * 
      */
-    public NumType createNumType() {
-        return new NumType();
+    public Num createNum() {
+        return new Num();
     }
 
     /**
-     * Create an instance of {@link CodeType }
+     * Create an instance of {@link Code }
      * 
      */
-    public CodeType createCodeType() {
-        return new CodeType();
+    public Code createCode() {
+        return new Code();
     }
 
     /**
-     * Create an instance of {@link DateType }
+     * Create an instance of {@link Date }
      * 
      */
-    public DateType createDateType() {
-        return new DateType();
+    public Date createDate() {
+        return new Date();
     }
 
     /**
-     * Create an instance of {@link TextType }
+     * Create an instance of {@link Text }
      * 
      */
-    public TextType createTextType() {
-        return new TextType();
+    public Text createText() {
+        return new Text();
     }
 
     /**
-     * Create an instance of {@link ChildrenTypeDepth3 }
+     * Create an instance of {@link ChildrenDepth3 }
      * 
      */
-    public ChildrenTypeDepth3 createChildrenTypeDepth3() {
-        return new ChildrenTypeDepth3();
+    public ChildrenDepth3 createChildrenDepth3() {
+        return new ChildrenDepth3();
     }
 
     /**
-     * Create an instance of {@link ContainerTypeDepth3 }
+     * Create an instance of {@link ContainerDepth3 }
      * 
      */
-    public ContainerTypeDepth3 createContainerTypeDepth3() {
-        return new ContainerTypeDepth3();
+    public ContainerDepth3 createContainerDepth3() {
+        return new ContainerDepth3();
     }
 
     /**
-     * Create an instance of {@link ChildrenTypeDepth2 }
+     * Create an instance of {@link ChildrenDepth2 }
      * 
      */
-    public ChildrenTypeDepth2 createChildrenTypeDepth2() {
-        return new ChildrenTypeDepth2();
+    public ChildrenDepth2 createChildrenDepth2() {
+        return new ChildrenDepth2();
     }
 
     /**
-     * Create an instance of {@link ContainerTypeDepth2 }
+     * Create an instance of {@link ContainerDepth2 }
      * 
      */
-    public ContainerTypeDepth2 createContainerTypeDepth2() {
-        return new ContainerTypeDepth2();
+    public ContainerDepth2 createContainerDepth2() {
+        return new ContainerDepth2();
     }
 
     /**
-     * Create an instance of {@link ChildrenTypeDepth1 }
+     * Create an instance of {@link ChildrenDepth1 }
      * 
      */
-    public ChildrenTypeDepth1 createChildrenTypeDepth1() {
-        return new ChildrenTypeDepth1();
+    public ChildrenDepth1 createChildrenDepth1() {
+        return new ChildrenDepth1();
     }
 
     /**
-     * Create an instance of {@link ContainerTypeDepth1 }
+     * Create an instance of {@link ContainerDepth1 }
      * 
      */
-    public ContainerTypeDepth1 createContainerTypeDepth1() {
-        return new ContainerTypeDepth1();
+    public ContainerDepth1 createContainerDepth1() {
+        return new ContainerDepth1();
     }
 
     /**
-     * Create an instance of {@link ChildrenTypeDepth0 }
+     * Create an instance of {@link ChildrenDepth0 }
      * 
      */
-    public ChildrenTypeDepth0 createChildrenTypeDepth0() {
-        return new ChildrenTypeDepth0();
+    public ChildrenDepth0 createChildrenDepth0() {
+        return new ChildrenDepth0();
     }
 
     /**
-     * Create an instance of {@link ConceptNameType }
+     * Create an instance of {@link ConceptName }
      * 
      */
-    public ConceptNameType createConceptNameType() {
-        return new ConceptNameType();
+    public ConceptName createConceptName() {
+        return new ConceptName();
     }
 
     /**
-     * Create an instance of {@link ContainerTypeDepth0 }
+     * Create an instance of {@link ContainerDepth0 }
      * 
      */
-    public ContainerTypeDepth0 createContainerTypeDepth0() {
-        return new ContainerTypeDepth0();
+    public ContainerDepth0 createContainerDepth0() {
+        return new ContainerDepth0();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ReportType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Document }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "DICOM_SR")
-    public JAXBElement<ReportType> createDICOMSR(ReportType value) {
-        return new JAXBElement<ReportType>(_DICOMSR_QNAME, ReportType.class, null, value);
+    public JAXBElement<Document> createDICOMSR(Document value) {
+        return new JAXBElement<Document>(_DICOMSR_QNAME, Document.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ReportsType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Documents }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "DICOM_REPORTS")
-    public JAXBElement<ReportsType> createDICOMREPORTS(ReportsType value) {
-        return new JAXBElement<ReportsType>(_DICOMREPORTS_QNAME, ReportsType.class, null, value);
+    public JAXBElement<Documents> createDICOMREPORTS(Documents value) {
+        return new JAXBElement<Documents>(_DICOMREPORTS_QNAME, Documents.class, null, value);
     }
 
 }

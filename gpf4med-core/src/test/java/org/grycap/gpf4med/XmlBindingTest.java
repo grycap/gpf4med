@@ -12,7 +12,7 @@ import java.io.File;
 
 import org.apache.commons.io.FileUtils;
 import org.grycap.gpf4med.util.TestUtils;
-import org.grycap.gpf4med.xml.report.ReportType;
+import org.grycap.gpf4med.xml.report.Document;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -39,7 +39,7 @@ public class XmlBindingTest {
 			//System.out.println(" >> CREATED REPORT XML: " + payload);
 			
 			// Report unmarshalling
-			final ReportType report = REPORT_XMLB.typeFromFile(reportFile);
+			final Document report = REPORT_XMLB.typeFromFile(reportFile);
 			assertThat("report is not null", report, notNullValue());
 			// uncomment for additional output
 			//System.out.println(" >> REPORT: " + report);

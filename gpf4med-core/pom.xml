@@ -38,6 +38,10 @@
 
 		<!-- Apache commons -->
 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 		</dependency>
@@ -60,19 +64,19 @@
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
-		</dependency>		
+		</dependency>
 
 		<!-- Asynchronous HTTP client -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpasyncclient</artifactId>
 		</dependency>
-		
+
 		<!-- Client fluent API -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>fluent-hc</artifactId>
-		</dependency>	
+		</dependency>
 
 		<!-- Guava: Google Core Libraries for Java -->
 		<dependency>
@@ -198,7 +202,7 @@
 			<groupId>org.grycap.trencadis</groupId>
 			<artifactId>common</artifactId>
 		</dependency>
-		
+
 		<!-- Dependencies derived from TRENCADIS -->
 		<dependency>
 			<groupId>javax.xml</groupId>
@@ -300,7 +304,7 @@
 			<groupId>org.globus</groupId>
 			<artifactId>provider</artifactId>
 		</dependency>
-		
+
 
 		<!-- gLite -->
 		<dependency>

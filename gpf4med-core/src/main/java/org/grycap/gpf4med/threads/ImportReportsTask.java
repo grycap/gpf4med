@@ -16,9 +16,9 @@ import static org.apache.commons.io.FileUtils.deleteQuietly;
 import static org.apache.commons.io.FileUtils.moveFile;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 import static org.apache.commons.lang.StringUtils.trimToNull;
-import static org.grycap.gpf4med.threads.FecthClient.fetchReports;
 import static org.grycap.gpf4med.concurrent.TaskRunner.TASK_RUNNER;
 import static org.grycap.gpf4med.concurrent.TaskStorage.TASK_STORAGE;
+import static org.grycap.gpf4med.threads.FecthClient.fetchReports;
 import static org.grycap.gpf4med.xml.ReportXmlBinder.REPORT_XMLB;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -31,7 +31,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.grycap.gpf4med.concurrent.CancellableTask;
-import org.grycap.gpf4med.xml.report.ReportType;
+import org.grycap.gpf4med.xml.report.Document;
 import org.slf4j.Logger;
 
 import trencadis.infrastructure.services.dicomstorage.backend.BackEnd;
@@ -156,13 +156,14 @@ public class ImportReportsTask extends CancellableTask<Integer> {
 						final Path source = tmpDir2.resolve(id + "." + extension);
 						try {							
 							// move files to their final destination
-							final ReportType report = REPORT_XMLB.typeFromFile(source.toFile());
+							final Document report = REPORT_XMLB.typeFromFile(source.toFile());
 							final String globalId = report.getIDTRENCADISReport();
 							final String ontology = report.getIDOntology();
 							final String centername = centerName.replaceAll(" ", "_");
 							checkState(isNotBlank(globalId), "Global identifier not found");
 							checkState(isNotBlank(ontology), "Ontology not found");
-							final File destSubdir = new File(destDir, centername + File.separator + "ontology_" + ontology);
+							final File destSubdir = new File(destDir, centername + File.separator
+														     + "ontology_" + ontology);
 							destSubdir.mkdirs();
 							moveFile(source.toFile(), new File(destSubdir, globalId + "." + extension));							
 							efetchCount++;
@@ -174,7 +175,6 @@ public class ImportReportsTask extends CancellableTask<Integer> {
 							LOGGER.warn("Failed to import reports from file: " + source.getFileName(), e);
 						}
 					}
-					
 				}
 				checkState(subset.size() == efetchCount, "No all reports were imported");
 				return efetchCount;

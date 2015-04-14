@@ -117,7 +117,7 @@ public enum TemplateManager implements Closeable2 {
 								"templates" + File.separator + ConfigurationManager.INSTANCE.getTemplatesVersion());
 						// read index
 						if (urls == null && ConfigurationManager.INSTANCE.getTrencadisConfigFile() == null) {
-							System.out.println(" <<<< trencadis config file is null");
+							LOGGER.trace("TRENCADIS configuration file is null");
 							final URL index = ConfigurationManager.INSTANCE.getTemplatesIndex();
 							urls = Arrays.asList(URLUtils.readIndex(index));
 						}

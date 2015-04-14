@@ -33,6 +33,7 @@ import java.net.URL;
 import org.apache.commons.io.FilenameUtils;
 import org.grycap.gpf4med.conf.LogManager;
 import org.grycap.gpf4med.mock.CloserServiceMock;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -42,7 +43,7 @@ import org.junit.runners.Suite.SuiteClasses;
 //@SuiteClasses({ LogManagerTest.class, URLUtilsTest.class, TemplateUtilsTest.class, 
 //	DownloadServiceTest.class, FileEncryptionProviderTest.class, TemplateLoadingTest.class,
 //	ReportLoadingTest.class })
-@SuiteClasses({ ReportDownloadTasksTest.class })
+@SuiteClasses({ XmlBindingTest.class })
 public class AllUnitTests {
 
 	public static final String ANCHOR_FILENAME = "m2anchor";
@@ -79,7 +80,7 @@ public class AllUnitTests {
 	}
 	
 	public static String TEST_RESOURCES_PATH;
-	/*
+	
 	@AfterClass
 	public static void release() {
 		System.out.println("AllUnitTests.release()");
@@ -93,5 +94,5 @@ public class AllUnitTests {
 			TASK_RUNNER.close();			
 		} catch (IOException ignore) { }		
 	}
-	*/
+	
 }

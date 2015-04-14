@@ -25,12 +25,6 @@ package org.grycap.gpf4med.model;
 import static com.google.common.base.MoreObjects.toStringHelper;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import javax.annotation.Nullable;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.google.common.base.Optional;
-
 /**
  * TRENCADIS document.
  * @author Erik Torres <ertorser@upv.es>
@@ -103,7 +97,7 @@ public class Document {
 				.add("idOntology", idOntology)
 				.add("idReport", idReport)
 				.add("idTRENCADISReport", idTrencadisReport)
-				.add("container", container)
+				.add("Container", container)
 				.toString();
 				
 	}

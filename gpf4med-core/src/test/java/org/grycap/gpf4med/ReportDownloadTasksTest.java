@@ -44,7 +44,7 @@ public class ReportDownloadTasksTest {
 	
 	private static final File TEST_OUTPUT_DIR = new File("/tmp/.gpf4med/cache/reports");
 	
-	private static final int PARTITION = 5;
+	private static final int PARTITION = 1;
 
 	@Before
 	public void setUp() {
@@ -62,7 +62,7 @@ public class ReportDownloadTasksTest {
 			
 			TRENCADIS_SESSION session = new TRENCADIS_SESSION(ConfigurationManager.INSTANCE.getTrencadisConfigFile(),
 					ConfigurationManager.INSTANCE.getTrencadisPassword());
-			TRENCADISUtils.getReportsID(session, 1, "6");
+			TRENCADISUtils.getReportsID(session, 1, "5");
 			
 			Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorage = TRENCADISUtils.getDicomStorage();
 			

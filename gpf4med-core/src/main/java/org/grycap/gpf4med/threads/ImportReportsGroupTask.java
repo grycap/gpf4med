@@ -2,15 +2,14 @@ package org.grycap.gpf4med.threads;
 
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.newArrayList;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static com.google.common.util.concurrent.ListenableFutureTask.create;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.grycap.gpf4med.concurrent.TaskRunner.TASK_RUNNER;
 import static org.grycap.gpf4med.concurrent.TaskScheduler.TASK_SCHEDULER;
 import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.File;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
