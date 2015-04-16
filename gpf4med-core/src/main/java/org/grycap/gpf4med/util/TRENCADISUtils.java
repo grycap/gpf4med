@@ -98,11 +98,13 @@ public class TRENCADISUtils {
 	 * @param destination Directory in which the report will be stored
 	 */
 	public static void downloadReport(TRENCADIS_SESSION session,
-			BackEnd backend, String idReport, String destination) {
+			BackEnd backend, String centerName, String idReport, String destination) {
 		try {
 			String report = backend.xmlGetDICOMSRFile(idReport,
 					session.getX509VOMSCredential());
-			FileUtils.writeStringToFile(new File(destination + File.separator
+			File newDest = new File(destination + File.separator + centerName);
+			newDest.mkdirs();
+			FileUtils.writeStringToFile(new File(newDest + File.separator
 					+ idReport + ".xml"), report);
 		} catch (Exception e) {
 			LOGGER.error("Can not download the report " + idReport);
@@ -125,7 +127,9 @@ public class TRENCADISUtils {
 			get_onto = new TRENCADIS_GET_ONTOLOGY(session, idOdontology);
 			ontology = get_onto.execute();
 			FileUtils.writeStringToFile(new File(destination + File.separator
-					+ idOdontology + ".xml"), ontology.getContents());
+					+ ontology.getIDOntology() + "_"
+					+ ontology.getDescription().replaceAll(" ", "_") + ".xml"),
+					ontology.getContents());
 		} catch (Exception e) {
 			LOGGER.error("Can not download the ontology");
 		}
@@ -148,7 +152,8 @@ public class TRENCADISUtils {
 			v_ontologies = get_onto.execute();
 			for (TRENCADIS_XML_ONTOLOGY_FILE ontology : v_ontologies) {
 				FileUtils.writeStringToFile(new File(destination + File.separator
-						+ ontology.getIDOntology() + ".xml"),
+						+ ontology.getIDOntology() + "_"
+						+ ontology.getDescription().replaceAll(" ", "_") + ".xml"),
 						ontology.getContents());
 			}
 		} catch (Exception e) {
