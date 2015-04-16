@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-import org.grycap.gpf4med.xml.report.Document;
-import org.grycap.gpf4med.xml.report.Documents;
+import org.grycap.gpf4med.model.document.Document;
+import org.grycap.gpf4med.model.document.Documents;
 import org.slf4j.Logger;
 
 import trencadis.infrastructure.services.dicomstorage.backend.BackEnd;

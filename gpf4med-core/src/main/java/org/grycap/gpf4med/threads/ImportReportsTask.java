@@ -31,7 +31,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.grycap.gpf4med.concurrent.CancellableTask;
-import org.grycap.gpf4med.xml.report.Document;
+import org.grycap.gpf4med.model.document.Document;
 import org.slf4j.Logger;
 
 import trencadis.infrastructure.services.dicomstorage.backend.BackEnd;
