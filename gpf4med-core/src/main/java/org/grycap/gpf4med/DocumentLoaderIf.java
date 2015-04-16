@@ -20,29 +20,18 @@
  * that you distribute must include a readable copy of the "NOTICE" text file.
  */
 
-package org.grycap.gpf4med.util;
+package org.grycap.gpf4med;
 
-import org.grycap.gpf4med.model.document.ConceptName;
+import java.io.IOException;
+
+import org.grycap.gpf4med.model.document.Document;
 
 /**
- * Utilities to handle TRENCADIS documents.
+ * Document loader interface.
  * @author Erik Torres <ertorser@upv.es>
- *
  */
-public final class DocumentUtils {
+public interface DocumentLoaderIf {
 
-	public static boolean isEmpty(final ConceptName conceptName) {
-		boolean isEmpty = true;
-		if (conceptName != null) {
-			final boolean tmp[] = { conceptName.getCODESCHEMA() == null,
-					conceptName.getCODEVALUE() == null,
-					conceptName.getCODEMEANING() == null,
-					conceptName.getCODEMEANING2() == null };
-			for (int i = 0; i < tmp.length && isEmpty; i++) {
-				isEmpty = isEmpty && tmp[i];
-			}
-		}
-		return isEmpty;
-	}
-
+	Document load() throws IOException;
+	
 }

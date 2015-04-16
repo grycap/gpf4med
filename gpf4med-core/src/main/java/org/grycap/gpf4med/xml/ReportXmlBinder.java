@@ -2,9 +2,9 @@ package org.grycap.gpf4med.xml;
 
 import javax.xml.bind.JAXBElement;
 
-import org.grycap.gpf4med.xml.report.ObjectFactory;
-import org.grycap.gpf4med.xml.report.Document;
-import org.grycap.gpf4med.xml.report.Documents;
+import org.grycap.gpf4med.model.document.ObjectFactory;
+import org.grycap.gpf4med.model.document.Document;
+import org.grycap.gpf4med.model.document.Documents;
 
 public class ReportXmlBinder extends XmlBinder {
 

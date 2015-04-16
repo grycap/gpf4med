@@ -12,8 +12,8 @@ import java.io.File;
 
 import org.apache.commons.io.FileUtils;
 import org.grycap.gpf4med.util.TestUtils;
-import org.grycap.gpf4med.xml.report.Document;
-import org.grycap.gpf4med.xml.report.Value;
+import org.grycap.gpf4med.model.document.Document;
+import org.grycap.gpf4med.model.document.Value;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -22,13 +22,13 @@ import org.junit.runners.MethodSorters;
  * Unit test for the XML binding classes supporting this application.
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class XmlBindingTest {
+public class XmlReportBindingTest {
 
 	@Test
 	public void test1_ReportBinding() {
 		System.out.println("ReportBinding()");
 		try {
-			final File dir = TestUtils.getTestDirectoy();
+			final File dir = TestUtils.getTestReportsDirectoy();
 			final File reportFile = FileUtils.getFile(dir, "MAMO_1_500.xml");
 
 			// Report marshalling
@@ -43,9 +43,8 @@ public class XmlBindingTest {
 			final Document report = REPORT_XMLB.typeFromFile(reportFile);
 			assertThat("report is not null", report, notNullValue());
 			// uncomment for additional output
-			//System.out.println(" >> REPORT: " + report);
-			Value value = report.getCONTAINER().getCHILDREN().getCONTAINER().get(0).getCHILDREN().getCONTAINER().get(0).getCHILDREN().getCONTAINER().get(0).getCHILDREN().getCODE().get(0).getVALUE();
-			System.out.println(value.getCODEMEANING());
+			System.out.println(" >> REPORT: " + report);
+			
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
 			fail("ReportBinding() failed: " + e.getMessage());
