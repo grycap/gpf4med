@@ -24,7 +24,7 @@ package org.grycap.gpf4med.model.util;
 
 import javax.annotation.Nullable;
 
-import org.grycap.gpf4med.model.ConceptName;
+import org.grycap.gpf4med.model.document.ConceptName;
 
 import com.google.common.base.Optional;
 
