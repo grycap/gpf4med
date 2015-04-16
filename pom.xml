@@ -678,14 +678,50 @@
 								<configuration>
 									<schemaDirectory>${project.basedir}/gpf4med-core/src/main/xsd</schemaDirectory>
 									<schemaIncludes>
-										<schemaInclude>*.xsd</schemaInclude>
+										<schemaInclude>report.xsd</schemaInclude>
 									</schemaIncludes>
 									<bindingDirectory>${project.basedir}/gpf4med-core/src/main/xjb</bindingDirectory>
 									<bindingIncludes>
-										<include>*.xjb</include>
+										<include>report.xjb</include>
 									</bindingIncludes>
 									<generateDirectory>${project.basedir}/gpf4med-core/src/main/java</generateDirectory>
-									<generatePackage>org.grycap.gpf4med.xml.report</generatePackage>
+									<generatePackage>org.grycap.gpf4med.model.document</generatePackage>
+									<extension>true</extension>
+									<episode>false</episode>									
+									<markGenerated>true</markGenerated>
+									<removeOldOutput>false</removeOldOutput> <!-- Setting this to true can delete your source files -->
+									<cleanPackageDirectories>true</cleanPackageDirectories>
+									<verbose>false</verbose>
+									<args>
+										<arg>-Xannotate</arg>
+										<arg>-Xfluent-api</arg>
+										<arg>-Xcommons-lang</arg>
+									</args>
+									<plugins>
+										<plugin>
+											<groupId>org.jvnet.jaxb2_commons</groupId>
+											<artifactId>jaxb2-basics-annotate</artifactId>
+											<version>1.0.1</version>
+										</plugin>
+									</plugins>
+								</configuration>								
+							</execution>
+							<execution>
+								<id>template-xsd</id>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<schemaDirectory>${project.basedir}/gpf4med-core/src/main/xsd</schemaDirectory>
+									<schemaIncludes>
+										<schemaInclude>template.xsd</schemaInclude>
+									</schemaIncludes>
+									<bindingDirectory>${project.basedir}/gpf4med-core/src/main/xjb</bindingDirectory>
+									<bindingIncludes>
+										<include>template.xjb</include>
+									</bindingIncludes>
+									<generateDirectory>${project.basedir}/gpf4med-core/src/main/java</generateDirectory>
+									<generatePackage>org.grycap.gpf4med.model.template</generatePackage>
 									<extension>true</extension>
 									<episode>false</episode>									
 									<markGenerated>true</markGenerated>
