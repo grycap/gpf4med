@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	
+	<xs:annotation>
+		<xs:documentation>Template</xs:documentation>
+	</xs:annotation>
+
+	<xs:element name="DICOM_SR" 	 			type="Template"  />
+
+	<xs:complexType name="Cardinality">
+		<xs:attribute name="max" 				type="xs:string" />
+		<xs:attribute name="min" 				type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="Condition">
+		<xs:attribute name="type" 				type="xs:string" />
+		<xs:attribute name="xpath_expresion"	type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="DefaultValue">
+		<xs:attribute name="value" 				type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="CodeValues">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME" 	type="ConceptNameTemplate" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="DefaultCodeValue">
+		<xs:attribute name="code_meaning" 		type="xs:string" />
+		<xs:attribute name="code_meaning2" 		type="xs:string" />
+		<xs:attribute name="code_schema" 		type="xs:string" />
+		<xs:attribute name="code_value" 		type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="UnitMeasurementTemplate">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME" 	type="ConceptNameTemplate" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="NumTemplate">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME" 	type="ConceptNameTemplate" 	/>
+			<xs:element name="PROPERTIES"		type="Properties" 			/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="CodeTemplate">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME" 	type="ConceptNameTemplate" />
+			<xs:element name="PROPERTIES"		type="Properties"  		   />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="DateTemplate">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME" 	type="ConceptNameTemplate" />
+			<xs:element name="PROPERTIES"		type="Properties"	   		/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="TextTemplate">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME" 	type="ConceptNameTemplate" 	/>
+			<xs:element name="PROPERTIES"		type="Properties"	   		/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ChildrenTemplate">
+		<xs:sequence>
+			<xs:element name="TEXT"			type="TextTemplate" 	 minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="DATE"			type="DateTemplate" 	 minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="CONTAINER" 	type="ContainerTemplate" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="CODE" 		type="CodeTemplate" 	 minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="NUM" 			type="NumTemplate" 	 	 minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ConceptNameTemplate">
+		<xs:sequence>
+			<xs:element name="CODE_VALUE" 			type="xs:string" />
+			<xs:element name="CODE_SCHEMA"			type="xs:string" />
+			<xs:element name="CODE_MEANING"			type="xs:string" />
+			<xs:element name="CODE_MEANING2"		type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Properties">
+		<xs:sequence>
+			<xs:element name="CARDINALITY"				type="Cardinality"		/>
+			<xs:element name="CONDITION_TYPE"			type="Condition"		/>
+			<xs:element name="INTEGRITY_RESTRICTIONS"	type="xs:string"				minOccurs="0" />
+			<xs:element name="DEFAULT_VALUE"			type="DefaultValue"	    		minOccurs="0" />
+			<xs:element name="CODE_VALUES"				type="CodeValues"	    		minOccurs="0" />
+			<xs:element name="DEFAULT_CODE_VALUE"		type="DefaultCodeValue"			minOccurs="0" />
+			<xs:element name="UNIT_MEASUREMENT"			type="UnitMeasurementTemplate"	minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ContainerTemplate">
+		<xs:sequence>
+			<xs:element name="CONCEPT_NAME"		type="ConceptNameTemplate" />
+			<xs:element name="PROPERTIES"		type="Properties" />
+			<xs:element name="CHILDREN"			type="ChildrenTemplate"    />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Template">
+		<xs:sequence>
+			<xs:element name="CONTAINER" 		type="ContainerTemplate" />			 
+		</xs:sequence>
+		<xs:attribute name="Description" 		type="xs:string" />
+		<xs:attribute name="IDOntology" 		type="xs:string" />
+	</xs:complexType>
+	
+</xs:schema>
