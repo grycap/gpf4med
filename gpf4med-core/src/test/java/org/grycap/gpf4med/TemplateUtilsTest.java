@@ -22,20 +22,19 @@
 
 package org.grycap.gpf4med;
 
+import static org.grycap.gpf4med.xml.TemplateXmlBinder.TEMPLATE_XMLB;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.io.File;
+
 import org.apache.commons.lang.StringUtils;
-import org.grycap.gpf4med.model.ConceptName;
-import org.grycap.gpf4med.model.ConceptName.CodeSchema;
-import org.grycap.gpf4med.model.ConceptName.CodeValue;
-import org.grycap.gpf4med.model.DocumentTemplate;
+import org.grycap.gpf4med.model.template.ConceptNameTemplate;
+import org.grycap.gpf4med.model.template.Template;
 import org.grycap.gpf4med.util.TemplateUtils;
 import org.grycap.gpf4med.util.TestUtils;
 import org.junit.Test;
-
-import com.google.common.collect.ImmutableCollection;
 
 /**
  * Tests template utilities.
@@ -47,25 +46,15 @@ public class TemplateUtilsTest {
 	public void test() {
 		System.out.println("TemplateUtilsTest.test()");
 		try {
-			// load default templates
-			TestUtils.getTemplateFiles();
-			final ImmutableCollection<DocumentTemplate> templates = TemplateManager.INSTANCE.listTemplates();
-			assertThat("template list is not null", templates, notNullValue());
-			assertThat("template list is not empty", !templates.isEmpty());
-			
-			DocumentTemplate template = null;
-			for (final DocumentTemplate item : templates) {
-				if (new Integer(5).equals(item.getIdOntology())) {
-					template = item;
-				}
-			}
-			assertThat("template is not null", template,notNullValue());
+			// load a test template
+			File templateFile = new File(TestUtils.getTestTemplatesDirectoy(), "05_Mammography_BIRADS_5th.xml");
+			Template template = TEMPLATE_XMLB.typeFromFile(templateFile);
+					
+			assertThat("template is not null", template, notNullValue());
 			// find BI-RADS 4A
-			final CodeValue value = new CodeValue();
-			value.setValue("RID36031");
-			final ConceptName conceptName = new ConceptName();
-			conceptName.setCodeSchema(CodeSchema.RADLEX);
-			conceptName.setCodeValue(value);
+			final ConceptNameTemplate conceptName = new ConceptNameTemplate();
+			conceptName.setCODEVALUE("RID36031");
+			conceptName.setCODESCHEMA("RADLEX");
 			final String meaning = TemplateUtils.getMeaning(conceptName, template, null);
 			assertThat("meaning is not null", meaning, notNullValue());
 			assertThat("meaning is not empty", StringUtils.isNotBlank(meaning));

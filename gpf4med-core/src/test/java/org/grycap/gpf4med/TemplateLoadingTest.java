@@ -26,12 +26,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.apache.commons.io.FileUtils;
-import org.grycap.gpf4med.model.DocumentTemplate;
+import org.grycap.gpf4med.model.template.Template;
 import org.grycap.gpf4med.util.TestUtils;
 import org.junit.Test;
 
@@ -49,7 +44,7 @@ public class TemplateLoadingTest {
 		try {
 			// load default templates
 			TestUtils.getTemplateFiles();
-			final ImmutableCollection<DocumentTemplate> templates = TemplateManager.INSTANCE.listTemplates();
+			final ImmutableCollection<Template> templates = TemplateManager.INSTANCE.listTemplates();
 			assertThat("template list is not null", templates, notNullValue());
 			assertThat("template list is not empty", !templates.isEmpty());
 			/* uncomment for additional output

@@ -1,8 +1,10 @@
 package org.grycap.gpf4med;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.System.getProperty;
 import static org.apache.commons.io.FileUtils.deleteQuietly;
 import static org.apache.commons.io.FileUtils.listFiles;
+import static org.apache.commons.io.FilenameUtils.concat;
 import static org.grycap.gpf4med.concurrent.TaskStorage.TASK_STORAGE;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -42,7 +44,8 @@ import trencadis.middleware.operations.DICOMStorage.TRENCADIS_RETRIEVE_IDS_FROM_
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ReportDownloadTasksTest {
 	
-	private static final File TEST_OUTPUT_DIR = new File("/tmp/.gpf4med/cache/reports");
+	private static final File TEST_OUTPUT_DIR = new File(concat(getProperty("java.io.tmpdir"),
+			".gpf4med" + File.separator + "reports"));
 	
 	private static final int PARTITION = 1;
 

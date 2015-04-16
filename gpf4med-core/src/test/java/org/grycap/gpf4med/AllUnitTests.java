@@ -40,10 +40,9 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-//@SuiteClasses({ LogManagerTest.class, URLUtilsTest.class, TemplateUtilsTest.class, 
-//	DownloadServiceTest.class, FileEncryptionProviderTest.class, TemplateLoadingTest.class,
-//	ReportLoadingTest.class })
-@SuiteClasses({ XmlBindingTest.class })
+@SuiteClasses({ LogManagerTest.class, URLUtilsTest.class, TemplateUtilsTest.class, 
+	DownloadServiceTest.class, FileEncryptionProviderTest.class, TemplateLoadingTest.class,
+	ReportLoadingTest.class, XmlReportBindingTest.class, XmlTemplateBindingTest.class })
 public class AllUnitTests {
 
 	public static final String ANCHOR_FILENAME = "m2anchor";
@@ -94,5 +93,4 @@ public class AllUnitTests {
 			TASK_RUNNER.close();			
 		} catch (IOException ignore) { }		
 	}
-	
 }

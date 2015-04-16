@@ -26,11 +26,8 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
-
-import org.grycap.gpf4med.model.Document;
+import org.grycap.gpf4med.model.document.Document;
 import org.grycap.gpf4med.util.TestUtils;
-import org.junit.AfterClass;
 import org.junit.Test;
 
 import com.google.common.collect.ImmutableCollection;
@@ -54,9 +51,7 @@ public class ReportLoadingTest {
 			assertThat("report list is not empty", !reports.isEmpty());
 			/* uncomment for additional output */
 			for (final Document file : reports) {
-				System.out.println(" >> Report identifier: "
-						+ file.getIdReport() + " with TRENCADIS identifier: "
-						+ file.getIdTrencadisReport());
+				System.out.println(" >> Report identifier: " + file.getIDReport() + " downloaded.");
 			}
 
 		} catch (Exception e) {

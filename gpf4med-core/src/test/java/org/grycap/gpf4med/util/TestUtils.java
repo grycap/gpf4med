@@ -77,7 +77,11 @@ public class TestUtils {
 		}
 	}	
 	
-	public static File getTestDirectoy() {
+	public static File getTestReportsDirectoy() {
 		return new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, REPORTS_FOLDER));
+	}
+	
+	public static File getTestTemplatesDirectoy() {
+		return new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, TEMPLATES_FOLDER));
 	}
 }
