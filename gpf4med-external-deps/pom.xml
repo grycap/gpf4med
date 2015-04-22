@@ -345,7 +345,7 @@ that you distribute must include a readable copy of the "NOTICE" text file.
 							<executable>mvn</executable>
 							<arguments>
 								<argument>install:install-file</argument>
-								<argument>-Dfile=lib/trencadis_middleware.jar</argument>
+								<argument>-Dfile=lib/TRENCADIS_Middleware.jar</argument>
 								<argument>-DgroupId=org.grycap.trencadis</argument>
 								<argument>-DartifactId=middleware</argument>
 								<argument>-Dversion=1.1</argument>

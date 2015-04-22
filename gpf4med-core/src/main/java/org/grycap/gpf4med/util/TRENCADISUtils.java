@@ -1,9 +1,13 @@
 package org.grycap.gpf4med.util;
 
+import static org.grycap.gpf4med.xml.ReportXmlBinder.REPORT_XMLB;
+import static org.grycap.gpf4med.xml.TemplateXmlBinder.TEMPLATE_XMLB;
+
 import java.io.File;
 import java.util.Vector;
 
-import org.apache.commons.io.FileUtils;
+import org.grycap.gpf4med.model.document.Document;
+import org.grycap.gpf4med.model.template.Template;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +18,6 @@ import trencadis.middleware.login.TRENCADIS_SESSION;
 import trencadis.middleware.operations.DICOMStorage.TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE;
 import trencadis.middleware.operations.DICOMStorage.TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS;
 import trencadis.middleware.operations.DICOMStorage.TRENCADIS_XMLDSR_DOWNLOAD;
-import trencadis.middleware.operations.DICOMStorage.TRENCADIS_XMLDSR_DOWNLOAD_ALL;
 import trencadis.middleware.operations.OntologiesServer.TRENCADIS_GET_ALL_ONTOLOGIES;
 import trencadis.middleware.operations.OntologiesServer.TRENCADIS_GET_ONTOLOGY;
 
@@ -46,13 +49,17 @@ public class TRENCADISUtils {
 			String idOntology, int idCenter, String destination) {
 
 		Vector<TRENCADIS_XML_DICOM_SR_FILE> v_dsr = null;
-		TRENCADIS_XMLDSR_DOWNLOAD_ALL get_dsr = null;
+		TRENCADIS_XMLDSR_DOWNLOAD get_dsr = null;
 		try {
-			get_dsr = new TRENCADIS_XMLDSR_DOWNLOAD_ALL(session, idCenter);
-			v_dsr = get_dsr.execute();
+			get_dsr = new TRENCADIS_XMLDSR_DOWNLOAD(session, idCenter);
+			v_dsr = (Vector<TRENCADIS_XML_DICOM_SR_FILE>)get_dsr.execute();
 			for (TRENCADIS_XML_DICOM_SR_FILE dsr : v_dsr) {
-				FileUtils.writeStringToFile(new File(destination + File.separator
-						+ dsr.getIDReport() + ".xml"), dsr.getContents());
+				File newDest = new File(destination + File.separator + "centerID_" + idCenter
+			  			  			  + File.separator + dsr.getIDOntology());
+				newDest.mkdirs();
+				Document report = REPORT_XMLB.typeFromXml(dsr.getContents());
+				REPORT_XMLB.typeToFile(report, new File(newDest + File.separator 
+									 + report.getIDReport() + ".xml"));
 			}
 
 		} catch (Exception e) {
@@ -65,24 +72,26 @@ public class TRENCADISUtils {
 	 * Downloads a report using TRENCADIS plug-in
 	 * 
 	 * @param session TRENCADIS session
+	 * @param idCenter Identifier of the hospital replica
 	 * @param idOntology The ontology of the DICOM-SR to download
 	 * @param idReport The identifier of the DICOM-SR report to download
-	 * @param idCenter Identifier of the hospital replica
 	 * @param destination Directory in which the report will be stored
 	 */
-	public static void downloadReport(TRENCADIS_SESSION session,
-			String idOntology, String idReport, int id_center,
-			String destination) {
+	public static void downloadReport(TRENCADIS_SESSION session, int idCenter,
+			String idOntology, String idReport,	String destination) {
 
 		TRENCADIS_XMLDSR_DOWNLOAD get_dsr = null;
 		TRENCADIS_XML_DICOM_SR_FILE dsr = null;
 		try {
-			get_dsr = new TRENCADIS_XMLDSR_DOWNLOAD(session, idOntology,
-					idReport, id_center);
-			dsr = get_dsr.execute();
-			FileUtils.writeStringToFile(
-					new File(destination + File.separator + dsr.getIDOntology() + "_"
-							+ dsr.getIDReport() + ".xml"), dsr.getContents());
+			get_dsr = new TRENCADIS_XMLDSR_DOWNLOAD(session, idCenter,
+					idReport, idOntology);
+			dsr = (TRENCADIS_XML_DICOM_SR_FILE) get_dsr.execute();
+			File newDest = new File(destination + File.separator + "centerID_" + idCenter
+					  			  + File.separator + "ontology_" + dsr.getIDOntology());
+			newDest.mkdirs();
+			Document report = REPORT_XMLB.typeFromXml(dsr.getContents());
+			REPORT_XMLB.typeToFile(report, new File(newDest + File.separator 
+												  + report.getIDReport() + ".xml"));
 		} catch (Exception e) {
 			LOGGER.error("Can not download the report " + idReport);
 		}
@@ -100,12 +109,14 @@ public class TRENCADISUtils {
 	public static void downloadReport(TRENCADIS_SESSION session,
 			BackEnd backend, String centerName, String idReport, String destination) {
 		try {
-			String report = backend.xmlGetDICOMSRFile(idReport,
+			String reportData = backend.xmlGetDICOMSRFile(idReport,
 					session.getX509VOMSCredential());
-			File newDest = new File(destination + File.separator + centerName);
+			Document report = REPORT_XMLB.typeFromXml(reportData);
+			File newDest = new File(destination + File.separator + centerName
+								  + File.separator + "ontology_" + report.getIDOntology());
 			newDest.mkdirs();
-			FileUtils.writeStringToFile(new File(newDest + File.separator
-					+ idReport + ".xml"), report);
+			REPORT_XMLB.typeToFile(report, new File(newDest + File.separator
+					+ idReport + ".xml"));
 		} catch (Exception e) {
 			LOGGER.error("Can not download the report " + idReport);
 		}
@@ -126,12 +137,12 @@ public class TRENCADISUtils {
 		try {
 			get_onto = new TRENCADIS_GET_ONTOLOGY(session, idOdontology);
 			ontology = get_onto.execute();
-			FileUtils.writeStringToFile(new File(destination + File.separator
-					+ ontology.getIDOntology() + "_"
-					+ ontology.getDescription().replaceAll(" ", "_") + ".xml"),
-					ontology.getContents());
+			Template template = TEMPLATE_XMLB.typeFromXml(ontology.getContents());
+			TEMPLATE_XMLB.typeToFile(template, new File(destination + File.separator
+													  + ontology.getIDOntology() + "_"
+													  + ontology.getDescription().replaceAll(" ", "_") + ".xml"));
 		} catch (Exception e) {
-			LOGGER.error("Can not download the ontology");
+			LOGGER.error("Can not download the ontology " + idOdontology);
 		}
 
 	}
@@ -151,10 +162,10 @@ public class TRENCADISUtils {
 			get_onto = new TRENCADIS_GET_ALL_ONTOLOGIES(session);
 			v_ontologies = get_onto.execute();
 			for (TRENCADIS_XML_ONTOLOGY_FILE ontology : v_ontologies) {
-				FileUtils.writeStringToFile(new File(destination + File.separator
-						+ ontology.getIDOntology() + "_"
-						+ ontology.getDescription().replaceAll(" ", "_") + ".xml"),
-						ontology.getContents());
+				Template template = TEMPLATE_XMLB.typeFromXml(ontology.getContents());
+				TEMPLATE_XMLB.typeToFile(template, new File(destination + File.separator
+														  + ontology.getIDOntology() + "_"
+														  + ontology.getDescription().replaceAll(" ", "_") + ".xml"));
 			}
 		} catch (Exception e) {
 			LOGGER.error("Can not download the ontologies");
