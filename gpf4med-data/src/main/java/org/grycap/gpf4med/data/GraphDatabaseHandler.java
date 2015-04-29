@@ -40,7 +40,7 @@ import org.grycap.gpf4med.Statistics;
 import org.grycap.gpf4med.conf.ConfigurationManager;
 import org.grycap.gpf4med.event.DocumentEnqueuedEvent;
 import org.grycap.gpf4med.ext.GraphConnector;
-import org.grycap.gpf4med.model.Document;
+import org.grycap.gpf4med.model.document.Document;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 

@@ -39,26 +39,26 @@ that you distribute must include a readable copy of the "NOTICE" text file.
 		the path to the home directory of the current user, and $TMP to identify 
 		the path to the system temporary directory. Temporary directory is preferable 
 		when your application uses sensitive data -->
-	<gpf4med-root>$TMP/gpf4med</gpf4med-root>
+	<gpf4med-root>/opt/gpf4med</gpf4med-root>
 
 	<!-- Storage configuration -->
 	<storage>
 
 		<!-- The base URL where the DICOM-SR templates that are common to all the 
 			studies are stored (HTTP, HTTPS and local file-system are currently supported). 
-			For example: For example: ${gpf4med-root}/templates, http://localhost/templates -->
-		<templates>${gpf4med-root}/data/templates</templates>
+			For example: ${gpf4med-root}/templates, http://localhost/templates -->
+		<templates>http://158.42.105.13/gpf4med/templates</templates>
 
 		<!-- The base URL where the connector plug-ins are stored (HTTP, HTTPS and 
 			local file-system are currently supported). For example: ${gpf4med-root}/connectors, 
 			http://localhost/connectors -->
-		<connectors>${gpf4med-root}/data/connectors</connectors>
+		<connectors>http://158.42.105.13/gpf4med/connectors</connectors>
 
 		<!-- The performance of certain applications may be improved by using a local 
 			cache (ensure that this directory is writable by the user that Gpf4Med 
 			runs as). Temporary directory is preferable when your application uses 
 			sensitive data -->
-		<local-cache>${gpf4med-root}/var/cache/gpf4med</local-cache>
+		<local-cache>$TMP/.gpf4med/cache</local-cache>
 		
 		<!-- The base directory where the static HTTP resources are located -->
 		<htdocs>${gpf4med-root}/htdocs</htdocs>

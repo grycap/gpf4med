@@ -30,8 +30,8 @@ import org.grycap.gpf4med.Group;
 import org.grycap.gpf4med.TemplateManager;
 import org.grycap.gpf4med.ext.GraphConnector;
 import org.grycap.gpf4med.ext.GraphConnectorManager;
-import org.grycap.gpf4med.model.Document;
-import org.grycap.gpf4med.model.DocumentTemplate;
+import org.grycap.gpf4med.model.document.Document;
+import org.grycap.gpf4med.model.template.Template;
 import org.grycap.gpf4med.model.util.AvailableGraphs;
 import org.grycap.gpf4med.model.util.AvailableReport;
 import org.grycap.gpf4med.model.util.AvailableReports;
@@ -63,16 +63,16 @@ public class Gpf4MedResourcePartialImpl implements Gpf4MedResource {
 	public AvailableTemplates listTemplates() {
 		final AvailableTemplates templates = new AvailableTemplates();
 		templates.setTemplates(new ArrayList<AvailableTemplate>());
-		final ImmutableCollection<DocumentTemplate> documentTemplates = TemplateManager.INSTANCE.listTemplates();
+		final ImmutableCollection<Template> documentTemplates = TemplateManager.INSTANCE.listTemplates();
 		if (documentTemplates != null) {
-			for (final DocumentTemplate item : documentTemplates) {
+			for (final Template item : documentTemplates) {
 				final AvailableTemplate template = new AvailableTemplate();
-				template.setIdOntology(item.getIdOntology());
+				template.setIdOntology(Integer.parseInt(item.getIDOntology()));
 				template.setDescription(item.getDescription());
-				template.setCodeValue(item.getContainerTemplate().getConceptName().getCodeValue().toString());
-				template.setCodeSchema(item.getContainerTemplate().getConceptName().getCodeSchema().toString());
-				template.setCodeMeaning(item.getContainerTemplate().getConceptName().getCodeMeaning());
-				template.setCodeMeaning2(item.getContainerTemplate().getConceptName().getCodeMeaning2());
+				template.setCodeValue(item.getCONTAINER().getCONCEPTNAME().getCODEVALUE());
+				template.setCodeSchema(item.getCONTAINER().getCONCEPTNAME().getCODESCHEMA());
+				template.setCodeMeaning(item.getCONTAINER().getCONCEPTNAME().getCODEMEANING());
+				template.setCodeMeaning2(item.getCONTAINER().getCONCEPTNAME().getCODEMEANING2());
 				templates.getTemplates().add(template);
 			}
 		}
@@ -87,11 +87,11 @@ public class Gpf4MedResourcePartialImpl implements Gpf4MedResource {
 		if (documents != null) {
 			for (final Document item : documents) {
 				final AvailableReport report = new AvailableReport();
-				report.setIdOntology(item.getIdOntology());
-				report.setIdReport(item.getIdReport());
-				report.setIdTrencadisReport(item.getIdTrencadisReport());
-				report.setDateStart(item.getDateStart());
-				report.setDateEnd(item.getDateEnd());
+				report.setIdOntology(Integer.parseInt(item.getIDOntology()));
+				report.setIdReport(item.getIDReport());
+				report.setIdTrencadisReport(item.getIDTRENCADISReport());
+				report.setDateStart(item.getDateTimeStart());
+				report.setDateEnd(item.getDateTimeEnd());
 				reports.getReports().add(report);
 			}
 		}
@@ -106,11 +106,11 @@ public class Gpf4MedResourcePartialImpl implements Gpf4MedResource {
 		if (documents != null) {
 			for (final Document item : documents) {
 				final AvailableReport report = new AvailableReport();
-				report.setIdOntology(item.getIdOntology());
-				report.setIdReport(item.getIdReport());
-				report.setIdTrencadisReport(item.getIdTrencadisReport());
-				report.setDateStart(item.getDateStart());
-				report.setDateEnd(item.getDateEnd());
+				report.setIdOntology(Integer.parseInt(item.getIDOntology()));
+				report.setIdReport(item.getIDReport());
+				report.setIdTrencadisReport(item.getIDTRENCADISReport());
+				report.setDateStart(item.getDateTimeStart());
+				report.setDateEnd(item.getDateTimeEnd());
 				reports.getReports().add(report);
 			}
 		}
@@ -125,11 +125,11 @@ public class Gpf4MedResourcePartialImpl implements Gpf4MedResource {
 		if (documents != null) {
 			for (final Document item : documents) {
 				final AvailableReport report = new AvailableReport();
-				report.setIdOntology(item.getIdOntology());
-				report.setIdReport(item.getIdReport());
-				report.setIdTrencadisReport(item.getIdTrencadisReport());
-				report.setDateStart(item.getDateStart());
-				report.setDateEnd(item.getDateEnd());
+				report.setIdOntology(Integer.parseInt(item.getIDOntology()));
+				report.setIdReport(item.getIDReport());
+				report.setIdTrencadisReport(item.getIDTRENCADISReport());
+				report.setDateStart(item.getDateTimeStart());
+				report.setDateEnd(item.getDateTimeEnd());
 				reports.getReports().add(report);
 			}
 		}
@@ -144,11 +144,11 @@ public class Gpf4MedResourcePartialImpl implements Gpf4MedResource {
 		if (documents != null) {
 			for (final Document item : documents) {
 				final AvailableReport report = new AvailableReport();
-				report.setIdOntology(item.getIdOntology());
-				report.setIdReport(item.getIdReport());
-				report.setIdTrencadisReport(item.getIdTrencadisReport());
-				report.setDateStart(item.getDateStart());
-				report.setDateEnd(item.getDateEnd());
+				report.setIdOntology(Integer.parseInt(item.getIDOntology()));
+				report.setIdReport(item.getIDReport());
+				report.setIdTrencadisReport(item.getIDTRENCADISReport());
+				report.setDateStart(item.getDateTimeStart());
+				report.setDateEnd(item.getDateTimeEnd());
 				reports.getReports().add(report);
 			}
 		}

@@ -45,13 +45,13 @@ public class ReportLoadingTest {
 		try {
 			// load reports
 			TestUtils.getReportFiles();
-			final ImmutableCollection<Document> reports = DocumentManager.INSTANCE.listDocuments(1, "5");
-			Thread.sleep(180000l);
+			final ImmutableCollection<Document> reports = DocumentManager.INSTANCE.listDocuments(1);
+			
 			assertThat("report list is not null", reports, notNullValue());
 			assertThat("report list is not empty", !reports.isEmpty());
 			/* uncomment for additional output */
 			for (final Document file : reports) {
-				System.out.println(" >> Report identifier: " + file.getIDReport() + " downloaded.");
+				System.out.println(" >> Report " + file.getIDReport() + " downloaded.");
 			}
 
 		} catch (Exception e) {

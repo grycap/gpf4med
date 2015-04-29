@@ -39,6 +39,7 @@ import org.apache.commons.lang.StringUtils;
 import org.grycap.gpf4med.conf.ConfigurationManager;
 import org.grycap.gpf4med.model.template.ConceptNameTemplate;
 import org.grycap.gpf4med.model.template.Template;
+import org.grycap.gpf4med.model.util.Id;
 import org.grycap.gpf4med.util.TRENCADISUtils;
 import org.grycap.gpf4med.util.NamingUtils;
 import org.grycap.gpf4med.util.URLUtils;
@@ -90,7 +91,7 @@ public enum TemplateManager implements Closeable2 {
 	public @Nullable Template getTemplate(final ConceptNameTemplate conceptName) {
 		checkArgument(conceptName != null, "Uninitialized or invalid concept name");
 		final ImmutableMap<String, Template> templates = templates(null);
-		return templates != null ? templates.get(conceptName.getCODEVALUE()) : null;
+		return templates != null ? templates.get(Id.getId(conceptName)) : null;
 	}
 
 	public ImmutableCollection<Template> listTemplates() {
@@ -166,7 +167,7 @@ public enum TemplateManager implements Closeable2 {
 							final Template template = TemplateLoader.create(file).load();
 							checkState(template != null && template.getCONTAINER() != null 
 									&& template.getCONTAINER().getCONCEPTNAME() != null, "No template found");
-							final String id = template.getCONTAINER().getCONCEPTNAME().getCODEVALUE();
+							final String id = Id.getId(template.getCONTAINER().getCONCEPTNAME());
 							checkState(StringUtils.isNotBlank(id), "Uninitialized or invalid concept name");
 							builder.put(id, template);
 							LOGGER.trace("New template " + template.getDescription() + ", ontology " + template.getIDOntology() 

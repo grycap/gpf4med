@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 import net.xeoh.plugins.base.Plugin;
 
-import org.grycap.gpf4med.model.Document;
+import org.grycap.gpf4med.model.document.Document;
 
 /**
  * A connector that can be plugged into the DICOM graph store framework.

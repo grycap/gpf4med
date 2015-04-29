@@ -33,15 +33,19 @@ import javax.annotation.Nullable;
 import org.apache.commons.lang.StringUtils;
 import org.grycap.gpf4med.graph.base.model.LabelTypes;
 import org.grycap.gpf4med.graph.base.model.RelTypes;
-import org.grycap.gpf4med.model.BaseType;
-import org.grycap.gpf4med.model.Code;
-import org.grycap.gpf4med.model.ConceptName;
-import org.grycap.gpf4med.model.Container;
-import org.grycap.gpf4med.model.Date;
-import org.grycap.gpf4med.model.Document;
-import org.grycap.gpf4med.model.DocumentTemplate;
-import org.grycap.gpf4med.model.Num;
-import org.grycap.gpf4med.model.Text;
+import org.grycap.gpf4med.model.document.Children;
+import org.grycap.gpf4med.model.document.Code;
+import org.grycap.gpf4med.model.document.ConceptName;
+import org.grycap.gpf4med.model.document.Container;
+import org.grycap.gpf4med.model.document.Date;
+import org.grycap.gpf4med.model.document.Document;
+import org.grycap.gpf4med.model.document.Num;
+import org.grycap.gpf4med.model.document.Text;
+import org.grycap.gpf4med.model.document.Value;
+import org.grycap.gpf4med.model.template.ConceptNameTemplate;
+import org.grycap.gpf4med.model.template.Template;
+import org.grycap.gpf4med.model.util.DateUtils;
+import org.grycap.gpf4med.model.util.Id;
 import org.grycap.gpf4med.util.TemplateUtils;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
@@ -73,10 +77,10 @@ public abstract class BaseDocumentCreator {
 	public BaseDocumentCreator() { }
 
 	public Node getOrCreatePatient(final Transaction tx, final GraphDatabaseService graphDb, final Text patient) {
-		checkArgument(patient != null && StringUtils.isNotBlank(patient.getValue()), 
+		checkArgument(patient != null && StringUtils.isNotBlank(patient.getVALUE()), 
 				"Uninitialized or invalid patient");
-		final ConceptName conceptName = patient.getConceptNameValue();
-		final String id = conceptName.id();
+		final ConceptName conceptName = patient.getCONCEPTNAME();
+		final String id = Id.getId(conceptName);
 		checkState(StringUtils.isNotBlank(id), "Patient concept name is invalid");
 		final UniqueFactory<Node> uniqueFactory = new UniqueFactory.UniqueNodeFactory(graphDb, PATIENT_NODE) {
 			@Override
@@ -91,12 +95,12 @@ public abstract class BaseDocumentCreator {
 		return node;
 	}
 
-	public Node getOrCreateModality(final Transaction tx, final GraphDatabaseService graphDb, final DocumentTemplate template) {
-		checkArgument(template != null && template.getContainerTemplate() != null
-				&& template.getContainerTemplate().getConceptName() != null, 
+	public Node getOrCreateModality(final Transaction tx, final GraphDatabaseService graphDb, final Template template) {
+		checkArgument(template != null && template.getCONTAINER() != null
+				&& template.getCONTAINER().getCONCEPTNAME() != null, 
 				"Uninitialized or invalid template");
-		final ConceptName conceptName = template.getContainerTemplate().getConceptName();
-		final String id = conceptName.id();
+		final ConceptNameTemplate conceptName = template.getCONTAINER().getCONCEPTNAME();
+		final String id = Id.getId(conceptName);
 		checkState(StringUtils.isNotBlank(id), "Template concept name is invalid");
 		final UniqueFactory<Node> uniqueFactory = new UniqueFactory.UniqueNodeFactory(graphDb, MODALITY_NODE) {
 			@Override
@@ -108,19 +112,19 @@ public abstract class BaseDocumentCreator {
 		if (!node.hasLabel(LabelTypes.MODALITY)) {
 			node.addLabel(LabelTypes.MODALITY);
 		}
-		if (!node.hasProperty(TYPE_PROPERTY) && StringUtils.isNotBlank(conceptName.getCodeMeaning2())) {
-			node.setProperty(TYPE_PROPERTY, conceptName.getCodeMeaning2());
+		if (!node.hasProperty(TYPE_PROPERTY) && StringUtils.isNotBlank(conceptName.getCODEMEANING2())) {
+			node.setProperty(TYPE_PROPERTY, conceptName.getCODEMEANING2());
 		}
 		return node;
 	}
 
 	public Node getOrCreateDICOMReference(final Transaction tx, final GraphDatabaseService graphDb, 
 			final Text text, final Node parent) {
-		checkArgument(text != null && text.getConceptNameValue() != null, "Uninitialized or invalid text");
-		final ConceptName conceptName = text.getConceptNameValue();
-		final String id = conceptName.id();
+		checkArgument(text != null && text.getCONCEPTNAME() != null, "Uninitialized or invalid text");
+		final ConceptName conceptName = text.getCONCEPTNAME();
+		final String id = Id.getId(conceptName);
 		checkState(StringUtils.isNotBlank(id), "Text concept name is invalid");
-		final String ref = StringUtils.trimToNull(text.getValue());
+		final String ref = StringUtils.trimToNull(text.getVALUE());
 		checkState(StringUtils.isNotBlank(ref), "uninitialized or invalid reference");
 		final UniqueFactory<Node> uniqueFactory = new UniqueFactory.UniqueNodeFactory(graphDb, PATIENT_NODE) {
 			@Override
@@ -138,11 +142,11 @@ public abstract class BaseDocumentCreator {
 
 	public Node createRadiologicalStudy(final Transaction tx, final GraphDatabaseService graphDb, final Document document,
 			final Node modality) {
-		checkArgument(document != null && document.getContainer() != null
-				&& document.getContainer().getConceptNameValue() != null, 
+		checkArgument(document != null && document.getCONTAINER() != null
+				&& document.getCONTAINER().getCONCEPTNAME() != null, 
 				"Uninitialized or invalid document");
-		final ConceptName conceptName = document.getContainer().getConceptNameValue();
-		final String id = conceptName.id();
+		final ConceptName conceptName = document.getCONTAINER().getCONCEPTNAME(); //Document
+		final String id = Id.getId(conceptName);
 		checkState(StringUtils.isNotBlank(id), "Document concept name is invalid");
 		final Node studyNode = graphDb.createNode();
 		studyNode.addLabel(LabelTypes.RADIOLOGICAL_STUDY);
@@ -151,16 +155,16 @@ public abstract class BaseDocumentCreator {
 		modality.createRelationshipTo(studyNode, RelTypes.HAS);
 		final Text identifier = getStudyId(document);
 		if (identifier != null) {
-			studyNode.setProperty(ID_REPORT_PROPERTY, identifier.getValue());
+			studyNode.setProperty(ID_REPORT_PROPERTY, identifier.getVALUE());
 		}
 		final Text patient = getPatient(document);
 		if (patient != null) {
 			final Node patientNode = getOrCreatePatient(tx, graphDb, patient);
-			patientNode.setProperty(ID_PATIENT_PROPERTY, patient.getValue());
+			patientNode.setProperty(ID_PATIENT_PROPERTY, patient.getVALUE());
 			final Relationship relationship = patientNode.createRelationshipTo(studyNode, RelTypes.HAS);
 			final Date date = getDate(document);
 			if (date != null) {
-				relationship.setProperty(ACQUISITION_DATE_PROPERTY, Date.stringFromValue(date.getValue(), Locale.ENGLISH));
+				relationship.setProperty(ACQUISITION_DATE_PROPERTY, DateUtils.formattedString(date.getVALUE(), Locale.ENGLISH));
 			}
 			studyNode.createRelationshipTo(patientNode, RelTypes.FROM);
 		}
@@ -168,21 +172,28 @@ public abstract class BaseDocumentCreator {
 	}
 
 	public Node createLesion(final Transaction tx, final GraphDatabaseService graphDb, final Container container, final Node parent) {
-		checkArgument(container != null && container.getConceptNameValue() != null, 
+		checkArgument(container != null && container.getCONCEPTNAME() != null, 
 				"Uninitialized or invalid container");
-		final ConceptName conceptName = container.getConceptNameValue();
-		final String type = conceptName.id();
-		checkState(StringUtils.isNotBlank(type), "Container concept name is invalid");
+		String type = null;
 		String id = null;
-		for (final BaseType item : container.getChildren()) {
-			if (item instanceof Text) {
-				final Text tmp = (Text)item;				
-				if (tmp.getConceptNameValue() != null && "118522005@SNOMED_CT".equals(tmp.getConceptNameValue().id())) {
-					id = tmp.getValue();
+		Children item = container.getCHILDREN();
+		if (item.getTEXT() != null) {
+			for (final Text text : item.getTEXT()) {
+				final Text tmp = text;
+				if (tmp.getCONCEPTNAME() != null && "TRMM0006@TRENCADIS_MAMO".equals(Id.getId(tmp.getCONCEPTNAME()))) {
+					id = tmp.getVALUE();
 					break;
 				}
 			}
-		}		
+		}
+		if (item.getCODE() != null) {
+			for (final Code code : item.getCODE()) {
+				final String idCode = Id.getId(code.getCONCEPTNAME());
+				if ("TRMM0007@TRENCADIS_MAMO".equals(idCode)){
+					type = code.getVALUE().getCODEMEANING();
+				}
+			}
+		}
 		checkState(StringUtils.isNotBlank(id), "Uninitialized or invalid lesion id");
 		final Node lesionNode = graphDb.createNode();
 		lesionNode.addLabel(LabelTypes.LESION);
@@ -192,8 +203,9 @@ public abstract class BaseDocumentCreator {
 		return lesionNode;
 	}
 
-	public Node createOtherFindings(final Transaction tx, final GraphDatabaseService graphDb, final Container container, final Node parent) {
-		checkArgument(container != null && container.getConceptNameValue() != null, 
+	public Node createOtherFindings(final Transaction tx, final GraphDatabaseService graphDb,
+			final Container container, final Node parent) {
+		checkArgument(container != null && container.getCONCEPTNAME() != null, 
 				"Uninitialized or invalid container");
 		final Node otherNode = graphDb.createNode();
 		otherNode.addLabel(LabelTypes.OTHER_FINDINGS);
@@ -202,10 +214,11 @@ public abstract class BaseDocumentCreator {
 	}
 
 	public Node getOrCreateBiRads(final Transaction tx, final GraphDatabaseService graphDb, 
-			final Code code, final Node parent, final DocumentTemplate template) {
-		checkArgument(code != null && code.getValue() != null, "Uninitialized or invalid code");
-		final ConceptName conceptName = code.getValue();		
-		final String id = conceptName.id();
+			final Code code, final Node parent, final Template template) {
+		checkArgument(code != null && code.getVALUE() != null, "Uninitialized or invalid code");
+		final Value value = code.getVALUE();
+		final ConceptName conceptName = new ConceptName().withCODEVALUE(value.getCODEVALUE()).withCODESCHEMA(value.getCODESCHEMA());
+		final String id = Id.getId(conceptName);
 		checkState(StringUtils.isNotBlank(id), "BI-RADS value is invalid");
 		final UniqueFactory<Node> uniqueFactory = new UniqueFactory.UniqueNodeFactory(graphDb, BI_RADS_NODE) {
 			@Override
@@ -218,7 +231,11 @@ public abstract class BaseDocumentCreator {
 			node.addLabel(LabelTypes.BI_RADS);
 		}
 		if (!node.hasProperty(BI_RADS_CLASSIFICATION)) {
-			final String classification = TemplateUtils.getMeaning(conceptName, template, null);
+			ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(code.getVALUE().getCODEVALUE())
+																			   .withCODESCHEMA(code.getVALUE().getCODESCHEMA())
+																			   .withCODEMEANING(code.getVALUE().getCODEMEANING())
+																			   .withCODEMEANING2(code.getVALUE().getCODEMEANING2());
+			final String classification = TemplateUtils.getMeaning(conceptNameTemplate, template, null);
 			if (StringUtils.isNotBlank(classification)) {
 				node.setProperty(BI_RADS_CLASSIFICATION, classification);
 			}
@@ -235,10 +252,10 @@ public abstract class BaseDocumentCreator {
 	}
 
 	public Node getOrCreateLocation(final Transaction tx, final GraphDatabaseService graphDb, final Num num, final Node parent, 
-			final DocumentTemplate template) {
-		checkArgument(num != null && num.getConceptNameValue() != null, "Uninitialized or invalid numeric field");
-		final ConceptName conceptName = num.getConceptNameValue();		
-		final String id = conceptName.id();
+			final Template template) {
+		checkArgument(num != null && num.getCONCEPTNAME() != null, "Uninitialized or invalid numeric field");
+		final ConceptName conceptName = num.getCONCEPTNAME();		
+		final String id = Id.getId(conceptName);
 		checkState(StringUtils.isNotBlank(id), "Tumour location id is invalid");
 		final UniqueFactory<Node> uniqueFactory = new UniqueFactory.UniqueNodeFactory(graphDb, TUMOUR_LOCATION_NODE) {
 			@Override
@@ -251,7 +268,11 @@ public abstract class BaseDocumentCreator {
 			node.addLabel(LabelTypes.TUMOUR_LOCATION);
 		}
 		if (!node.hasProperty(DESCRIPTION_PROPERTY)) {
-			final String meaning = TemplateUtils.getMeaning(conceptName, template, null);
+			ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(conceptName.getCODEVALUE())
+																			   .withCODESCHEMA(conceptName.getCODESCHEMA())
+																			   .withCODEMEANING(conceptName.getCODEMEANING())
+																			   .withCODEMEANING2(conceptName.getCODEMEANING2());
+			final String meaning = TemplateUtils.getMeaning(conceptNameTemplate, template, null);
 			if (StringUtils.isNotBlank(meaning)) {
 				node.setProperty(DESCRIPTION_PROPERTY, StringUtils.abbreviate(meaning, 20));
 			}
@@ -261,10 +282,10 @@ public abstract class BaseDocumentCreator {
 	}
 	
 	public Node getOrCreateFinding(final Transaction tx, final GraphDatabaseService graphDb, final Num num, final Node parent, 
-			final DocumentTemplate template) {
-		checkArgument(num != null && num.getConceptNameValue() != null, "Uninitialized or invalid numeric field");
-		final ConceptName conceptName = num.getConceptNameValue();		
-		final String id = conceptName.id();
+			final Template template) {
+		checkArgument(num != null && num.getCONCEPTNAME() != null, "Uninitialized or invalid numeric field");
+		final ConceptName conceptName = num.getCONCEPTNAME();		
+		final String id = Id.getId(conceptName);
 		checkState(StringUtils.isNotBlank(id), "Finding id is invalid");
 		final UniqueFactory<Node> uniqueFactory = new UniqueFactory.UniqueNodeFactory(graphDb, FINDING_NODE) {
 			@Override
@@ -277,7 +298,11 @@ public abstract class BaseDocumentCreator {
 			node.addLabel(LabelTypes.FINDING);
 		}
 		if (!node.hasProperty(DESCRIPTION_PROPERTY)) {
-			final String meaning = TemplateUtils.getMeaning(conceptName, template, null);
+			ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(conceptName.getCODEVALUE())
+																			   .withCODESCHEMA(conceptName.getCODESCHEMA())
+																			   .withCODEMEANING(conceptName.getCODEMEANING())
+																			   .withCODEMEANING2(conceptName.getCODEMEANING2());
+			final String meaning = TemplateUtils.getMeaning(conceptNameTemplate, template, null);
 			if (StringUtils.isNotBlank(meaning)) {
 				node.setProperty(DESCRIPTION_PROPERTY, StringUtils.abbreviate(meaning, 20));
 			}
@@ -285,15 +310,25 @@ public abstract class BaseDocumentCreator {
 		parent.createRelationshipTo(node, RelTypes.PRESENTS);
 		return node;
 	}
+	
+	public Node createComposition(final Transaction tx, final GraphDatabaseService graphDb,
+			final Container container, final Node parent) {
+		checkArgument(container != null && container.getCONCEPTNAME() != null, 
+				"Uninitialized or invalid container");
+		final Node otherNode = graphDb.createNode();
+		otherNode.addLabel(LabelTypes.OTHER_FINDINGS);
+		parent.createRelationshipTo(otherNode, RelTypes.PRESENTS);
+		return otherNode;
+	}
 
 	public @Nullable Date getDate(final Document document) {		
-		checkArgument(document != null &&  document.getContainer() != null, 
+		checkArgument(document != null &&  document.getCONTAINER() != null, 
 				"Uninitialized or invalid document");
 		Date date = null;
-		for (final BaseType item : document.getContainer().getChildren()) {
+		for (final Date item : document.getCONTAINER().getCHILDREN().getDATE()) {
 			if (item instanceof Date) {
 				final Date tmp = (Date)item;
-				if ("399651003@SNOMED_CT".equals(tmp.getConceptNameValue().id())) {
+				if ("TRMM0002@TRENCADIS_MAMO".equals(Id.getId(tmp.getCONCEPTNAME()))) {
 					date = tmp;
 					break;
 				}				
@@ -303,13 +338,13 @@ public abstract class BaseDocumentCreator {
 	}
 
 	public @Nullable Text getStudyId(final Document document) {
-		checkArgument(document != null &&  document.getContainer() != null, 
+		checkArgument(document != null &&  document.getCONTAINER() != null, 
 				"Uninitialized or invalid document");
 		Text text = null;
-		for (final BaseType item : document.getContainer().getChildren()) {
+		for (final Text item : document.getCONTAINER().getCHILDREN().getTEXT()) {
 			if (item instanceof Text) {
 				final Text tmp = (Text)item;
-				if ("118522005@SNOMED_CT".equals(tmp.getConceptNameValue().id())) {
+				if ("TRMM0001@TRENCADIS_MAMO".equals(Id.getId(tmp.getCONCEPTNAME()))) {
 					text = tmp;
 					break;
 				}				
@@ -319,13 +354,13 @@ public abstract class BaseDocumentCreator {
 	}
 
 	public @Nullable Text getPatient(final Document document) {
-		checkArgument(document != null &&  document.getContainer() != null, 
+		checkArgument(document != null &&  document.getCONTAINER() != null, 
 				"Uninitialized or invalid document");
 		Text text = null;
-		for (final BaseType item : document.getContainer().getChildren()) {
+		for (final Text item : document.getCONTAINER().getCHILDREN().getTEXT()) {
 			if (item instanceof Text) {
 				final Text tmp = (Text)item;
-				if ("RID13159@RADLEX".equals(tmp.getConceptNameValue().id())) {
+				if ("TRMM0003@TRENCADIS_MAMO".equals(Id.getId(tmp.getCONCEPTNAME()))) {
 					text = tmp;
 					break;
 				}				

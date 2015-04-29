@@ -32,9 +32,11 @@ import org.grycap.gpf4med.TemplateManager;
 import org.grycap.gpf4med.graph.base.rest.GraphBaseResource;
 import org.grycap.gpf4med.graph.base.rest.GraphBaseResourceImpl;
 import org.grycap.gpf4med.ext.GraphConnector;
-import org.grycap.gpf4med.model.ConceptName;
-import org.grycap.gpf4med.model.Document;
-import org.grycap.gpf4med.model.DocumentTemplate;
+import org.grycap.gpf4med.model.document.ConceptName;
+import org.grycap.gpf4med.model.document.Document;
+import org.grycap.gpf4med.model.template.ConceptNameTemplate;
+import org.grycap.gpf4med.model.template.Template;
+import org.grycap.gpf4med.model.util.Id;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,20 +83,24 @@ public class BaseGraphConnector implements GraphConnector {
 
 	@Override
 	public void add(final Document document) {
-		checkArgument(document != null && document.getContainer() != null 
-				&& document.getContainer().getConceptNameValue() != null, 
+		checkArgument(document != null && document.getCONTAINER() != null 
+				&& document.getCONTAINER().getCONCEPTNAME() != null, 
 				"Uninitialized or invalid document");
 		// find the template for the type of document
-		ConceptName conceptName = document.getContainer().getConceptNameValue();
-		final DocumentTemplate template = TemplateManager.INSTANCE.getTemplate(conceptName);
+		ConceptName conceptName = document.getCONTAINER().getCONCEPTNAME();
+		ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(conceptName.getCODEVALUE())
+																		   .withCODESCHEMA(conceptName.getCODESCHEMA())
+																		   .withCODEMEANING(conceptName.getCODEMEANING())
+																		   .withCODEMEANING2(conceptName.getCODEMEANING2());
+		final Template template = TemplateManager.INSTANCE.getTemplate(conceptNameTemplate);
 		checkState(template != null, "No document template was found for the concept name: " + conceptName);
-		conceptName = template.getContainerTemplate().getConceptName();
-		LOGGER.info("Loading document of type: " + conceptName.idMeaning());
+		conceptNameTemplate = template.getCONTAINER().getCONCEPTNAME();
+		LOGGER.info("Loading document of type: " + Id.getIdMeaning(conceptNameTemplate));
 		// create a new entry in the graph
-		if ("RID10357@RADLEX".equals(conceptName.id())) {
-			new MammographyCreator().create(document, template);
+		if ("RID10357@RADLEX".equals(Id.getId(conceptName))) {
+			new MammographyCreatorNewModel().create(document, template);
 		} else {
-			throw new IllegalStateException("Unsupported document type: " + conceptName.idMeaning());
+			throw new IllegalStateException("Unsupported document type: " + Id.getIdMeaning(conceptNameTemplate));
 		}
 	}
 

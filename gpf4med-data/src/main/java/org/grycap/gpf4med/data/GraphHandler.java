@@ -22,8 +22,8 @@
 
 package org.grycap.gpf4med.data;
 
-import org.grycap.gpf4med.model.Document;
-import org.grycap.gpf4med.model.DocumentTemplate;
+import org.grycap.gpf4med.model.document.Document;
+import org.grycap.gpf4med.model.template.Template;
 
 /**
  * Plug-ins providing graph capabilities must implement this interface.
@@ -31,6 +31,6 @@ import org.grycap.gpf4med.model.DocumentTemplate;
  */
 public interface GraphHandler {
 
-	void load(Document document, DocumentTemplate template) throws Exception;
+	void load(Document document, Template template) throws Exception;
 
 }

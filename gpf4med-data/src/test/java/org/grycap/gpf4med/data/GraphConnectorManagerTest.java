@@ -47,12 +47,14 @@ public class GraphConnectorManagerTest {
 		System.out.println("GraphConnectorManagerTest.test()");
 		try {
 			GraphConnectorManager.INSTANCE.getPluginManager().addPluginsFrom(new ClassURI(GraphConnectorMock.class).toURI());
+			
 			final ImmutableMap<String, GraphConnector> connectors = GraphConnectorManager.INSTANCE.listConnectors();
 			assertThat("connectors is not null", connectors, notNullValue());
 			assertThat("connectors is not empty", !connectors.isEmpty());
 			final ImmutableList<GraphConnectorInformation> information = GraphConnectorManager.INSTANCE.getConnectorsInformation();
 			assertThat("connectors information is not null", information, notNullValue());
 			assertThat("connectors information is not empty", !information.isEmpty());
+			
 			/* uncomment for additional output
 			for (final GraphConnectorInformation item : information) {
 				System.out.println(" >> Connector: " + item.toString());

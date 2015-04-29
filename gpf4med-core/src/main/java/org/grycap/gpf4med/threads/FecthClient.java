@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 import org.grycap.gpf4med.model.document.Document;
 import org.grycap.gpf4med.model.document.Documents;
@@ -70,20 +71,21 @@ public final class FecthClient {
 				return files.toArray(new String[files.size()]);
 			}
 		});
+		// wait for files to be processed
+		future.get(1l, TimeUnit.MINUTES); 
 		addCallback(future, new FutureCallback<String[]>() {
 			@Override
 			public void onSuccess(final String[] result) {
 				LOGGER.info("One bulk report file was processed successfully: " + tmpFile.getName()
 						+ ", number of created files: " + result.length);
-				deleteQuietly(tmpFile);
+				//deleteQuietly(tmpFile);
 			}
 			@Override
 			public void onFailure(final Throwable error) {
 				LOGGER.error("Failed to process bulk report file " + tmpFile.getName(), error);
 			}
 		});
-		// wait for files to be processed
-		future.get(); 
+		
 	}
 
 }

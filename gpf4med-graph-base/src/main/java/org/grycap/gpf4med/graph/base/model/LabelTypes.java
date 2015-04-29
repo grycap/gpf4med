@@ -40,6 +40,8 @@ public enum LabelTypes implements Label {
 	BI_RADS,
 	TUMOUR_LOCATION,
 	TUMOUR_SIZE,
-	FINDING
+	FINDING,
+	COMPOSITION,
+	ASSOCIATED_PROPERTIES
 	
 }

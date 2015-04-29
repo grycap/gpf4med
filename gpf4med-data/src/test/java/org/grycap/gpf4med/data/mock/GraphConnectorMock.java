@@ -33,7 +33,7 @@ import net.xeoh.plugins.base.annotations.meta.Version;
 
 import org.grycap.gpf4med.data.GraphDatabaseHandler;
 import org.grycap.gpf4med.ext.GraphConnector;
-import org.grycap.gpf4med.model.Document;
+import org.grycap.gpf4med.model.document.Document;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 /**

@@ -5,6 +5,7 @@ import static java.lang.System.getProperty;
 import static org.apache.commons.io.FileUtils.deleteQuietly;
 import static org.apache.commons.io.FileUtils.listFiles;
 import static org.apache.commons.io.FilenameUtils.concat;
+import static org.apache.commons.lang3.RandomStringUtils.random;
 import static org.grycap.gpf4med.concurrent.TaskStorage.TASK_STORAGE;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -45,9 +46,9 @@ import trencadis.middleware.operations.DICOMStorage.TRENCADIS_RETRIEVE_IDS_FROM_
 public class ReportDownloadTasksTest {
 	
 	private static final File TEST_OUTPUT_DIR = new File(concat(getProperty("java.io.tmpdir"),
-			".gpf4med" + File.separator + "reports"));
+			ReportDownloadTasksTest.class.getSimpleName() + "_" + random(8, true, true)));
 	
-	private static final int PARTITION = 1;
+	private static final int PARTITION = 50;
 
 	@Before
 	public void setUp() {
@@ -81,9 +82,10 @@ public class ReportDownloadTasksTest {
 					groupTask.addTask(backend, centerName, session.getX509VOMSCredential(), ids, PARTITION, TEST_OUTPUT_DIR);
 				}
 				groupTask.sumbitAll();
+				TASK_STORAGE.add(groupTask);
 			}
 			
-			TASK_STORAGE.add(groupTask);
+			
 			
 			// test retrieving task from storage
 			final CancellableTask<?> cancellableTask = TASK_STORAGE.get(groupTask.getUuid());

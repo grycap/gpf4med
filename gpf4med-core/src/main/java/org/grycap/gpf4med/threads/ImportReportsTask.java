@@ -3,6 +3,7 @@ package org.grycap.gpf4med.threads;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
+import static org.apache.commons.io.FilenameUtils.concat;
 import static com.google.common.collect.ImmutableList.copyOf;
 import static com.google.common.collect.Iterables.partition;
 import static com.google.common.collect.Lists.newArrayList;
@@ -10,6 +11,7 @@ import static com.google.common.collect.Range.closed;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.util.concurrent.Futures.successfulAsList;
 import static com.google.common.util.concurrent.ListenableFutureTask.create;
+import static java.lang.System.getProperty;
 import static java.nio.file.Files.createTempDirectory;
 import static java.util.concurrent.TimeUnit.MINUTES;
 import static org.apache.commons.io.FileUtils.deleteQuietly;
@@ -110,7 +112,7 @@ public class ImportReportsTask extends CancellableTask<Integer> {
 					setStatus("Uncaught error while importing reports: not all reports were imported");
 					LOGGER.error("Uncaught error while importing reports", e);
 				} finally {
-					deleteQuietly(tmpDir);
+					//deleteQuietly(tmpDir);
 				}
 				final String msg = count + " new reports were imported";				
 				if (!hasErrors()) {
@@ -185,7 +187,9 @@ public class ImportReportsTask extends CancellableTask<Integer> {
 	private static File createTmpDir() {
 		File tmpDir = null;
 		try {
-			tmpDir = createTempDirectory("tmp_report_").toFile();
+			//tmpDir = createTempDirectory("tmp_report").toFile();
+			tmpDir = new File(concat(getProperty("java.io.tmpdir"), "tmp_report"));
+			tmpDir.mkdirs();
 		} catch (Exception e) {
 			throw new IllegalStateException("Failed to create temporary directory", e);
 		}

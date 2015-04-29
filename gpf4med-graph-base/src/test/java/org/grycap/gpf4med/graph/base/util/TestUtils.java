@@ -58,5 +58,13 @@ public class TestUtils {
 		final File dir = new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, REPORTS_FOLDER));
 		return FileUtils.listFiles(dir, new String[] { "xml" }, false);
 	}
+	
+	public static File getTestReportsDirectoy() {
+		return new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, REPORTS_FOLDER));
+	}
+	
+	public static File getTestTemplatesDirectoy() {
+		return new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, TEMPLATES_FOLDER));
+	}
 
 }

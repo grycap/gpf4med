@@ -76,7 +76,8 @@ public abstract class XmlBinder {
 
 	public <T> void typeToFile(final T obj, final File file) throws IOException {
 		try (final FileWriter writer = new FileWriter(file, false)) {
-			final Marshaller marshaller = context.createMarshaller();			
+			final Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			if (null == introspector.getElementName(obj)) {
 				marshaller.marshal(createType(obj), writer);
 			} else {

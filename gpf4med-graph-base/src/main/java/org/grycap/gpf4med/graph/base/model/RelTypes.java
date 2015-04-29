@@ -31,6 +31,7 @@ import org.neo4j.graphdb.RelationshipType;
 public enum RelTypes implements RelationshipType {
 
 	IS,
+	ARE,
 	HAS,
 	PRESENTS,
 	FROM,

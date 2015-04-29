@@ -24,6 +24,7 @@ package org.grycap.gpf4med;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
+import static org.grycap.gpf4med.concurrent.TaskStorage.TASK_STORAGE;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,12 +40,15 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.grycap.gpf4med.conf.ConfigurationManager;
 import org.grycap.gpf4med.event.FileEnqueuedEvent;
 import org.grycap.gpf4med.model.document.ConceptName;
 import org.grycap.gpf4med.model.document.Document;
+import org.grycap.gpf4med.model.util.Id;
+import org.grycap.gpf4med.threads.ImportReportsGroupTask;
 import org.grycap.gpf4med.util.TRENCADISUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -153,7 +157,7 @@ public enum DocumentManager implements Closeable2 {
 	public @Nullable Document getDocument(final ConceptName conceptName) {
 		checkArgument(conceptName != null, "Unninitialized or invalid concept name");
 		final ImmutableMap<String, Document> documents = documents(-1, null);
-		return documents != null ? documents.get(conceptName.getCODESCHEMA()) : null;
+		return documents != null ? documents.get(Id.getId(conceptName)) : null;
 	}
 	
 	public ImmutableCollection<Document> listDocuments() {
@@ -214,6 +218,7 @@ public enum DocumentManager implements Closeable2 {
 									TRENCADISUtils.getReportsID(trencadisSession, idCenter, idOntology);
 								}
 								
+								//final ImportReportsGroupTask groupTask = new ImportReportsGroupTask();
 								Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorage = TRENCADISUtils.getDicomStorage();
 								if (dicomStorage != null) {
 									for (TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE dicomStorageIDS : dicomStorage) {
@@ -225,7 +230,10 @@ public enum DocumentManager implements Closeable2 {
 											ids.add(id.getValue());
 											TRENCADISUtils.downloadReport(trencadisSession, backend, centerName, id.getValue(), documentsCacheDir.getAbsolutePath());
 										}
+										//groupTask.addTask(backend, centerName, trencadisSession.getX509VOMSCredential(), ids, PARTITION, documentsCacheDir);
 									}
+									//groupTask.sumbitAll();
+									//TASK_STORAGE.add(groupTask);
 								}
 								
 							} catch (Exception e3) {
@@ -238,23 +246,21 @@ public enum DocumentManager implements Closeable2 {
 					checkArgument(documentsCacheDir != null, "Uninitialized reports local cache directory");
 					
 					final ImmutableMap.Builder<String, Document> builder = new ImmutableMap.Builder<String, Document>();
-					for (String center : medicalCenters) {
-						final File centerDir = new File(documentsCacheDir + File.separator + center);
-						for (final File file : FileUtils.listFiles(centerDir, TrueFileFilter.INSTANCE, null)) {
-							String filename = null;
-							try {
-								filename = file.getCanonicalPath();
-								final Document report = DocumentLoader.create(file).load();
-								checkState(report != null && report.getCONTAINER() != null 
-										&& report.getCONTAINER().getCONCEPTNAME().getCODEVALUE() != null, "No report found");
-								final String id = report.getIDTRENCADISReport();
-								checkState(StringUtils.isNotBlank(id), "Uninitialized or invalid TRENCADIS identifier");
-								builder.put(id, report);
-								LOGGER.trace("New report " + report.getIDReport() + ", ontology " + report.getIDOntology() 
-										+ ", loaded from: " + filename);
-							} catch (Exception e) {						
-								LOGGER.error("Failed to load report: " + filename, e);
-							}
+					
+					for (final File file : FileUtils.listFiles(documentsCacheDir, TrueFileFilter.INSTANCE, DirectoryFileFilter.DIRECTORY)) {
+						String filename = null;
+						try {
+							filename = file.getCanonicalPath();
+							final Document report = DocumentLoader.create(file).load();
+							checkState(report != null && report.getCONTAINER() != null 
+									&& report.getCONTAINER().getCONCEPTNAME().getCODEVALUE() != null, "No report found");
+							final String id = report.getIDTRENCADISReport();
+							checkState(StringUtils.isNotBlank(id), "Uninitialized or invalid TRENCADIS identifier");
+							builder.put(id, report);
+							LOGGER.trace("New report " + report.getIDReport() + ", ontology " + report.getIDOntology() 
+									+ ", loaded from: " + filename);
+						} catch (Exception e) {						
+							LOGGER.error("Failed to load report: " + filename, e);
 						}
 					}
 					dont_use = builder.build();

@@ -40,9 +40,10 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ LogManagerTest.class, URLUtilsTest.class, TemplateUtilsTest.class, 
-	DownloadServiceTest.class, FileEncryptionProviderTest.class, TemplateLoadingTest.class,
-	ReportLoadingTest.class, XmlReportBindingTest.class, XmlTemplateBindingTest.class })
+//@SuiteClasses({ LogManagerTest.class, URLUtilsTest.class, TemplateUtilsTest.class, 
+//	DownloadServiceTest.class, FileEncryptionProviderTest.class, TemplateLoadingTest.class,
+//	ReportLoadingTest.class, XmlReportBindingTest.class, XmlTemplateBindingTest.class })
+@SuiteClasses({ ReportUtilsTest.class })
 public class AllUnitTests {
 
 	public static final String ANCHOR_FILENAME = "m2anchor";
@@ -73,13 +74,13 @@ public class AllUnitTests {
 		LogManager.INSTANCE.preload();
 		// system pre-loading
 		CloserServiceMock.INSTANCE.preload();
-		TASK_RUNNER.preload();
-		TASK_STORAGE.preload();
-		TASK_SCHEDULER.preload();
+//		TASK_RUNNER.preload();
+//		TASK_STORAGE.preload();
+//		TASK_SCHEDULER.preload();
 	}
 	
 	public static String TEST_RESOURCES_PATH;
-	
+	/*
 	@AfterClass
 	public static void release() {
 		System.out.println("AllUnitTests.release()");
@@ -92,5 +93,5 @@ public class AllUnitTests {
 		try {
 			TASK_RUNNER.close();			
 		} catch (IOException ignore) { }		
-	}
+	}*/
 }

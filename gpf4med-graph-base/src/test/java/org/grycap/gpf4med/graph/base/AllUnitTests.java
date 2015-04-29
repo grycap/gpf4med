@@ -67,7 +67,7 @@ public class AllUnitTests {
 		// load logging bridges
 		LogManager.INSTANCE.preload();
 		// system pre-loading
-		CloserServiceMock.INSTANCE.preload();
+		CloserServiceMock.INSTANCE.preload(); // commented load documents
 	}
 
 	public static String TEST_RESOURCES_PATH;

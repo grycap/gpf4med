@@ -53,7 +53,7 @@ that you distribute must include a readable copy of the "NOTICE" text file.
 			local file-system are currently supported). For example: ${gpf4med-root}/connectors, 
 			http://localhost/connectors -->
 		<connectors>http://158.42.105.13/gpf4med/connectors</connectors>
-
+	
 		<!-- The performance of certain applications may be improved by using a local 
 			cache (ensure that this directory is writable by the user that Gpf4Med 
 			runs as). Temporary directory is preferable when your application uses 
@@ -100,6 +100,7 @@ that you distribute must include a readable copy of the "NOTICE" text file.
 
 		<!-- A file with the list of URLs where the connectors are found (one URL 
 			per line) -->
+		<!-- index>${storage.connectors}/${graph.version}/index.txt</index-->
 		<index>${storage.connectors}/${graph.version}/index.txt</index>
 
 	</graph>

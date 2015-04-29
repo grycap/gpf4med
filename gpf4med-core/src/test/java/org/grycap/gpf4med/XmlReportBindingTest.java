@@ -11,9 +11,8 @@ import static org.junit.Assert.fail;
 import java.io.File;
 
 import org.apache.commons.io.FileUtils;
-import org.grycap.gpf4med.util.TestUtils;
 import org.grycap.gpf4med.model.document.Document;
-import org.grycap.gpf4med.model.document.Value;
+import org.grycap.gpf4med.util.TestUtils;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;

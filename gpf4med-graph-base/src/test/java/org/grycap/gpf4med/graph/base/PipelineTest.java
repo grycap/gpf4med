@@ -71,14 +71,13 @@ public class PipelineTest {
 					RandomStringUtils.random(8, true, true) + ".dot");
 			assertThat("graphviz file is not null", graphvizFile, notNullValue());
 			final String graphvizStr = FileUtils.readFileToString(graphvizFile);
+			System.out.println(graphvizFile.getAbsolutePath());
 			assertThat("graphviz string is not null", graphvizStr, notNullValue());
 			assertThat("graphviz string is not empty", StringUtils.isNotBlank(graphvizStr));
 			/* uncomment for additional output
 			System.out.println(" >> Graphviz\n" + graphvizStr + "\n"); */
 			
-			// TODO
-			// FileUtils.copyFile(graphvizFile, new File("/home/etorres/KK/neo4j.dot"));
-			// TODO
+			FileUtils.copyFile(graphvizFile, new File("/opt/trencadis/mammography_graph.dot"));
 			
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
