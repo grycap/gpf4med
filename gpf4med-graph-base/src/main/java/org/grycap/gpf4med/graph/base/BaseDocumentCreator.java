@@ -67,6 +67,7 @@ public abstract class BaseDocumentCreator {
 	public static final String ID_PATIENT_PROPERTY = "id_patient";
 	public static final String ID_LESION_TYPE_PROPERTY = "id_type";
 	public static final String BI_RADS_CLASSIFICATION = "class";
+	public static final String COMPOSITION_PROPERTY = "composition";
 
 	public static final String PATIENT_NODE = "Patient";
 	public static final String MODALITY_NODE = "Modality";
@@ -145,7 +146,7 @@ public abstract class BaseDocumentCreator {
 		checkArgument(document != null && document.getCONTAINER() != null
 				&& document.getCONTAINER().getCONCEPTNAME() != null, 
 				"Uninitialized or invalid document");
-		final ConceptName conceptName = document.getCONTAINER().getCONCEPTNAME(); //Document
+		final ConceptName conceptName = document.getCONTAINER().getCONCEPTNAME();
 		final String id = Id.getId(conceptName);
 		checkState(StringUtils.isNotBlank(id), "Document concept name is invalid");
 		final Node studyNode = graphDb.createNode();
@@ -170,6 +171,32 @@ public abstract class BaseDocumentCreator {
 		}
 		return studyNode;
 	}
+	
+	public Node createBreastComposition(final Transaction tx, final GraphDatabaseService graphDb, final Container container, final Node parent, final Template template) {
+		checkArgument(container != null && container.getCONCEPTNAME() != null, 
+				"Uninitialized or invalid container");
+		final Node breastCompositionNode = graphDb.createNode();
+		breastCompositionNode.addLabel(LabelTypes.COMPOSITION);
+		
+		parent.createRelationshipTo(breastCompositionNode, RelTypes.ARE);
+
+		Children children = container.getCHILDREN();
+		if (children != null) {
+			for (final Code code : children.getCODE()) {
+				final String idField = Id.getId(code.getCONCEPTNAME());
+				if ("TRMM0028@TRENCADIS_MAMO".equals(idField)) {
+					 
+					ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(code.getVALUE().getCODEVALUE())
+							   														   .withCODESCHEMA(code.getVALUE().getCODESCHEMA());
+					final String composition = TemplateUtils.getMeaning(conceptNameTemplate, template, null);
+					final String idComposition = Id.getId(conceptNameTemplate);
+					breastCompositionNode.setProperty(ID_PROPERTY, idComposition);
+					breastCompositionNode.setProperty(COMPOSITION_PROPERTY, composition);
+				}
+			}	
+		}
+		return breastCompositionNode;
+	}
 
 	public Node createLesion(final Transaction tx, final GraphDatabaseService graphDb, final Container container, final Node parent) {
 		checkArgument(container != null && container.getCONCEPTNAME() != null, 
@@ -190,7 +217,7 @@ public abstract class BaseDocumentCreator {
 			for (final Code code : item.getCODE()) {
 				final String idCode = Id.getId(code.getCONCEPTNAME());
 				if ("TRMM0007@TRENCADIS_MAMO".equals(idCode)){
-					type = code.getVALUE().getCODEMEANING();
+					type = code.getVALUE().getCODEVALUE() + "@" + code.getVALUE().getCODESCHEMA();
 				}
 			}
 		}
@@ -231,10 +258,8 @@ public abstract class BaseDocumentCreator {
 			node.addLabel(LabelTypes.BI_RADS);
 		}
 		if (!node.hasProperty(BI_RADS_CLASSIFICATION)) {
-			ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(code.getVALUE().getCODEVALUE())
-																			   .withCODESCHEMA(code.getVALUE().getCODESCHEMA())
-																			   .withCODEMEANING(code.getVALUE().getCODEMEANING())
-																			   .withCODEMEANING2(code.getVALUE().getCODEMEANING2());
+			ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(conceptName.getCODEVALUE())
+																			   .withCODESCHEMA(conceptName.getCODESCHEMA());
 			final String classification = TemplateUtils.getMeaning(conceptNameTemplate, template, null);
 			if (StringUtils.isNotBlank(classification)) {
 				node.setProperty(BI_RADS_CLASSIFICATION, classification);
@@ -367,6 +392,14 @@ public abstract class BaseDocumentCreator {
 			}
 		}
 		return text;
+	}
+	
+	public void setPropertyNode(final Node node, final String property, final Code code, final Template template) {
+		final ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(code.getVALUE().getCODEVALUE())
+																				 .withCODESCHEMA(code.getVALUE().getCODESCHEMA());
+		
+		final String meaning = TemplateUtils.getMeaning(conceptNameTemplate, template, null);
+		node.setProperty(property, meaning);
 	}
 
 }

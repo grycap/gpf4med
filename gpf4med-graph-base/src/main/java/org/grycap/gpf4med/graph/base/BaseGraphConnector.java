@@ -98,8 +98,10 @@ public class BaseGraphConnector implements GraphConnector {
 		LOGGER.info("Loading document of type: " + Id.getIdMeaning(conceptNameTemplate));
 		// create a new entry in the graph
 		if ("RID10357@RADLEX".equals(Id.getId(conceptName))) {
-			new MammographyCreatorNewModel().create(document, template);
-		} else {
+			new MammographyCreator().create(document, template);
+		} else if ("RID10326@RADLEX".equals(Id.getId(conceptName))) {
+			new EcographyCreator().create(document, template);
+		}else {
 			throw new IllegalStateException("Unsupported document type: " + Id.getIdMeaning(conceptNameTemplate));
 		}
 	}

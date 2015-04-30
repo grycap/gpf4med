@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DICOM_SR IDOntology="5" IDReport="MAMO_1_500" DateTimeStart="24/11/2014T18:10:05" DateTimeEnd="24/11/2014T18:20:59" IDTRENCADISReport="" >
+<DICOM_SR IDOntology="6" IDReport="ECO_1_500" DateTimeStart="24/11/2014 18:41:59" DateTimeEnd="24/11/2014 18:44:04" IDTRENCADISReport="" >
 <CONTAINER>
 	<CONCEPT_NAME>
-		<CODE_VALUE>RID10357</CODE_VALUE>
+		<CODE_VALUE>RID10326</CODE_VALUE>
 		<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-		<CODE_MEANING>Mamografía</CODE_MEANING>
+		<CODE_MEANING>Ecografía</CODE_MEANING>
 	</CONCEPT_NAME>
 	<CHILDREN>
 		<TEXT>
@@ -13,7 +13,7 @@
 				<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
 				<CODE_MEANING>Identificador del Informe</CODE_MEANING>
 			</CONCEPT_NAME>
-			<VALUE>MAMO_1_500</VALUE>
+			<VALUE>ECO_1_500</VALUE>
 		</TEXT>
 		<DATE>
 			<CONCEPT_NAME>
@@ -29,7 +29,7 @@
 				<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
 				<CODE_MEANING>Hora de Creación del Informe</CODE_MEANING>
 			</CONCEPT_NAME>
-			<VALUE>18:10:05</VALUE>
+			<VALUE>18:41:59</VALUE>
 		</TEXT>
 		<TEXT>
 			<CONCEPT_NAME>
@@ -39,27 +39,6 @@
 			</CONCEPT_NAME>
 			<VALUE>1</VALUE>
 		</TEXT>
-		<CONTAINER>
-			<CONCEPT_NAME>
-				<CODE_VALUE>TRMM0027</CODE_VALUE>
-				<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-				<CODE_MEANING>Descripción de la Composición de la Mama</CODE_MEANING>
-			</CONCEPT_NAME>
-			<CHILDREN>
-				<CODE>
-					<CONCEPT_NAME>
-						<CODE_VALUE>TRMM0028</CODE_VALUE>
-						<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-						<CODE_MEANING>Composición de la Mama</CODE_MEANING>
-					</CONCEPT_NAME>
-					<VALUE>
-						<CODE_VALUE>TRMM0030</CODE_VALUE>
-						<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-						<CODE_MEANING>Hay Áreas de Densidad Fibroglandular Dispersas</CODE_MEANING>
-					</VALUE>
-				</CODE>
-			</CHILDREN>
-		</CONTAINER>
 		<CONTAINER>
 			<CONCEPT_NAME>
 				<CODE_VALUE>RID28486</CODE_VALUE>
@@ -101,9 +80,21 @@
 								<CODE_MEANING>Forma</CODE_MEANING>
 							</CONCEPT_NAME>
 							<VALUE>
-								<CODE_VALUE>RID29173</CODE_VALUE>
+								<CODE_VALUE>RID29223</CODE_VALUE>
 								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-								<CODE_MEANING>Redondo</CODE_MEANING>
+								<CODE_MEANING>Oval</CODE_MEANING>
+							</VALUE>
+						</CODE>
+						<CODE>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0035</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Orientación</CODE_MEANING>
+							</CONCEPT_NAME>
+							<VALUE>
+								<CODE_VALUE>RID34352</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Paralela</CODE_MEANING>
 							</VALUE>
 						</CODE>
 						<CODE>
@@ -120,428 +111,41 @@
 						</CODE>
 						<CODE>
 							<CONCEPT_NAME>
-								<CODE_VALUE>TRMM0010</CODE_VALUE>
+								<CODE_VALUE>TRMM0037</CODE_VALUE>
 								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-								<CODE_MEANING>Densidad</CODE_MEANING>
+								<CODE_MEANING>Patrón Ecogénico</CODE_MEANING>
 							</CONCEPT_NAME>
 							<VALUE>
-								<CODE_VALUE>RID34240</CODE_VALUE>
+								<CODE_VALUE>RID6047</CODE_VALUE>
 								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-								<CODE_MEANING>Alta Densidad</CODE_MEANING>
+								<CODE_MEANING>Isoecoico</CODE_MEANING>
+							</VALUE>
+						</CODE>
+						<CODE>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0040</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Características Posteriores</CODE_MEANING>
+							</CONCEPT_NAME>
+							<VALUE>
+								<CODE_VALUE>RID34300</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Refuerzo</CODE_MEANING>
 							</VALUE>
 						</CODE>
 						<NUM>
 							<CONCEPT_NAME>
-								<CODE_VALUE>TRMM0033</CODE_VALUE>
-								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-								<CODE_MEANING>Existen Calcificaciones Asociadas</CODE_MEANING>
+								<CODE_VALUE>RID34368</CODE_VALUE>
+								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+								<CODE_MEANING>Calcificaciones en un Nódulo</CODE_MEANING>
 							</CONCEPT_NAME>
 							<UNIT_MEASUREMENT>
 								<CODE_VALUE>000000001</CODE_VALUE>
 								<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
 								<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
 							</UNIT_MEASUREMENT>
-							<VALUE>1</VALUE>
+							<VALUE>0</VALUE>
 						</NUM>
-						<CODE>
-							<CONCEPT_NAME>
-								<CODE_VALUE>RID36027</CODE_VALUE>
-								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-								<CODE_MEANING>Categoría BI-RADS</CODE_MEANING>
-							</CONCEPT_NAME>
-							<VALUE>
-								<CODE_VALUE>RID36032</CODE_VALUE>
-								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-								<CODE_MEANING>BI-RADS 4B</CODE_MEANING>
-							</VALUE>
-						</CODE>
-						<CONTAINER>
-							<CONCEPT_NAME>
-								<CODE_VALUE>TRMM0026</CODE_VALUE>
-								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-								<CODE_MEANING>Calcificaciones Asociadas</CODE_MEANING>
-							</CONCEPT_NAME>
-							<CHILDREN>
-								<CODE>
-									<CONCEPT_NAME>
-										<CODE_VALUE>TRMM0020</CODE_VALUE>
-										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-										<CODE_MEANING>Forma o Morfología</CODE_MEANING>
-									</CONCEPT_NAME>
-									<VALUE>
-										<CODE_VALUE>RID39314</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Morfología Sospechosa</CODE_MEANING>
-									</VALUE>
-								</CODE>
-								<CODE>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID39314</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Morfología Sospechosa</CODE_MEANING>
-									</CONCEPT_NAME>
-									<VALUE>
-										<CODE_VALUE>RID29214</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Amorfas</CODE_MEANING>
-									</VALUE>
-								</CODE>
-								<CODE>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID5958</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Distribución</CODE_MEANING>
-									</CONCEPT_NAME>
-									<VALUE>
-										<CODE_VALUE>RID5701</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Difusa</CODE_MEANING>
-									</VALUE>
-								</CODE>
-							</CHILDREN>
-						</CONTAINER>
-						<CONTAINER>
-							<CONCEPT_NAME>
-								<CODE_VALUE>TRMM0024</CODE_VALUE>
-								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-								<CODE_MEANING>Tamaño Lesión</CODE_MEANING>
-							</CONCEPT_NAME>
-							<CHILDREN>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>TRMM0019</CODE_VALUE>
-										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-										<CODE_MEANING>Tamaño Lesion (Antero-Posterior)</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000002</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Milímetros</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE></VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>TRMM0018</CODE_VALUE>
-										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-										<CODE_MEANING>Tamaño Lesion (Latero-Lateral)</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000002</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Milímetros</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>25</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>TRMM0017</CODE_VALUE>
-										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-										<CODE_MEANING>Tamaño Lesion (Craneo-Caudal)</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000002</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Milímetros</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>29</VALUE>
-								</NUM>
-							</CHILDREN>
-						</CONTAINER>
-						<CONTAINER>
-							<CONCEPT_NAME>
-								<CODE_VALUE>TRMM0011</CODE_VALUE>
-								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-								<CODE_MEANING>Localización de la Lesión</CODE_MEANING>
-							</CONCEPT_NAME>
-							<CHILDREN>
-								<CODE>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID5821</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Lateralidad</CODE_MEANING>
-									</CONCEPT_NAME>
-									<VALUE>
-										<CODE_VALUE>RID5825</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Derecha</CODE_MEANING>
-									</VALUE>
-								</CODE>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID29928</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Cuadrante Supero-Externo (CSE)</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>1</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID29934</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Cuadrante Infero-Externo (CIE)</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID29931</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Cuadrante Supero-Interno (CSI)</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID29937</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Cuadrante Infero-Interno (CII)</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID29946</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Línea Intercuadrantica Externa (LIE)</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>1</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID29940</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Línea Intercuadrántica Superior (LIS)</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID29943</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Línea Intercuadrántica Interna (LIInt)</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID29952</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Línea Intercuadrántica Inferior (LIInf)</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID29949</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Retroareolar</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID29902</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Pezón</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID29911</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Areola</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID28643</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Prolongación Axilar</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>RID2470</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Axila</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>TRMM0015</CODE_VALUE>
-										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-										<CODE_MEANING>Surco Inframamario</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>TRMM0016</CODE_VALUE>
-										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-										<CODE_MEANING>Surco Intermamario</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000001</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
-								</NUM>
-								<NUM>
-									<CONCEPT_NAME>
-										<CODE_VALUE>TRMM0012</CODE_VALUE>
-										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-										<CODE_MEANING>Distancia desde el Pezón</CODE_MEANING>
-									</CONCEPT_NAME>
-									<UNIT_MEASUREMENT>
-										<CODE_VALUE>000000002</CODE_VALUE>
-										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
-										<CODE_MEANING>Milímetros</CODE_MEANING>
-									</UNIT_MEASUREMENT>
-									<VALUE></VALUE>
-								</NUM>
-							</CHILDREN>
-						</CONTAINER>
-					</CHILDREN>
-				</CONTAINER>
-				<CONTAINER>
-					<CONCEPT_NAME>
-						<CODE_VALUE>TRMM0005</CODE_VALUE>
-						<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-						<CODE_MEANING>Hallazgo</CODE_MEANING>
-					</CONCEPT_NAME>
-					<CHILDREN>
-						<TEXT>
-							<CONCEPT_NAME>
-								<CODE_VALUE>TRMM0006</CODE_VALUE>
-								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-								<CODE_MEANING>Identificador de Lesión</CODE_MEANING>
-							</CONCEPT_NAME>
-							<VALUE>LESION_02</VALUE>
-						</TEXT>
-						<CODE>
-							<CONCEPT_NAME>
-								<CODE_VALUE>TRMM0007</CODE_VALUE>
-								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-								<CODE_MEANING>Tipo de Lesión</CODE_MEANING>
-							</CONCEPT_NAME>
-							<VALUE>
-								<CODE_VALUE>RID34642</CODE_VALUE>
-								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-								<CODE_MEANING>Calcificaciones</CODE_MEANING>
-							</VALUE>
-						</CODE>
-						<CODE>
-							<CONCEPT_NAME>
-								<CODE_VALUE>TRMM0020</CODE_VALUE>
-								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-								<CODE_MEANING>Forma o Morfología</CODE_MEANING>
-							</CONCEPT_NAME>
-							<VALUE>
-								<CODE_VALUE>RID36038</CODE_VALUE>
-								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-								<CODE_MEANING>Tipicamente Benignas</CODE_MEANING>
-							</VALUE>
-						</CODE>
-						<CODE>
-							<CONCEPT_NAME>
-								<CODE_VALUE>RID36038</CODE_VALUE>
-								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-								<CODE_MEANING>Tipicamente Benignas</CODE_MEANING>
-							</CONCEPT_NAME>
-							<VALUE>
-								<CODE_VALUE>RID34251</CODE_VALUE>
-								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-								<CODE_MEANING>Redondas (Incluye Puntiformes como una Subcategoría)</CODE_MEANING>
-							</VALUE>
-						</CODE>
-						<CODE>
-							<CONCEPT_NAME>
-								<CODE_VALUE>RID5958</CODE_VALUE>
-								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-								<CODE_MEANING>Distribución</CODE_MEANING>
-							</CONCEPT_NAME>
-							<VALUE>
-								<CODE_VALUE>RID34260</CODE_VALUE>
-								<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-								<CODE_MEANING>Regional</CODE_MEANING>
-							</VALUE>
-						</CODE>
 						<CODE>
 							<CONCEPT_NAME>
 								<CODE_VALUE>RID36027</CODE_VALUE>
@@ -572,7 +176,7 @@
 										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
 										<CODE_MEANING>Milímetros</CODE_MEANING>
 									</UNIT_MEASUREMENT>
-									<VALUE>50</VALUE>
+									<VALUE>20</VALUE>
 								</NUM>
 								<NUM>
 									<CONCEPT_NAME>
@@ -585,7 +189,7 @@
 										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
 										<CODE_MEANING>Milímetros</CODE_MEANING>
 									</UNIT_MEASUREMENT>
-									<VALUE>65</VALUE>
+									<VALUE>43</VALUE>
 								</NUM>
 								<NUM>
 									<CONCEPT_NAME>
@@ -598,7 +202,7 @@
 										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
 										<CODE_MEANING>Milímetros</CODE_MEANING>
 									</UNIT_MEASUREMENT>
-									<VALUE>33</VALUE>
+									<VALUE></VALUE>
 								</NUM>
 							</CHILDREN>
 						</CONTAINER>
@@ -632,7 +236,7 @@
 										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
 										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
 									</UNIT_MEASUREMENT>
-									<VALUE>1</VALUE>
+									<VALUE>0</VALUE>
 								</NUM>
 								<NUM>
 									<CONCEPT_NAME>
@@ -697,7 +301,7 @@
 										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
 										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
 									</UNIT_MEASUREMENT>
-									<VALUE>0</VALUE>
+									<VALUE>1</VALUE>
 								</NUM>
 								<NUM>
 									<CONCEPT_NAME>
@@ -835,23 +439,36 @@
 				</CONTAINER>
 				<CONTAINER>
 					<CONCEPT_NAME>
-						<CODE_VALUE>TRMM0025</CODE_VALUE>
+						<CODE_VALUE>TRMM0051</CODE_VALUE>
 						<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-						<CODE_MEANING>Características Asociadas</CODE_MEANING>
+						<CODE_MEANING>Casos Especiales</CODE_MEANING>
 					</CONCEPT_NAME>
 					<CHILDREN>
 						<CONTAINER>
 							<CONCEPT_NAME>
-								<CODE_VALUE>TRMM0059</CODE_VALUE>
+								<CODE_VALUE>TRMM0064</CODE_VALUE>
 								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-								<CODE_MEANING>Mama Izquierda (C.A.)</CODE_MEANING>
+								<CODE_MEANING>Mama Derecha (C.E)</CODE_MEANING>
 							</CONCEPT_NAME>
 							<CHILDREN>
 								<NUM>
 									<CONCEPT_NAME>
-										<CODE_VALUE>RID34383</CODE_VALUE>
+										<CODE_VALUE>TRMM0057</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING>Quiste/s Simple/s</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>1</VALUE>
+								</NUM>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>RID34371</CODE_VALUE>
 										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Retración de Piel</CODE_MEANING>
+										<CODE_MEANING>Microquistes Agrupados</CODE_MEANING>
 									</CONCEPT_NAME>
 									<UNIT_MEASUREMENT>
 										<CODE_VALUE>000000001</CODE_VALUE>
@@ -862,9 +479,9 @@
 								</NUM>
 								<NUM>
 									<CONCEPT_NAME>
-										<CODE_VALUE>RID34269</CODE_VALUE>
+										<CODE_VALUE>RID34372</CODE_VALUE>
 										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Retracción del Pezón</CODE_MEANING>
+										<CODE_MEANING>Quiste/s Complicado/s</CODE_MEANING>
 									</CONCEPT_NAME>
 									<UNIT_MEASUREMENT>
 										<CODE_VALUE>000000001</CODE_VALUE>
@@ -875,9 +492,9 @@
 								</NUM>
 								<NUM>
 									<CONCEPT_NAME>
-										<CODE_VALUE>RID34270</CODE_VALUE>
+										<CODE_VALUE>RID34373</CODE_VALUE>
 										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Engrosamiento de Piel</CODE_MEANING>
+										<CODE_MEANING>Nódulo en o sobre la Piel</CODE_MEANING>
 									</CONCEPT_NAME>
 									<UNIT_MEASUREMENT>
 										<CODE_VALUE>000000001</CODE_VALUE>
@@ -888,9 +505,22 @@
 								</NUM>
 								<NUM>
 									<CONCEPT_NAME>
-										<CODE_VALUE>RID34271</CODE_VALUE>
+										<CODE_VALUE>RID5425</CODE_VALUE>
 										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Engrosamiento Trabecular</CODE_MEANING>
+										<CODE_MEANING>Cuerpo Extraño Incluyendo Prótesis</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>RID34263</CODE_VALUE>
+										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+										<CODE_MEANING>Ganglio Linfático Intramamario</CODE_MEANING>
 									</CONCEPT_NAME>
 									<UNIT_MEASUREMENT>
 										<CODE_VALUE>000000001</CODE_VALUE>
@@ -903,7 +533,45 @@
 									<CONCEPT_NAME>
 										<CODE_VALUE>RID34272</CODE_VALUE>
 										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Adenopatia Axilar</CODE_MEANING>
+										<CODE_MEANING>Adenopatia/s Axilar/es</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+								<CODE>
+									<CONCEPT_NAME>
+										<CODE_VALUE>TRMM0052</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING>Anomalías Vasculares</CODE_MEANING>
+									</CONCEPT_NAME>
+									<VALUE>
+										<CODE_VALUE>TRMM0063</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING></CODE_MEANING>
+									</VALUE>
+								</CODE>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>TRMM0055</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING>Colección Líquida Posquirúrgica</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>TRMM0056</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING>Necrosis Grasa</CODE_MEANING>
 									</CONCEPT_NAME>
 									<UNIT_MEASUREMENT>
 										<CODE_VALUE>000000001</CODE_VALUE>
@@ -916,16 +584,16 @@
 						</CONTAINER>
 						<CONTAINER>
 							<CONCEPT_NAME>
-								<CODE_VALUE>TRMM0058</CODE_VALUE>
+								<CODE_VALUE>TRMM0065</CODE_VALUE>
 								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
-								<CODE_MEANING>Mama Derecha (C.A.)</CODE_MEANING>
+								<CODE_MEANING>Mama Izquierda (C.E.)</CODE_MEANING>
 							</CONCEPT_NAME>
 							<CHILDREN>
 								<NUM>
 									<CONCEPT_NAME>
-										<CODE_VALUE>RID34383</CODE_VALUE>
-										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Retración de Piel</CODE_MEANING>
+										<CODE_VALUE>TRMM0057</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING>Quiste/s Simple/s</CODE_MEANING>
 									</CONCEPT_NAME>
 									<UNIT_MEASUREMENT>
 										<CODE_VALUE>000000001</CODE_VALUE>
@@ -936,9 +604,9 @@
 								</NUM>
 								<NUM>
 									<CONCEPT_NAME>
-										<CODE_VALUE>RID34269</CODE_VALUE>
+										<CODE_VALUE>RID34371</CODE_VALUE>
 										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Retracción del Pezón</CODE_MEANING>
+										<CODE_MEANING>Microquistes Agrupados</CODE_MEANING>
 									</CONCEPT_NAME>
 									<UNIT_MEASUREMENT>
 										<CODE_VALUE>000000001</CODE_VALUE>
@@ -949,9 +617,9 @@
 								</NUM>
 								<NUM>
 									<CONCEPT_NAME>
-										<CODE_VALUE>RID34270</CODE_VALUE>
+										<CODE_VALUE>RID34372</CODE_VALUE>
 										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Engrosamiento de Piel</CODE_MEANING>
+										<CODE_MEANING>Quiste/s Complicado/s</CODE_MEANING>
 									</CONCEPT_NAME>
 									<UNIT_MEASUREMENT>
 										<CODE_VALUE>000000001</CODE_VALUE>
@@ -962,9 +630,35 @@
 								</NUM>
 								<NUM>
 									<CONCEPT_NAME>
-										<CODE_VALUE>RID34271</CODE_VALUE>
+										<CODE_VALUE>RID34373</CODE_VALUE>
 										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Engrosamiento Trabecular</CODE_MEANING>
+										<CODE_MEANING>Nódulo en o sobre la Piel</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>RID5425</CODE_VALUE>
+										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+										<CODE_MEANING>Cuerpo Extraño Incluyendo Prótesis</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>RID34263</CODE_VALUE>
+										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+										<CODE_MEANING>Ganglio Linfático Intramamario</CODE_MEANING>
 									</CONCEPT_NAME>
 									<UNIT_MEASUREMENT>
 										<CODE_VALUE>000000001</CODE_VALUE>
@@ -977,7 +671,174 @@
 									<CONCEPT_NAME>
 										<CODE_VALUE>RID34272</CODE_VALUE>
 										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
-										<CODE_MEANING>Adenopatia Axilar</CODE_MEANING>
+										<CODE_MEANING>Adenopatia/s Axilar/es</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+								<CODE>
+									<CONCEPT_NAME>
+										<CODE_VALUE>TRMM0052</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING>Anomalías Vasculares</CODE_MEANING>
+									</CONCEPT_NAME>
+									<VALUE>
+										<CODE_VALUE>TRMM0063</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING></CODE_MEANING>
+									</VALUE>
+								</CODE>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>TRMM0055</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING>Colección Líquida Posquirúrgica</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>TRMM0056</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING>Necrosis Grasa</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+							</CHILDREN>
+						</CONTAINER>
+					</CHILDREN>
+				</CONTAINER>
+				<CONTAINER>
+					<CONCEPT_NAME>
+						<CODE_VALUE>TRMM0025</CODE_VALUE>
+						<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+						<CODE_MEANING>Características Asociadas</CODE_MEANING>
+					</CONCEPT_NAME>
+					<CHILDREN>
+						<CONTAINER>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0058</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Mama Derecha (C.A.)</CODE_MEANING>
+							</CONCEPT_NAME>
+							<CHILDREN>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>RID34261</CODE_VALUE>
+										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+										<CODE_MEANING>Distorsión Arquitectural o Alteración Estructural</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>RID34382</CODE_VALUE>
+										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+										<CODE_MEANING>Cambios en Ductos</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+								<CODE>
+									<CONCEPT_NAME>
+										<CODE_VALUE>TRMM0042</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING>Cambios Cutaneos</CODE_MEANING>
+									</CONCEPT_NAME>
+									<VALUE>
+										<CODE_VALUE>TRMM0060</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING></CODE_MEANING>
+									</VALUE>
+								</CODE>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>RID4865</CODE_VALUE>
+										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+										<CODE_MEANING>Edema</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+							</CHILDREN>
+						</CONTAINER>
+						<CONTAINER>
+							<CONCEPT_NAME>
+								<CODE_VALUE>TRMM0059</CODE_VALUE>
+								<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+								<CODE_MEANING>Mama Izquierda (C.A.)</CODE_MEANING>
+							</CONCEPT_NAME>
+							<CHILDREN>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>RID34261</CODE_VALUE>
+										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+										<CODE_MEANING>Distorsión Arquitectural o Alteración Estructural</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>RID34382</CODE_VALUE>
+										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+										<CODE_MEANING>Cambios en Ductos</CODE_MEANING>
+									</CONCEPT_NAME>
+									<UNIT_MEASUREMENT>
+										<CODE_VALUE>000000001</CODE_VALUE>
+										<CODE_SCHEMA>UNIT_MEASUREMENT</CODE_SCHEMA>
+										<CODE_MEANING>Unidades Boleanas</CODE_MEANING>
+									</UNIT_MEASUREMENT>
+									<VALUE>0</VALUE>
+								</NUM>
+								<CODE>
+									<CONCEPT_NAME>
+										<CODE_VALUE>TRMM0042</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING>Cambios Cutaneos</CODE_MEANING>
+									</CONCEPT_NAME>
+									<VALUE>
+										<CODE_VALUE>TRMM0060</CODE_VALUE>
+										<CODE_SCHEMA>TRENCADIS_MAMO</CODE_SCHEMA>
+										<CODE_MEANING></CODE_MEANING>
+									</VALUE>
+								</CODE>
+								<NUM>
+									<CONCEPT_NAME>
+										<CODE_VALUE>RID4865</CODE_VALUE>
+										<CODE_SCHEMA>RADLEX</CODE_SCHEMA>
+										<CODE_MEANING>Edema</CODE_MEANING>
 									</CONCEPT_NAME>
 									<UNIT_MEASUREMENT>
 										<CODE_VALUE>000000001</CODE_VALUE>
