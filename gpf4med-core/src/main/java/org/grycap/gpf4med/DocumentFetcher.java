@@ -60,7 +60,7 @@ public enum DocumentFetcher {
 
 	private DocumentFetcher() { }
 
-	public void fecth(final ImmutableList<URL> urls) {
+	public void fetch(final ImmutableList<URL> urls) {
 		checkArgument(urls != null, "Uninitialized URLs");
 		final ImmutableMap.Builder<URI, File> pendingBuilder = new ImmutableMap.Builder<URI, File>();
 		try {

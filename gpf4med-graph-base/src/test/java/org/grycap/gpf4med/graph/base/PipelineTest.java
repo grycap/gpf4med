@@ -57,8 +57,10 @@ public class PipelineTest {
 		try {
 			// load example templates
 			final Collection<File> templateFiles = TestUtils.getTemplateFiles();
-			TemplateManager.INSTANCE.setup(Arrays.asList(FileUtils.toURLs(templateFiles.toArray(new File[templateFiles.size()]))));
+			final Collection<URL> templateURLs = Arrays.asList(FileUtils.toURLs(templateFiles.toArray(new File[templateFiles.size()])));
+			TemplateManager.INSTANCE.setup(templateURLs);
 			TemplateManager.INSTANCE.preload();
+
 			// load example reports in the graph
 			GraphDatabaseHandler.INSTANCE.restart();
 			GraphDatabaseHandler.INSTANCE.setConnector(new BaseGraphConnector());
@@ -66,7 +68,7 @@ public class PipelineTest {
 			final ImmutableList<URL> urls = new ImmutableList.Builder<URL>().add(FileUtils.toURLs(reportFiles.toArray(new File[reportFiles.size()]))).build();
 			Statistics.INSTANCE.setTotalSubmitted(reportFiles.size());
 			// start asynchronously load
-			DocumentFetcher.INSTANCE.fecth(urls);
+			DocumentFetcher.INSTANCE.fetch(urls);
 			graphvizFile = GraphvizPrinter.print(GraphDatabaseHandler.INSTANCE.service(),
 					RandomStringUtils.random(8, true, true) + ".dot");
 			assertThat("graphviz file is not null", graphvizFile, notNullValue());
@@ -77,7 +79,7 @@ public class PipelineTest {
 			/* uncomment for additional output
 			System.out.println(" >> Graphviz\n" + graphvizStr + "\n"); */
 			
-			FileUtils.copyFile(graphvizFile, new File("/opt/trencadis/mammography_graph.dot"));
+			FileUtils.copyFile(graphvizFile, new File("/opt/trencadis/graphs/rmi_graph.dot"));
 			
 		} catch (Exception e) {
 			e.printStackTrace(System.err);

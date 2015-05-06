@@ -101,7 +101,9 @@ public class BaseGraphConnector implements GraphConnector {
 			new MammographyCreator().create(document, template);
 		} else if ("RID10326@RADLEX".equals(Id.getId(conceptName))) {
 			new EcographyCreator().create(document, template);
-		}else {
+		} else if ("RID10312@RADLEX".equals(Id.getId(conceptName))) {
+			new MagneticResonanceCreator().create(document, template);
+		} else {
 			throw new IllegalStateException("Unsupported document type: " + Id.getIdMeaning(conceptNameTemplate));
 		}
 	}

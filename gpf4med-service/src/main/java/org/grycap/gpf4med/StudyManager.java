@@ -59,7 +59,7 @@ public enum StudyManager {
 		executor.execute(new Runnable() {			
 			@Override
 			public void run() {
-				DocumentFetcher.INSTANCE.fecth(urls);
+				DocumentFetcher.INSTANCE.fetch(urls);
 			}
 		});
 	}
