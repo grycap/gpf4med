@@ -19,7 +19,7 @@
 	<parent>
 		<groupId>org.grycap.gpf4med</groupId>
 		<artifactId>gpf4med</artifactId>
-		<version>1.1.0</version>
+		<version>1.2.0</version>
 		<relativePath>..</relativePath>
 	</parent>
 
@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>org.grycap.gpf4med</groupId>
 			<artifactId>gpf4med-external-deps</artifactId>
-			<version>${gpf4med.version}</version>
+			<version>1.2.0</version> <!-- <version>${gpf4med.version}</version> -->
 		</dependency>
 
 		<!-- Apache commons -->
@@ -128,6 +128,16 @@
 					<artifactId>hamcrest-core</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		
+		<!-- Akka dependencies -->
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-actor_2.11</artifactId>
+		</dependency>	
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-slf4j_2.11</artifactId>
 		</dependency>
 
 		<!-- TRENCADIS middleware -->

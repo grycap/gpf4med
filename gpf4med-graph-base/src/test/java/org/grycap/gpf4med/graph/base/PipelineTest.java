@@ -79,7 +79,7 @@ public class PipelineTest {
 			/* uncomment for additional output
 			System.out.println(" >> Graphviz\n" + graphvizStr + "\n"); */
 			
-			FileUtils.copyFile(graphvizFile, new File("/opt/trencadis/graphs/rmi_graph.dot"));
+			FileUtils.copyFile(graphvizFile, new File("/opt/trencadis/graphs/neo4j.dot"));
 			
 		} catch (Exception e) {
 			e.printStackTrace(System.err);

@@ -77,7 +77,8 @@ public enum ConfigurationManager implements Closeable2 {
 	public static final String TRENCADIS_CONFIGURATION = "gpf4med-trencadis.xml";
 	public static final String CONTAINER_CONFIGURATION = "gpf4med-container.xml";
 	public static final String ENACTOR_CONFIGURATION = "gpf4med-enactor.xml";
-
+	public static final String AKKA_CONFIGURATION = "gpf4med-akka.xml";
+	
 	public static final ImmutableList<String> IGNORE_LIST = new ImmutableList.Builder<String>()
 			.add("logback.xml").build();
 
@@ -179,6 +180,10 @@ public enum ConfigurationManager implements Closeable2 {
 		return configuration().getTrencadisPassword().orNull();
 	}
 	
+	public @Nullable File getAkkaConfigFile() {
+		return configuration().getAkkaConfigFile().orNull();
+	}
+	
 	public @Nullable String getProperty(final String name, final @Nullable String defaultValue) {
 		return configuration().getProperty(name, defaultValue);
 	}
@@ -269,6 +274,9 @@ public enum ConfigurationManager implements Closeable2 {
 							final File trencadisConfiguration = getFile("trencadis.config-file", configuration, foundNameList, false, null);
 							final String trencadisPassword = getString("trencadis.pass", configuration, foundNameList, null);
 							
+							// Add Akka configuration
+							final File akkaConfiguration = getFile("akka.config-file", configuration, foundNameList, false, null);
+							
 							// get other (free-format) properties
 							final Iterator<String> keyIterator = configuration.getKeys();
 							final Map<String, String> othersMap = new Hashtable<String, String>();
@@ -285,7 +293,7 @@ public enum ConfigurationManager implements Closeable2 {
 									encryptLocalStorage, useStrongCryptography, templatesVersion, templatesIndex, 
 									connectorsVersion, connectorsIndex, containerHostname, containerPort, enactorProvider, 
 									enactorIdentity, enactorCredential, serverVersion, serverInstallerUrl, serverHome,
-									trencadisConfiguration, trencadisPassword, othersMap);
+									trencadisConfiguration, trencadisPassword, akkaConfiguration, othersMap);
 							LOGGER.info(dont_use.toString());
 						} else {
 							throw new IllegalStateException("Main configuration not found");
@@ -310,6 +318,7 @@ public enum ConfigurationManager implements Closeable2 {
 				.add(ConfigurationManager.class.getClassLoader().getResource(TRENCADIS_CONFIGURATION))
 				.add(ConfigurationManager.class.getClassLoader().getResource(CONTAINER_CONFIGURATION))
 				.add(ConfigurationManager.class.getClassLoader().getResource(ENACTOR_CONFIGURATION))
+				.add(ConfigurationManager.class.getClassLoader().getResource(AKKA_CONFIGURATION))
 				.build();
 	}
 
@@ -396,6 +405,8 @@ public enum ConfigurationManager implements Closeable2 {
 		// TRENCADIS
 		private final Optional<File> trencadisConfiguration;
 		private final Optional<String> trencadisPassword;
+		// Akka
+		private final Optional<File> akkaConfiguration;
 		// other configurations
 		private final ImmutableMap<String, String> othersMap;
 		// file encryption provider
@@ -408,7 +419,7 @@ public enum ConfigurationManager implements Closeable2 {
 				final @Nullable File enactorCredential, final @Nullable String serverVersion,
 				final @Nullable URL serverInstallerUrl, final @Nullable File serverHome,
 				final @Nullable File trencadisConfiguration, final @Nullable String trencadisPassword, 
-				final @Nullable Map<String, String> othersMap) {
+				final @Nullable File akkaConfiguration, final @Nullable Map<String, String> othersMap) {
 			this.rootDir = checkNotNull(rootDir, "Uninitialized root directory");
 			this.templatesUrl = checkNotNull(templatesUrl, "Uninitialized templates URL");
 			this.connectorsUrl = checkNotNull(connectorsUrl, "Uninitialized connectors URL");
@@ -445,6 +456,7 @@ public enum ConfigurationManager implements Closeable2 {
 			this.serverHome = Optional.fromNullable(serverHome);
 			this.trencadisConfiguration = Optional.fromNullable(trencadisConfiguration);
 			this.trencadisPassword = Optional.fromNullable(StringUtils.trimToNull(trencadisPassword));
+			this.akkaConfiguration = Optional.fromNullable(akkaConfiguration);
 			this.othersMap = new ImmutableMap.Builder<String, String>().putAll(othersMap).build();			
 		}		
 		public File getRootDir() {
@@ -510,6 +522,9 @@ public enum ConfigurationManager implements Closeable2 {
 		public Optional<String> getTrencadisPassword() {
 			return trencadisPassword;
 		}
+		public Optional<File> getAkkaConfigFile() {
+			return akkaConfiguration;
+		}
 		public ImmutableMap<String, String> getOthersMap() {
 			return othersMap;
 		}
@@ -547,6 +562,7 @@ public enum ConfigurationManager implements Closeable2 {
 					.add("serverHome", serverHome.orNull())
 					.add("trencadisConfiguration", trencadisConfiguration.orNull())
 					.add("trencadisPassword", trencadisPassword.orNull())
+					.add("akkaConfiguration", akkaConfiguration.orNull())
 					.add("customProperties", customPropertiesToString())
 					.toString();
 		}

@@ -4,13 +4,13 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="gpf4med-api-1.1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gpf4med-api/gpf4med-api">
+        <dependent-module archiveName="gpf4med-api-1.2.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gpf4med-api/gpf4med-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="gpf4med-core-1.1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gpf4med-core/gpf4med-core">
+        <dependent-module archiveName="gpf4med-core-1.2.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gpf4med-core/gpf4med-core">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="gpf4med-external-deps-1.1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gpf4med-external-deps/gpf4med-external-deps">
+        <dependent-module archiveName="gpf4med-external-deps-1.2.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gpf4med-external-deps/gpf4med-external-deps">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/gpf4med-enactor/target/classes"/>

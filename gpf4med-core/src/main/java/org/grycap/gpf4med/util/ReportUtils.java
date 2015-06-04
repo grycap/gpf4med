@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Institute for Molecular Imaging Instrumentation (I3M)
+ * Copyright 2015 Institute for Molecular Imaging Instrumentation (I3M)
  * 
  * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by 
  * the European Commission - subsequent versions of the EUPL (the "Licence");

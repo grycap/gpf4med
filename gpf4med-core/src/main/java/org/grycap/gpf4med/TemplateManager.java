@@ -46,8 +46,6 @@ import org.grycap.gpf4med.util.URLUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import trencadis.middleware.login.TRENCADIS_SESSION;
-
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -143,13 +141,10 @@ public enum TemplateManager implements Closeable2 {
 						}
 						else {
 							try {
-								TRENCADIS_SESSION trencadisSession = new TRENCADIS_SESSION(
-									ConfigurationManager.INSTANCE.getTrencadisConfigFile(),
-									ConfigurationManager.INSTANCE.getTrencadisPassword());
 								if (idOntology != null)
-									TRENCADISUtils.downloadOntology(trencadisSession, idOntology, templatesCacheDir.getAbsolutePath());
+									TRENCADISUtils.INSTANCE.downloadOntology(idOntology, templatesCacheDir.getAbsolutePath());
 								else	
-									TRENCADISUtils.downloadAllOntologies(trencadisSession, templatesCacheDir.getAbsolutePath());
+									TRENCADISUtils.INSTANCE.downloadAllOntologies(templatesCacheDir.getAbsolutePath());
 							} catch (Exception e3) {
 								LOGGER.warn("Failed to get templates from TRENCADIS" , e3);
 							}

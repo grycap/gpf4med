@@ -24,7 +24,6 @@ package org.grycap.gpf4med;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
-import static org.grycap.gpf4med.concurrent.TaskStorage.TASK_STORAGE;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,22 +39,18 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.DirectoryFileFilter;
-import org.apache.commons.io.filefilter.TrueFileFilter;
-import org.apache.commons.lang.StringUtils;
+import org.grycap.gpf4med.akka.AkkaApplication;
 import org.grycap.gpf4med.conf.ConfigurationManager;
 import org.grycap.gpf4med.event.FileEnqueuedEvent;
 import org.grycap.gpf4med.model.document.ConceptName;
 import org.grycap.gpf4med.model.document.Document;
 import org.grycap.gpf4med.model.util.Id;
-import org.grycap.gpf4med.threads.ImportReportsGroupTask;
 import org.grycap.gpf4med.util.TRENCADISUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import trencadis.infrastructure.services.DICOMStorage.impl.wrapper.xmlOutputDownloadAllReportsID.DICOM_SR_ID;
 import trencadis.infrastructure.services.dicomstorage.backend.BackEnd;
-import trencadis.middleware.login.TRENCADIS_SESSION;
 import trencadis.middleware.operations.DICOMStorage.TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE;
 
 import com.google.common.collect.ImmutableCollection;
@@ -76,7 +71,6 @@ public enum DocumentManager implements Closeable2 {
 
 	private final static Logger LOGGER = LoggerFactory.getLogger(DocumentManager.class);
 	
-	public static final int PARTITION = 5;
 	public static final int TIMEOUT_SECONDS = 60;
 	public static final int SHUTDOWN_TIMEOUT_SECONDS = 5;
 
@@ -187,7 +181,6 @@ public enum DocumentManager implements Closeable2 {
 				if (dont_use == null) {
 					// Documents can be loaded from class-path, local files, through HTTP or through TRENCADIS plug-in 
 					File documentsCacheDir = null;
-					List<String> medicalCenters = null;
 					try {
 						// prepare local cache directory
 						documentsCacheDir = new File(ConfigurationManager.INSTANCE.getLocalCacheDir(), 
@@ -201,41 +194,83 @@ public enum DocumentManager implements Closeable2 {
 						}
 						FileUtils.deleteQuietly(documentsCacheDir);
 						FileUtils.forceMkdir(documentsCacheDir);
-						medicalCenters = new ArrayList<String>();
 						if  (urls == null) {
 							try {
-								TRENCADIS_SESSION trencadisSession = new TRENCADIS_SESSION(
-									ConfigurationManager.INSTANCE.getTrencadisConfigFile(),
-									ConfigurationManager.INSTANCE.getTrencadisPassword());
-								
 								if (idCenter == -1 && idOntology == null) {
-									TRENCADISUtils.getReportsID(trencadisSession);
+									TRENCADISUtils.INSTANCE.getReportsID();
 								} else if(idCenter != -1 && idOntology == null) {
-									TRENCADISUtils.getReportsID(trencadisSession, idCenter);
+									TRENCADISUtils.INSTANCE.getReportsID(idCenter);
 								} else if(idCenter == -1 && idOntology != null) {
-									TRENCADISUtils.getReportsID(trencadisSession, idOntology);
+									TRENCADISUtils.INSTANCE.getReportsID(idOntology);
 								} else if(idCenter != -1 && idOntology != null){
-									TRENCADISUtils.getReportsID(trencadisSession, idCenter, idOntology);
+									TRENCADISUtils.INSTANCE.getReportsID(idCenter, idOntology);
 								}
+								/* 
+								 * Download reports using Akka
+								 */
 								
-								//final ImportReportsGroupTask groupTask = new ImportReportsGroupTask();
-								Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorage = TRENCADISUtils.getDicomStorage();
-								if (dicomStorage != null) {
-									for (TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE dicomStorageIDS : dicomStorage) {
+								long startAkka = System.currentTimeMillis();
+								// Initialize Akka Service
+								AkkaApplication.INSTANCE.setDocumentsCacheDir(documentsCacheDir);
+								AkkaApplication.INSTANCE.createService();								
+								long endAkka = System.currentTimeMillis();
+								
+								LOGGER.info("Time elapsed to download reports using Akka: " + (endAkka - startAkka) + " milliseconds.");
+								
+								/*
+								 * Download reports file by file without Akka
+								
+								long startFiles = System.currentTimeMillis();
+								
+								Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorages = TRENCADISUtils.INSTANCE.getDicomStorage();
+								if (dicomStorages != null) {
+									for (TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE dicomStorage : dicomStorages) {
 										final List<String> ids = new ArrayList<String>();
-										final String centerName = dicomStorageIDS.getCenterName().replaceAll(" ", "_");
-										medicalCenters.add(centerName);
-										final BackEnd backend = new BackEnd(dicomStorageIDS.getBackend().toString());
-										for (DICOM_SR_ID id : dicomStorageIDS.getDICOM_DSR_IDS()) {
+										final String centerName = dicomStorage.getCenterName().replaceAll(" ", "_");
+										final BackEnd backend = new BackEnd(dicomStorage.getBackend().toString());
+										for (DICOM_SR_ID id : dicomStorage.getDICOM_DSR_IDS()) {
 											ids.add(id.getValue());
-											TRENCADISUtils.downloadReport(trencadisSession, backend, centerName, id.getValue(), documentsCacheDir.getAbsolutePath());
+											TRENCADISUtils.INSTANCE.downloadReport(backend, centerName, id.getValue(), documentsCacheDir.getAbsolutePath());
 										}
-										//groupTask.addTask(backend, centerName, trencadisSession.getX509VOMSCredential(), ids, PARTITION, documentsCacheDir);
 									}
-									//groupTask.sumbitAll();
-									//TASK_STORAGE.add(groupTask);
 								}
 								
+								long endFiles = System.currentTimeMillis();
+								
+								LOGGER.info("Time elapsed to download reports (file by file) without Akka: " 
+										+ (endFiles - startFiles) + " milliseconds.");
+								 */
+								/*
+								 * Download group of reports without Akka
+								
+								long startGroups = System.currentTimeMillis();
+								
+								int partition = 15;
+								Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorages2 = TRENCADISUtils.INSTANCE.getDicomStorage();
+								if (dicomStorages2 != null) {
+									for (TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE dicomStorage : dicomStorages2) {
+										final String centerName = dicomStorage.getCenterName().replaceAll(" ", "_");
+										final BackEnd backend = new BackEnd(dicomStorage.getBackend().toString());
+										File reportsDest = new File(AkkaApplication.INSTANCE.getDocumentsCacheDir(), centerName + "_groups");
+										reportsDest.mkdir();
+										for (int i = 0; i < dicomStorage.getDICOM_DSR_IDS().size(); i += partition) {
+											Vector<DICOM_SR_ID> sub_ids = null;
+											if (i+partition > dicomStorage.getDICOM_DSR_IDS().size()) {
+												sub_ids = new Vector<DICOM_SR_ID>(dicomStorage.getDICOM_DSR_IDS().subList(i, dicomStorage.getDICOM_DSR_IDS().size()));
+											} else {
+												sub_ids = new Vector<DICOM_SR_ID>(dicomStorage.getDICOM_DSR_IDS().subList(i, i+partition));
+											}
+											TRENCADISUtils.INSTANCE.downloadReports(backend, vectorToString(sub_ids), reportsDest.getAbsolutePath());
+										}
+										
+									}
+								}
+								
+								long endGroups = System.currentTimeMillis();
+								
+								LOGGER.info("Time elapsed to download reports (by groups) without Akka: "
+										+ (endGroups - startGroups) + " milliseconds.");
+								 */
 							} catch (Exception e3) {
 								LOGGER.warn("Failed to get reports from TRENCADIS" , e3);
 							}
@@ -244,7 +279,7 @@ public enum DocumentManager implements Closeable2 {
 						LOGGER.warn("Failed to prepare reports for access" , e);
 					}
 					checkArgument(documentsCacheDir != null, "Uninitialized reports local cache directory");
-					
+					/*
 					final ImmutableMap.Builder<String, Document> builder = new ImmutableMap.Builder<String, Document>();
 					
 					for (final File file : FileUtils.listFiles(documentsCacheDir, TrueFileFilter.INSTANCE, DirectoryFileFilter.DIRECTORY)) {
@@ -263,11 +298,18 @@ public enum DocumentManager implements Closeable2 {
 							LOGGER.error("Failed to load report: " + filename, e);
 						}
 					}
-					dont_use = builder.build();
+					dont_use = builder.build();*/
 				}
 			}
 		}
 		return dont_use;
 	}
 	
+	private String vectorToString(Vector<DICOM_SR_ID> ids) {
+		String retval = "";
+		for (DICOM_SR_ID id : ids) {
+			retval += id.getValue() + ",";
+		}
+		return retval.substring(0, retval.length() - 1);
+	}
 }

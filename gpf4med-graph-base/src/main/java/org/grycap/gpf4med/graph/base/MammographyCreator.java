@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Institute for Molecular Imaging Instrumentation (I3M)
+ * Copyright 2015 Institute for Molecular Imaging Instrumentation (I3M)
  * 
  * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by 
  * the European Commission - subsequent versions of the EUPL (the "Licence");
@@ -24,9 +24,6 @@ package org.grycap.gpf4med.graph.base;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import javax.annotation.Nullable;
-
-import org.apache.commons.lang3.StringUtils;
 import org.grycap.gpf4med.data.GraphDatabaseHandler;
 import org.grycap.gpf4med.graph.base.model.LabelTypes;
 import org.grycap.gpf4med.graph.base.model.RelTypes;
@@ -77,7 +74,7 @@ public class MammographyCreator extends BaseDocumentCreator {
 		checkArgument(template != null, "Uninitialized template");
 		final GraphDatabaseService graphDb = GraphDatabaseHandler.INSTANCE.service();
 		try (Transaction tx = graphDb.beginTx()) {			
-			// create modality
+			// Create modality
 			final Node modality = getOrCreateModality(tx, graphDb, template);
 			// create study		
 			final Node study = createRadiologicalStudy(tx, graphDb, document, modality);			
@@ -253,17 +250,17 @@ public class MammographyCreator extends BaseDocumentCreator {
 						for (final Num num : item2.getNUM()) {
 							final String idNum = Id.getId(num.getCONCEPTNAME());
 							// Size (Craneo-Caudal)
-							if ("TRMM0017@TRENCADIS_MAMO".equals(idNum) && num.getVALUE() != null) {
+							if ("TRMM0017@TRENCADIS_MAMO".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) != null) {
 								sizeNode = (sizeNode != null ? sizeNode : createSize(tx, graphDb, lesionNode));
 								sizeNode.setProperty(DIMENSION1_PROPERTY, valueFromString(num.getVALUE()));
 							}
 							// Size (Latero-Lateral)
-							else if ("TRMM0018@TRENCADIS_MAMO".equals(idNum) && num.getVALUE() != null) {
+							else if ("TRMM0018@TRENCADIS_MAMO".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) != null) {
 								sizeNode = (sizeNode != null ? sizeNode : createSize(tx, graphDb, lesionNode));
 								sizeNode.setProperty(DIMENSION2_PROPERTY, valueFromString(num.getVALUE()));
 							}
 							// Size (Antero-Posterior)
-							else if ("TRMM0019@TRENCADIS_MAMO".equals(idNum) && num.getVALUE() != null) {
+							else if ("TRMM0019@TRENCADIS_MAMO".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) != null) {
 								sizeNode = (sizeNode != null ? sizeNode : createSize(tx, graphDb, lesionNode));						
 								sizeNode.setProperty(DIMENSION3_PROPERTY, valueFromString(num.getVALUE()));
 							}
@@ -276,43 +273,35 @@ public class MammographyCreator extends BaseDocumentCreator {
 						for (final Num num : item2.getNUM()) {
 							final String idNum = Id.getId(num.getCONCEPTNAME());
 							// Upper Outer Quadrant of Breast (CSE)
-							if ("RID29928@RADLEX".equals(idNum)
-									&& num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
+							if ("RID29928@RADLEX".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
 								getOrCreateLocation(tx, graphDb, num, lesionNode, template);
 							}
 							// Lower Outer Quadrant of Breast (CIE)
-							else if ("RID29934@RADLEX".equals(idNum)
-									&& num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
+							else if ("RID29934@RADLEX".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
 								getOrCreateLocation(tx, graphDb, num, lesionNode, template);
 							}
 							// Upper Inner Quadrant of Breast (CSI)
-							else if ("RID29931@RADLEX".equals(idNum)
-									&& num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
+							else if ("RID29931@RADLEX".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
 								getOrCreateLocation(tx, graphDb, num, lesionNode, template);
 							}
 							// Lower Inner Quadrant of Breast (CII)
-							else if ("RID29937@RADLEX".equals(idNum)
-									&& num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
+							else if ("RID29937@RADLEX".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
 								getOrCreateLocation(tx, graphDb, num, lesionNode, template);
 							}
 							// Lateral Region of Breast (LIE)
-							else if ("RID29946@RADLEX".equals(idNum)
-									&& num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
+							else if ("RID29946@RADLEX".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
 								getOrCreateLocation(tx, graphDb, num, lesionNode, template);
 							} 
 							// Superior Region of Breast (LIS)
-							else if ("RID29940@RADLEX".equals(idNum)
-									&& num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
+							else if ("RID29940@RADLEX".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
 								getOrCreateLocation(tx, graphDb, num, lesionNode, template);
 							}
 							// Subareolar Region of Breast (LIInf)
-							else if ("RID29952@RADLEX".equals(idNum)
-									&& num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
+							else if ("RID29952@RADLEX".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
 								getOrCreateLocation(tx, graphDb, num, lesionNode, template);
 							}
 							// Medial Region of Breast (LIInt)
-							else if ("RID29943@RADLEX".equals(idNum)
-									&& num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
+							else if ("RID29943@RADLEX".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
 								getOrCreateLocation(tx, graphDb, num, lesionNode, template);
 							}
 							// Central Region of Breast
@@ -344,8 +333,8 @@ public class MammographyCreator extends BaseDocumentCreator {
 								getOrCreateLocation(tx, graphDb, num, lesionNode, template);
 							}
 							// Distance from the Nipple
-							else if ("TRMM0012@TRENCADIS_MAMO".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-								lesionNode.setProperty(DISTANCE_TO_NIPPLE_PROPERTY, num);
+							else if ("TRMM0012@TRENCADIS_MAMO".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) != null) {
+								lesionNode.setProperty(DISTANCE_TO_NIPPLE_PROPERTY, valueFromString(num.getVALUE()));
 							}
 						}
 					}
@@ -414,10 +403,6 @@ public class MammographyCreator extends BaseDocumentCreator {
 				}
 			}
 		}
-	}	
-	
-	public @Nullable Double valueFromString(final String str) {
-		return StringUtils.isNotBlank(str) ? Double.parseDouble(str) : 0.0d;
 	}
 
 }

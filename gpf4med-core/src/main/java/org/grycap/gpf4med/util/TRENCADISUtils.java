@@ -1,12 +1,37 @@
+/*
+ * Copyright 2015 Institute for Molecular Imaging Instrumentation (I3M)
+ * 
+ * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by 
+ * the European Commission - subsequent versions of the EUPL (the "Licence");
+ * You may not use this work except in compliance with the Licence.
+ * You may obtain a copy of the Licence at:
+ * 
+ *   http://ec.europa.eu/idabc/eupl
+ * 
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the Licence is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the Licence for the specific language governing permissions and 
+ * limitations under the Licence.
+ * 
+ * This product combines work with different licenses. See the "NOTICE" text
+ * file for details on the various modules and licenses.
+ * The "NOTICE" text file is part of the distribution. Any derivative works
+ * that you distribute must include a readable copy of the "NOTICE" text file.
+ */
+
 package org.grycap.gpf4med.util;
 
 import static org.grycap.gpf4med.xml.ReportXmlBinder.REPORT_XMLB;
 import static org.grycap.gpf4med.xml.TemplateXmlBinder.TEMPLATE_XMLB;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Vector;
 
+import org.grycap.gpf4med.conf.ConfigurationManager;
 import org.grycap.gpf4med.model.document.Document;
+import org.grycap.gpf4med.model.document.Documents;
 import org.grycap.gpf4med.model.template.Template;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,36 +47,57 @@ import trencadis.middleware.operations.OntologiesServer.TRENCADIS_GET_ALL_ONTOLO
 import trencadis.middleware.operations.OntologiesServer.TRENCADIS_GET_ONTOLOGY;
 
 /**
- * 
+ * TRENCADIS Utils
  * @author Lorena Calabuig <locamo@inf.upv.es>
  */
 
-public class TRENCADISUtils {
+public enum TRENCADISUtils {
 
-	private final static Logger LOGGER = LoggerFactory
-			.getLogger(TRENCADISUtils.class);
+	INSTANCE;
 	
-	private static Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorage = null;
+	private final static Logger LOGGER = LoggerFactory.getLogger(TRENCADISUtils.class);
 
-	public static Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> getDicomStorage() {
+	private TRENCADIS_SESSION trencadis_session = createSession();
+	
+	private Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorage = null;
+	
+	public TRENCADIS_SESSION getTRENCADISSession() {
+		if (trencadis_session.getProxyLifetime() == 0) {
+			trencadis_session = createSession();
+		}
+		return trencadis_session;
+	}
+	
+	public Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> getDicomStorage() {
 		return dicomStorage;
 	}
-
+	
+	private TRENCADIS_SESSION createSession() {
+		try {
+			//LOGGER.info("Creating new TRENCADIS session");
+			return new TRENCADIS_SESSION(
+					ConfigurationManager.INSTANCE.getTrencadisConfigFile(),
+					ConfigurationManager.INSTANCE.getTrencadisPassword());
+		} catch (IOException | InterruptedException e) {
+			LOGGER.warn("Can not create TRENCADIS session");
+			return null;
+		}		
+	}
+	
 	/**
 	 * Downloads all reports using TRENCADIS plug-in
 	 * 
-	 * @param session TRENCADIS session
 	 * @param idOntology The ontology of the DICOM-SR to download
 	 * @param idCenter Identifier of the hospital replica
 	 * @param destination Directory in which will be stored the reports 
 	 */
-	public static void downloadAllReports(TRENCADIS_SESSION session,
-			String idOntology, int idCenter, String destination) {
+	@SuppressWarnings("unchecked")
+	public void downloadAllReports(String idOntology, int idCenter, String destination) {
 
 		Vector<TRENCADIS_XML_DICOM_SR_FILE> v_dsr = null;
 		TRENCADIS_XMLDSR_DOWNLOAD get_dsr = null;
 		try {
-			get_dsr = new TRENCADIS_XMLDSR_DOWNLOAD(session, idCenter);
+			get_dsr = new TRENCADIS_XMLDSR_DOWNLOAD(trencadis_session, idCenter);
 			v_dsr = (Vector<TRENCADIS_XML_DICOM_SR_FILE>)get_dsr.execute();
 			for (TRENCADIS_XML_DICOM_SR_FILE dsr : v_dsr) {
 				File newDest = new File(destination + File.separator + "centerID_" + idCenter
@@ -71,19 +117,18 @@ public class TRENCADISUtils {
 	/**
 	 * Downloads a report using TRENCADIS plug-in
 	 * 
-	 * @param session TRENCADIS session
 	 * @param idCenter Identifier of the hospital replica
 	 * @param idOntology The ontology of the DICOM-SR to download
 	 * @param idReport The identifier of the DICOM-SR report to download
 	 * @param destination Directory in which the report will be stored
 	 */
-	public static void downloadReport(TRENCADIS_SESSION session, int idCenter,
-			String idOntology, String idReport,	String destination) {
+	public void downloadReport(int idCenter, String idOntology,
+			String idReport, String destination) {
 
 		TRENCADIS_XMLDSR_DOWNLOAD get_dsr = null;
 		TRENCADIS_XML_DICOM_SR_FILE dsr = null;
 		try {
-			get_dsr = new TRENCADIS_XMLDSR_DOWNLOAD(session, idCenter,
+			get_dsr = new TRENCADIS_XMLDSR_DOWNLOAD(trencadis_session, idCenter,
 					idReport, idOntology);
 			dsr = (TRENCADIS_XML_DICOM_SR_FILE) get_dsr.execute();
 			File newDest = new File(destination + File.separator + "centerID_" + idCenter
@@ -101,19 +146,20 @@ public class TRENCADISUtils {
 	/**
 	 * Downloads from a backend a report
 	 * 
-	 * @param session TRENCADIS session
 	 * @param backend The backend in which is stored the reports
 	 * @param idReport The identifier of the DICOM-SR report to download
 	 * @param destination Directory in which the report will be stored
 	 */
-	public static void downloadReport(TRENCADIS_SESSION session,
-			BackEnd backend, String centerName, String idReport, String destination) {
+	public void downloadReport(BackEnd backend, String centerName, String idReport, String destination) {
 		try {
 			String reportData = backend.xmlGetDICOMSRFile(idReport,
-					session.getX509VOMSCredential());
+					trencadis_session.getX509VOMSCredential());
+			if (reportData == null)
+				LOGGER.trace("Report not downloaded");
 			Document report = REPORT_XMLB.typeFromXml(reportData);
-			File newDest = new File(destination + File.separator + centerName
-								  + File.separator + "ontology_" + report.getIDOntology());
+			
+			File newDest = new File(destination, centerName + "_files"
+									+ File.separator + "ontology_" + report.getIDOntology());
 			newDest.mkdirs();
 			REPORT_XMLB.typeToFile(report, new File(newDest + File.separator
 					+ idReport + ".xml"));
@@ -123,19 +169,60 @@ public class TRENCADISUtils {
 	}
 	
 	/**
+	 * Downloads from a backend the reports specified
+	 * 
+	 * @param backend The backend in which is stored the reports
+	 * @param idReport The identifier of the DICOM-SR report to download
+	 * @param destination Directory in which the report will be stored
+	 * @throws Exception 
+	 */
+	@SuppressWarnings("null")
+	public boolean downloadReports(BackEnd backend, String idReports, String destination) throws Exception {
+		try {
+			long startTime = System.currentTimeMillis();
+			String reportsData = backend.xmlGetAllDICOMSRFiles(idReports,
+					trencadis_session.getX509VOMSCredential());
+			
+			if (reportsData != null || reportsData.length() > 0) {
+				Documents reports = REPORT_XMLB.typeFromXml(reportsData);
+				for (Document report : reports.getDICOMSR()) {
+					File newDest = new File(destination, "ontology_" + report.getIDOntology());
+					newDest.mkdirs();
+					REPORT_XMLB.typeToFile(report, new File(newDest + File.separator
+							+ report.getIDReport() + ".xml"));
+				}
+				long endTime = System.currentTimeMillis();
+				
+				LOGGER.trace(idReports.split(",").length + " reports ("
+						   + reportsData.length() + " bytes)\t"
+						   + (endTime - startTime) + " millis");
+				return true;
+			} else {
+				LOGGER.trace("Reports not downloaded");
+				return false;
+			}
+			
+		} catch (IOException e1) {
+			throw new IOException();
+		} catch (Exception e2) {
+			throw new Exception();
+		}
+		
+	}
+	
+	/**
 	 * Downloads a ontology using TRENCADIS plug-in
 	 * 
 	 * @param session TRENCADIS session
 	 * @param idOdontology The ontology of the DICOM-SR to download
 	 * @param destination Directory in which the ontology will be stored
 	 */
-	public static void downloadOntology(TRENCADIS_SESSION session,
-			String idOdontology, String destination) {
+	public void downloadOntology(String idOdontology, String destination) {
 
 		TRENCADIS_GET_ONTOLOGY get_onto = null;
 		TRENCADIS_XML_ONTOLOGY_FILE ontology = null;
 		try {
-			get_onto = new TRENCADIS_GET_ONTOLOGY(session, idOdontology);
+			get_onto = new TRENCADIS_GET_ONTOLOGY(trencadis_session, idOdontology);
 			ontology = get_onto.execute();
 			Template template = TEMPLATE_XMLB.typeFromXml(ontology.getContents());
 			TEMPLATE_XMLB.typeToFile(template, new File(destination + File.separator
@@ -150,16 +237,14 @@ public class TRENCADISUtils {
 	/**
 	 * Downloads all ontologies using TRENCADIS plug-in
 	 * 
-	 * @param session TRENCADIS session
 	 * @param destination Directory in which the ontologies will be stored
 	 */
-	public static void downloadAllOntologies(TRENCADIS_SESSION session,
-			String destination) {
+	public void downloadAllOntologies(String destination) {
 
 		TRENCADIS_GET_ALL_ONTOLOGIES get_onto = null;
 		Vector<TRENCADIS_XML_ONTOLOGY_FILE> v_ontologies = null;
 		try {
-			get_onto = new TRENCADIS_GET_ALL_ONTOLOGIES(session);
+			get_onto = new TRENCADIS_GET_ALL_ONTOLOGIES(trencadis_session);
 			v_ontologies = get_onto.execute();
 			for (TRENCADIS_XML_ONTOLOGY_FILE ontology : v_ontologies) {
 				Template template = TEMPLATE_XMLB.typeFromXml(ontology.getContents());
@@ -176,13 +261,12 @@ public class TRENCADISUtils {
 	/**
 	 * Gets all ID of the DICOM-SR reports using TRENCADIS plug-in 
 	 * 
-	 * @param session TRENCADIS session
 	 */
-	public static void getReportsID(TRENCADIS_SESSION session) {
+	public void getReportsID() {
 
 		TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS getIDs = null;
 		try {
-			getIDs = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(session);
+			getIDs = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(trencadis_session);
 			dicomStorage = getIDs.getDICOMStorageIDS();			
 		} catch (Exception e) {
 			LOGGER.error("Can not get the IDs of all reports");
@@ -193,14 +277,13 @@ public class TRENCADISUtils {
 	 * Gets all ID of the DICOM-SR reports from a given center
 	 * using TRENCADIS plug-in 
 	 * 
-	 * @param session TRENCADIS session
 	 * @param idCenter Identifier of the hospital replica
 	 */
-	public static void getReportsID(TRENCADIS_SESSION session, int idCenter) {
+	public void getReportsID(int idCenter) {
 
 		TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS getIDs = null;
 		try {
-			getIDs = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(session, idCenter);
+			getIDs = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(trencadis_session, idCenter);
 			dicomStorage = getIDs.getDICOMStorageIDS();			
 		} catch (Exception e) {
 			LOGGER.error("Can not get the IDs of all reports from center " + idCenter);
@@ -210,14 +293,13 @@ public class TRENCADISUtils {
 	/**
 	 * Gets all ID of the DICOM-SR reports with a given ontology using TRENCADIS plug-in
 	 * 
-	 * @param session TRENCADIS session
 	 * @param idOntology The ontology of the DICOM-SR to download
 	 */
-	public static void getReportsID(TRENCADIS_SESSION session, String idOntology) {
+	public void getReportsID(String idOntology) {
 
 		TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS getIDsOnto = null;
 		try {			
-			getIDsOnto = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(session, idOntology);
+			getIDsOnto = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(trencadis_session, idOntology);
 			dicomStorage = getIDsOnto.getDICOMStorageIDS();			
 		} catch (Exception e) {
 			LOGGER.error("Can not get the IDs of all reports of the ontology " + idOntology);
@@ -228,16 +310,15 @@ public class TRENCADISUtils {
 	 * Gets all ID of the DICOM-SR reports from a given center
 	 * using TRENCADIS plug-in 
 	 * 
-	 * @param session TRENCADIS session
 	 * @param idCenter Identifier of the hospital replica
 	 * @param idOntology The ontology of the DICOM-SR to download
 	 * 
 	 */
-	public static void getReportsID(TRENCADIS_SESSION session, int idCenter, String idOntology) {
+	public void getReportsID(int idCenter, String idOntology) {
 
 		TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS getIDs = null;
 		try {
-			getIDs = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(session,
+			getIDs = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(trencadis_session,
 					idCenter, idOntology);
 			dicomStorage = getIDs.getDICOMStorageIDS();
 		} catch (Exception e) {

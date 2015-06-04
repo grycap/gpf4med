@@ -35,10 +35,11 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ LogManagerTest.class, URLUtilsTest.class, TemplateUtilsTest.class,
-	ReportUtilsTest.class, DownloadServiceTest.class, FileEncryptionProviderTest.class,
-	TemplateLoadingTest.class, ReportLoadingTest.class, XmlReportBindingTest.class,
-	XmlTemplateBindingTest.class })
+//@SuiteClasses({ LogManagerTest.class, URLUtilsTest.class, TemplateUtilsTest.class,
+//	ReportUtilsTest.class, DownloadServiceTest.class, FileEncryptionProviderTest.class,
+//	TemplateLoadingTest.class, ReportLoadingTest.class, XmlReportBindingTest.class,
+//	XmlTemplateBindingTest.class })
+@SuiteClasses({ ReportLoadingTest.class })
 public class AllUnitTests {
 
 	public static final String ANCHOR_FILENAME = "m2anchor";

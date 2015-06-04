@@ -141,8 +141,8 @@ public abstract class BaseDocumentCreator {
 		return node;		
 	}
 
-	public Node createRadiologicalStudy(final Transaction tx, final GraphDatabaseService graphDb, final Document document,
-			final Node modality) {
+	public Node createRadiologicalStudy(final Transaction tx, final GraphDatabaseService graphDb,
+			final Document document, final Node modality) {
 		checkArgument(document != null && document.getCONTAINER() != null
 				&& document.getCONTAINER().getCONCEPTNAME() != null, 
 				"Uninitialized or invalid document");
@@ -394,10 +394,13 @@ public abstract class BaseDocumentCreator {
 		return text;
 	}
 	
+	public @Nullable Double valueFromString(final String str) {
+		return StringUtils.isNotBlank(str) ? Double.parseDouble(str) : null;
+	}
+	
 	public void setPropertyNode(final Node node, final String property, final Code code, final Template template) {
 		final ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(code.getVALUE().getCODEVALUE())
 																				 .withCODESCHEMA(code.getVALUE().getCODESCHEMA());
-		
 		final String meaning = TemplateUtils.getMeaning(conceptNameTemplate, template, null);
 		node.setProperty(property, meaning);
 	}

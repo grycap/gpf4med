@@ -82,7 +82,7 @@ that you distribute must include a readable copy of the "NOTICE" text file.
 		<!-- The version of the DICOM-SR templates that is compatible with this 
 			service. A directory must exist for this particular version within the connectors 
 			directory -->
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 
 		<!-- A file with the list of URLs where the DICOM-SR templates are found 
 			(one URL per line) -->

@@ -27,7 +27,7 @@ that you distribute must include a readable copy of the "NOTICE" text file.
 	<parent>
 		<groupId>org.grycap.gpf4med</groupId>
 		<artifactId>gpf4med</artifactId>
-		<version>1.1.0</version>
+		<version>1.2.0</version>
 		<relativePath>..</relativePath>
 	</parent>
 
@@ -53,7 +53,7 @@ that you distribute must include a readable copy of the "NOTICE" text file.
 		<dependency>
 			<groupId>org.grycap.gpf4med</groupId>
 			<artifactId>gpf4med-core</artifactId>
-			<version>${gpf4med.version}</version>
+			<version>1.2.0</version>
 		</dependency>
 
 		<!-- JAX-RS reference implementation -->
