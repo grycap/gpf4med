@@ -28,9 +28,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
-import akka.actor.UntypedActor;
-import akka.event.LoggingAdapter;
-
 import org.grycap.gpf4med.akka.actors.TRENCADISActor.Work;
 import org.grycap.gpf4med.util.AkkaException.ReportDownloaderDataException;
 import org.grycap.gpf4med.util.AkkaException.ReportDownloaderException;
@@ -39,6 +36,8 @@ import org.grycap.gpf4med.util.TRENCADISUtils;
 
 import trencadis.infrastructure.services.DICOMStorage.impl.wrapper.xmlOutputDownloadAllReportsID.DICOM_SR_ID;
 import trencadis.infrastructure.services.dicomstorage.backend.BackEnd;
+import akka.actor.UntypedActor;
+import akka.event.LoggingAdapter;
 
 
 public class ReportDownloaderActor extends UntypedActor {
@@ -66,12 +65,11 @@ public class ReportDownloaderActor extends UntypedActor {
 	@Override
 	public void onReceive(Object message) throws ReportDownloaderIOException, ReportDownloaderException, ReportDownloaderDataException {
 		if (message instanceof ReportDownloaderMessage) {
-			
 			ReportDownloaderMessage reports = (ReportDownloaderMessage) message;
 			
 			String ids = vectorToString(reports.getIds());
 			try {
-				// Download a set of reports
+				// Download a set of reports				
 				boolean success = TRENCADISUtils.INSTANCE.downloadReports(reports.getBackend(),
 						ids, reports.getDest().getAbsolutePath());
 				

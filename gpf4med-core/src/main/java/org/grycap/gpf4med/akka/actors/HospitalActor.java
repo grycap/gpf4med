@@ -56,6 +56,8 @@ import akka.japi.Function;
 
 
 /**
+ * This actor creates actors to download reports in order to
+ * distribute work
  * 
  * @author Lorena Calabuig <locamo@inf.upv.es>
  *
@@ -65,9 +67,14 @@ public class HospitalActor extends UntypedActor{
 	private final LoggingAdapter LOGGER = getLogger(getContext().system(), this);
 	
 	private static final Duration TIMEOUT = Duration.create(1, TimeUnit.MINUTES);
-	private static final int PARTITION = 10;
 	
-	private static Progress progress = new Progress(HospitalActor.class.getSimpleName());
+	private static final int MIN_PARTITIONS = 6;
+	private static int NUM_PARTITIONS = 1;
+	
+	private static final int MAX_PARTITION_SIZE = 50;
+	private static int PARTITION = 30;
+	
+	private static Progress progress = null;
 	private static int currentCount = 0;
 	private static int WORKERS = 1;
 	
@@ -106,6 +113,10 @@ public class HospitalActor extends UntypedActor{
 	public SupervisorStrategy supervisorStrategy() {
 		return strategy;
 	}
+	
+	public static Progress getProgress() {
+		return progress;
+	}
 		
 	@Override
 	public void onReceive(Object message) throws CreateWorkerException, Exception {
@@ -114,18 +125,18 @@ public class HospitalActor extends UntypedActor{
 			if (parent == null)
 				parent = getSender();
 			
-			HospitalMessage hospitalMessage = (HospitalMessage) message;			
-			final String centerName = hospitalMessage.getDicomStorage().getCenterName().replaceAll(" ", "_");
-			File reportsDest = new File(AkkaApplication.INSTANCE.getDocumentsCacheDir(), centerName + "_akka");
+			HospitalMessage hospitalMessage = (HospitalMessage) message;
+			final String centerName = hospitalMessage.getDicomStorage().getCenterName().replaceAll(" ", "");
+			progress = new Progress(centerName);
+			File reportsDest = new File(AkkaApplication.INSTANCE.getDocumentsCacheDir(), centerName);
 			reportsDest.mkdir();
 			final BackEnd backend = new BackEnd(hospitalMessage.getDicomStorage().getBackend().toString());			
 			
 			Vector<DICOM_SR_ID> ids = hospitalMessage.getDicomStorage().getDICOM_DSR_IDS();
-			
-			if ((ids.size() % PARTITION) != 0) {
-				WORKERS = ids.size()/PARTITION + 1;
-			} else
-				WORKERS = ids.size()/PARTITION;
+			// Determine the size of partition depending on number of ids
+			PARTITION = calculateSizePartition(ids.size());
+			// Determine the number of workers will used 
+			WORKERS = calculateWorkers(ids);
 			
 			for (int i = 0; i < ids.size(); i += PARTITION) {
 				createWorker(backend, reportsDest, ids, i, i+PARTITION);
@@ -133,8 +144,9 @@ public class HospitalActor extends UntypedActor{
 			
 			
 		} else if(message == Work.DONE) {
-			currentCount += 1;
-			progress.setPercent(100 * (currentCount / WORKERS));
+			currentCount += 1;		
+			progress.setPercent((100 * currentCount) / WORKERS);
+			System.out.println(progress.toString());
 			if (currentCount == WORKERS) {
 				parent.tell(Work.DONE, getSelf());
 			}
@@ -147,23 +159,39 @@ public class HospitalActor extends UntypedActor{
 	private void createWorker(BackEnd backend, File reportsDest,
 			Vector<DICOM_SR_ID> ids, int beginIdx, int endIdx) throws CreateWorkerException {
 		try {
-		Vector<DICOM_SR_ID> sub_ids = null;
-		if (endIdx > ids.size()) {
-			sub_ids = new Vector<DICOM_SR_ID>(ids.subList(beginIdx, ids.size()));
-		} else {
-			sub_ids = new Vector<DICOM_SR_ID>(ids.subList(beginIdx, endIdx));
-		}
-		ReportDownloaderMessage workerMessage = new ReportDownloaderMessage(backend, sub_ids, reportsDest);
-		getContext().actorOf(Props.create(ReportDownloaderActor.class),
-				"worker_actor_" + randomAlphanumeric(6))
-				.tell(workerMessage, getSelf());
+			Vector<DICOM_SR_ID> sub_ids = null;
+			if (endIdx > ids.size()) {
+				sub_ids = new Vector<DICOM_SR_ID>(ids.subList(beginIdx, ids.size()));
+			} else {
+				sub_ids = new Vector<DICOM_SR_ID>(ids.subList(beginIdx, endIdx));
+			}
+			ReportDownloaderMessage workerMessage = new ReportDownloaderMessage(backend, sub_ids, reportsDest);
+			getContext().actorOf(Props.create(ReportDownloaderActor.class),
+					"worker_actor_" + randomAlphanumeric(6))
+					.tell(workerMessage, getSelf());
 		} catch (Exception e) {
 			throw new CreateWorkerException("Can not create a worker");
 		}
 	}
 	
-	public static Progress getProgress() {
-		return progress;
+	private void calculateNumberPartitions(int size) {
+		if (size <= MAX_PARTITION_SIZE) {
+			NUM_PARTITIONS = MIN_PARTITIONS;
+		} else {
+			NUM_PARTITIONS = MIN_PARTITIONS + (size / MAX_PARTITION_SIZE);
+		}
+	}
+	
+	private int calculateSizePartition(int size) {
+		calculateNumberPartitions(size);
+		return size / NUM_PARTITIONS;		
+	}
+	
+	private int calculateWorkers(Vector<DICOM_SR_ID> ids) {
+		if ((ids.size() % PARTITION) != 0) {
+			return ids.size()/PARTITION + 1;
+		} else
+			return ids.size()/PARTITION;
 	}
 	
 	/* Hospital Message class */

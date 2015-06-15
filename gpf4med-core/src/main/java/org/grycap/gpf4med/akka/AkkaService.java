@@ -46,6 +46,7 @@ import com.typesafe.config.ConfigParseOptions;
 import scala.concurrent.Await;
 import scala.concurrent.Future;
 import scala.concurrent.duration.Duration;
+import scala.concurrent.duration.FiniteDuration;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
@@ -64,7 +65,7 @@ public class AkkaService extends AbstractIdleService {
 	public static final String SERVICE_NAME = GPF4MED_SHORTNAME + " service";
 	public static final String APP_NAME = GPF4MED_SHORTNAME;
 	
-	public static final Timeout TIMEOUT = new Timeout(Duration.create(2, TimeUnit.MINUTES));
+	public static final FiniteDuration TIMEOUT = Duration.create(60, TimeUnit.MINUTES);
 	
 	private final ActorSystem actorSystem;
 	
@@ -77,9 +78,6 @@ public class AkkaService extends AbstractIdleService {
 		final Config config = loadConfig(ConfigurationManager.INSTANCE.getAkkaConfigFile().getAbsolutePath());
 		// Create actor system
 		actorSystem = ActorSystem.create(APP_NAME, config);
-		
-		LOGGER.info(SERVICE_NAME + " initialized successfully");
-
 	}
 
 	private Config loadConfig(final @Nullable String confname) {
@@ -100,11 +98,11 @@ public class AkkaService extends AbstractIdleService {
 	@Override
 	protected void startUp() throws Exception {
 		ActorRef dicomActor = actorSystem.actorOf(Props.create(TRENCADISActor.class), "trencadis_" + randomAlphanumeric(6));
-	    Future<Object> future = Patterns.ask(dicomActor, Storage.TRENCADIS, TIMEOUT);
+	    Future<Object> future = Patterns.ask(dicomActor, Storage.TRENCADIS, new Timeout(TIMEOUT));
 	    LOGGER.info(SERVICE_NAME + " started");
 	    
 	    try {
-	    	Await.result(future, Duration.create(1, TimeUnit.MINUTES));
+	    	Await.result(future, TIMEOUT);
 	    } catch (TimeoutException e) {
 	    	actorSystem.shutdown();
 	    }		

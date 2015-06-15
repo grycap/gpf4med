@@ -59,7 +59,7 @@ public enum TRENCADISUtils {
 
 	private TRENCADIS_SESSION trencadis_session = createSession();
 	
-	private Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorage = null;
+	private Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorages = null;
 	
 	public TRENCADIS_SESSION getTRENCADISSession() {
 		if (trencadis_session.getProxyLifetime() == 0) {
@@ -68,8 +68,8 @@ public enum TRENCADISUtils {
 		return trencadis_session;
 	}
 	
-	public Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> getDicomStorage() {
-		return dicomStorage;
+	public Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> getDicomStorages() {
+		return dicomStorages;
 	}
 	
 	private TRENCADIS_SESSION createSession() {
@@ -189,10 +189,10 @@ public enum TRENCADISUtils {
 					File newDest = new File(destination, "ontology_" + report.getIDOntology());
 					newDest.mkdirs();
 					REPORT_XMLB.typeToFile(report, new File(newDest + File.separator
-							+ report.getIDReport() + ".xml"));
+							+ report.getIDTRENCADISReport() + ".xml"));
 				}
 				long endTime = System.currentTimeMillis();
-				
+
 				LOGGER.trace(idReports.split(",").length + " reports ("
 						   + reportsData.length() + " bytes)\t"
 						   + (endTime - startTime) + " millis");
@@ -267,7 +267,7 @@ public enum TRENCADISUtils {
 		TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS getIDs = null;
 		try {
 			getIDs = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(trencadis_session);
-			dicomStorage = getIDs.getDICOMStorageIDS();			
+			dicomStorages = getIDs.getDICOMStorageIDS();			
 		} catch (Exception e) {
 			LOGGER.error("Can not get the IDs of all reports");
 		}
@@ -284,7 +284,7 @@ public enum TRENCADISUtils {
 		TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS getIDs = null;
 		try {
 			getIDs = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(trencadis_session, idCenter);
-			dicomStorage = getIDs.getDICOMStorageIDS();			
+			dicomStorages = getIDs.getDICOMStorageIDS();			
 		} catch (Exception e) {
 			LOGGER.error("Can not get the IDs of all reports from center " + idCenter);
 		}
@@ -300,7 +300,7 @@ public enum TRENCADISUtils {
 		TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS getIDsOnto = null;
 		try {			
 			getIDsOnto = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(trencadis_session, idOntology);
-			dicomStorage = getIDsOnto.getDICOMStorageIDS();			
+			dicomStorages = getIDsOnto.getDICOMStorageIDS();			
 		} catch (Exception e) {
 			LOGGER.error("Can not get the IDs of all reports of the ontology " + idOntology);
 		}
@@ -320,7 +320,7 @@ public enum TRENCADISUtils {
 		try {
 			getIDs = new TRENCADIS_STORAGE_BROKER_RETRIEVE_IDS(trencadis_session,
 					idCenter, idOntology);
-			dicomStorage = getIDs.getDICOMStorageIDS();
+			dicomStorages = getIDs.getDICOMStorageIDS();
 		} catch (Exception e) {
 			LOGGER.error("Can not get the IDs of all reports of the ontology "
 					+ idOntology + " from center " + idCenter);

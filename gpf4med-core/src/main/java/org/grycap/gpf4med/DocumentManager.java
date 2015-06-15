@@ -28,10 +28,7 @@ import static com.google.common.base.Preconditions.checkState;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -39,6 +36,9 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.apache.commons.lang.StringUtils;
 import org.grycap.gpf4med.akka.AkkaApplication;
 import org.grycap.gpf4med.conf.ConfigurationManager;
 import org.grycap.gpf4med.event.FileEnqueuedEvent;
@@ -49,8 +49,6 @@ import org.grycap.gpf4med.util.TRENCADISUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import trencadis.infrastructure.services.DICOMStorage.impl.wrapper.xmlOutputDownloadAllReportsID.DICOM_SR_ID;
-import trencadis.infrastructure.services.dicomstorage.backend.BackEnd;
 import trencadis.middleware.operations.DICOMStorage.TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE;
 
 import com.google.common.collect.ImmutableCollection;
@@ -196,6 +194,7 @@ public enum DocumentManager implements Closeable2 {
 						FileUtils.forceMkdir(documentsCacheDir);
 						if  (urls == null) {
 							try {
+								
 								if (idCenter == -1 && idOntology == null) {
 									TRENCADISUtils.INSTANCE.getReportsID();
 								} else if(idCenter != -1 && idOntology == null) {
@@ -205,10 +204,13 @@ public enum DocumentManager implements Closeable2 {
 								} else if(idCenter != -1 && idOntology != null){
 									TRENCADISUtils.INSTANCE.getReportsID(idCenter, idOntology);
 								}
+								
+								for (TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE dicomStorage : TRENCADISUtils.INSTANCE.getDicomStorages())
+									LOGGER.info(dicomStorage.getDICOM_DSR_IDS().size() + " reports to download from " + dicomStorage.getCenterName());
+								
 								/* 
 								 * Download reports using Akka
-								 */
-								
+								*/
 								long startAkka = System.currentTimeMillis();
 								// Initialize Akka Service
 								AkkaApplication.INSTANCE.setDocumentsCacheDir(documentsCacheDir);
@@ -217,60 +219,6 @@ public enum DocumentManager implements Closeable2 {
 								
 								LOGGER.info("Time elapsed to download reports using Akka: " + (endAkka - startAkka) + " milliseconds.");
 								
-								/*
-								 * Download reports file by file without Akka
-								
-								long startFiles = System.currentTimeMillis();
-								
-								Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorages = TRENCADISUtils.INSTANCE.getDicomStorage();
-								if (dicomStorages != null) {
-									for (TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE dicomStorage : dicomStorages) {
-										final List<String> ids = new ArrayList<String>();
-										final String centerName = dicomStorage.getCenterName().replaceAll(" ", "_");
-										final BackEnd backend = new BackEnd(dicomStorage.getBackend().toString());
-										for (DICOM_SR_ID id : dicomStorage.getDICOM_DSR_IDS()) {
-											ids.add(id.getValue());
-											TRENCADISUtils.INSTANCE.downloadReport(backend, centerName, id.getValue(), documentsCacheDir.getAbsolutePath());
-										}
-									}
-								}
-								
-								long endFiles = System.currentTimeMillis();
-								
-								LOGGER.info("Time elapsed to download reports (file by file) without Akka: " 
-										+ (endFiles - startFiles) + " milliseconds.");
-								 */
-								/*
-								 * Download group of reports without Akka
-								
-								long startGroups = System.currentTimeMillis();
-								
-								int partition = 15;
-								Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorages2 = TRENCADISUtils.INSTANCE.getDicomStorage();
-								if (dicomStorages2 != null) {
-									for (TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE dicomStorage : dicomStorages2) {
-										final String centerName = dicomStorage.getCenterName().replaceAll(" ", "_");
-										final BackEnd backend = new BackEnd(dicomStorage.getBackend().toString());
-										File reportsDest = new File(AkkaApplication.INSTANCE.getDocumentsCacheDir(), centerName + "_groups");
-										reportsDest.mkdir();
-										for (int i = 0; i < dicomStorage.getDICOM_DSR_IDS().size(); i += partition) {
-											Vector<DICOM_SR_ID> sub_ids = null;
-											if (i+partition > dicomStorage.getDICOM_DSR_IDS().size()) {
-												sub_ids = new Vector<DICOM_SR_ID>(dicomStorage.getDICOM_DSR_IDS().subList(i, dicomStorage.getDICOM_DSR_IDS().size()));
-											} else {
-												sub_ids = new Vector<DICOM_SR_ID>(dicomStorage.getDICOM_DSR_IDS().subList(i, i+partition));
-											}
-											TRENCADISUtils.INSTANCE.downloadReports(backend, vectorToString(sub_ids), reportsDest.getAbsolutePath());
-										}
-										
-									}
-								}
-								
-								long endGroups = System.currentTimeMillis();
-								
-								LOGGER.info("Time elapsed to download reports (by groups) without Akka: "
-										+ (endGroups - startGroups) + " milliseconds.");
-								 */
 							} catch (Exception e3) {
 								LOGGER.warn("Failed to get reports from TRENCADIS" , e3);
 							}
@@ -279,7 +227,7 @@ public enum DocumentManager implements Closeable2 {
 						LOGGER.warn("Failed to prepare reports for access" , e);
 					}
 					checkArgument(documentsCacheDir != null, "Uninitialized reports local cache directory");
-					/*
+					
 					final ImmutableMap.Builder<String, Document> builder = new ImmutableMap.Builder<String, Document>();
 					
 					for (final File file : FileUtils.listFiles(documentsCacheDir, TrueFileFilter.INSTANCE, DirectoryFileFilter.DIRECTORY)) {
@@ -298,18 +246,11 @@ public enum DocumentManager implements Closeable2 {
 							LOGGER.error("Failed to load report: " + filename, e);
 						}
 					}
-					dont_use = builder.build();*/
+					dont_use = builder.build();
 				}
 			}
 		}
 		return dont_use;
 	}
 	
-	private String vectorToString(Vector<DICOM_SR_ID> ids) {
-		String retval = "";
-		for (DICOM_SR_ID id : ids) {
-			retval += id.getValue() + ",";
-		}
-		return retval.substring(0, retval.length() - 1);
-	}
 }

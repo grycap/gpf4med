@@ -47,8 +47,9 @@ public class ReportLoadingTest {
 			TestUtils.getReportFiles();
 			final ImmutableCollection<Document> reports = DocumentManager.INSTANCE.listDocuments(1);
 			
-			//assertThat("report list is not null", reports, notNullValue());
-			//assertThat("report list is not empty", !reports.isEmpty());
+			assertThat("report list is not null", reports, notNullValue());
+			assertThat("report list is not empty", !reports.isEmpty());
+			
 			/* uncomment for additional output
 			for (final Document file : reports) {
 				System.out.println(" >> Report " + file.getIDReport() + " downloaded.");

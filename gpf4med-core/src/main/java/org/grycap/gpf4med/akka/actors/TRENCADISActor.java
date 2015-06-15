@@ -28,6 +28,8 @@ import static akka.actor.SupervisorStrategy.stop;
 import static akka.event.Logging.getLogger;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
@@ -40,6 +42,7 @@ import org.grycap.gpf4med.util.TRENCADISUtils;
 
 import scala.concurrent.duration.Duration;
 import trencadis.middleware.operations.DICOMStorage.TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE;
+import akka.actor.ActorRef;
 import akka.actor.OneForOneStrategy;
 import akka.actor.Props;
 import akka.actor.SupervisorStrategy;
@@ -47,9 +50,14 @@ import akka.actor.SupervisorStrategy.Directive;
 import akka.actor.UntypedActor;
 import akka.event.LoggingAdapter;
 import akka.japi.Function;
+import akka.routing.ActorRefRoutee;
+import akka.routing.RoundRobinRoutingLogic;
+import akka.routing.Routee;
+import akka.routing.Router;
 
 /**
- * Este actor recibe el objeto TRENCADIS
+ * This actor creates an actor for each center in which have
+ * to download the reports.
  * @author locamo
  *
  */
@@ -62,6 +70,7 @@ public class TRENCADISActor extends UntypedActor{
 	private static Progress progress = new Progress(TRENCADISActor.class.getSimpleName());
 	private static int currentCount = 0;
 	private static int HOSPITALS = 1;
+	private Router router;
 	
 	// Stop TRENCADISActor children if the service is unavailable
 	// It retries 10 times during a given timeout; if it reaches that limit, it stop child automatically
@@ -98,23 +107,35 @@ public class TRENCADISActor extends UntypedActor{
 	@Override
 	public void onReceive(Object message) throws Exception {
 		if (message == Storage.TRENCADIS) {
-			Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorages = TRENCADISUtils.INSTANCE.getDicomStorage();
+			
+			Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorages = TRENCADISUtils.INSTANCE.getDicomStorages();
 			if (dicomStorages != null) {
 				HOSPITALS = dicomStorages.size();
+				List<Routee> routees = new ArrayList<Routee>();
+				List<HospitalMessage> messages = new ArrayList<HospitalMessage>();
 				for (TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE dicomStorage : dicomStorages) {
 					HospitalMessage hospitalMessage = new HospitalMessage(dicomStorage);
-					getContext().actorOf(Props.create(HospitalActor.class),
-							"hospital_actor_" + randomAlphanumeric(6))
-							.tell(hospitalMessage, getSelf());
+					ActorRef hospitalActor = getContext().system().actorOf(Props.create(HospitalActor.class),
+							"hospital_actor_" + randomAlphanumeric(6));
+					getContext().watch(hospitalActor);
+					routees.add(new ActorRefRoutee(hospitalActor));
+					messages.add(hospitalMessage);
 				}
+				router = new Router(new RoundRobinRoutingLogic(), routees);
+				for (HospitalMessage toSend : messages) {
+					router.route(toSend, getSelf());
+				}
+				
 			} else {
 				throw new DicomStorageException("Can not get reports from TRENCADIS middleware");
 			}			
 		} else if(message == Work.DONE) {
 			currentCount += 1;
-			progress.setPercent(100 * (currentCount / HOSPITALS));
-			if (currentCount == HOSPITALS)
+			progress.setPercent((100 * currentCount) / HOSPITALS);			
+			if (currentCount == HOSPITALS) {
 				getContext().system().shutdown();
+				router = router.removeRoutee(getSender());
+			}
 		} else {
 			unhandled(message);
 			LOGGER.warning("Type of message not supported: " + message.getClass().getName());

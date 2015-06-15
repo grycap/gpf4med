@@ -31,15 +31,8 @@ import java.io.File;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.grycap.gpf4med.model.document.Children;
-import org.grycap.gpf4med.model.document.Code;
 import org.grycap.gpf4med.model.document.ConceptName;
-import org.grycap.gpf4med.model.document.Container;
-import org.grycap.gpf4med.model.document.Date;
 import org.grycap.gpf4med.model.document.Document;
-import org.grycap.gpf4med.model.document.Num;
-import org.grycap.gpf4med.model.document.Text;
-import org.grycap.gpf4med.model.document.Value;
 import org.grycap.gpf4med.model.util.Id;
 import org.grycap.gpf4med.util.ReportUtils;
 import org.grycap.gpf4med.util.TestUtils;
