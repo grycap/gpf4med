@@ -44,7 +44,6 @@ import scala.concurrent.duration.Duration;
 import trencadis.middleware.operations.DICOMStorage.TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE;
 import akka.actor.ActorRef;
 import akka.actor.OneForOneStrategy;
-import akka.actor.Props;
 import akka.actor.SupervisorStrategy;
 import akka.actor.SupervisorStrategy.Directive;
 import akka.actor.UntypedActor;
@@ -58,18 +57,20 @@ import akka.routing.Router;
 /**
  * This actor creates an actor for each center in which have
  * to download the reports.
- * @author locamo
+ * @author Lorena Calabuig <locamo@upv.es>
  *
  */
 public class TRENCADISActor extends UntypedActor{
 	
 	protected final LoggingAdapter LOGGER = getLogger(getContext().system(), this);
 	
+	private static final String DISPATCHER = "akka.actor.pinned-dispatcher";
+	
 	private static final Duration TIMEOUT = Duration.create(1, TimeUnit.MINUTES);
 	
-	private static Progress progress = new Progress(TRENCADISActor.class.getSimpleName());
-	private static int currentCount = 0;
-	private static int HOSPITALS = 1;
+	private static Progress progress = null;
+	private int currentCount = 0;
+	private Vector<String> HOSPITALS = null;
 	private Router router;
 	
 	// Stop TRENCADISActor children if the service is unavailable
@@ -90,6 +91,7 @@ public class TRENCADISActor extends UntypedActor{
 	
 	@Override
 	public void preStart() throws Exception {
+		progress = new Progress(TRENCADISActor.class.getSimpleName());
 		LOGGER.debug("Actor created");
 	};
 	
@@ -110,13 +112,14 @@ public class TRENCADISActor extends UntypedActor{
 			
 			Vector<TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE> dicomStorages = TRENCADISUtils.INSTANCE.getDicomStorages();
 			if (dicomStorages != null) {
-				HOSPITALS = dicomStorages.size();
+				HOSPITALS = new Vector<String>();
 				List<Routee> routees = new ArrayList<Routee>();
 				List<HospitalMessage> messages = new ArrayList<HospitalMessage>();
 				for (TRENCADIS_RETRIEVE_IDS_FROM_DICOM_STORAGE dicomStorage : dicomStorages) {
 					HospitalMessage hospitalMessage = new HospitalMessage(dicomStorage);
-					ActorRef hospitalActor = getContext().system().actorOf(Props.create(HospitalActor.class),
-							"hospital_actor_" + randomAlphanumeric(6));
+					HOSPITALS.add(dicomStorage.getCenterName());
+					ActorRef hospitalActor = getContext().actorOf(HospitalActor.props().withDispatcher(DISPATCHER),
+							"hospital_" + randomAlphanumeric(6));
 					getContext().watch(hospitalActor);
 					routees.add(new ActorRefRoutee(hospitalActor));
 					messages.add(hospitalMessage);
@@ -131,8 +134,9 @@ public class TRENCADISActor extends UntypedActor{
 			}			
 		} else if(message == Work.DONE) {
 			currentCount += 1;
-			progress.setPercent((100 * currentCount) / HOSPITALS);			
-			if (currentCount == HOSPITALS) {
+			progress.setPercent((100 * currentCount) / HOSPITALS.size());
+			if (currentCount == HOSPITALS.size()) {
+				LOGGER.info("Download completed from " + HOSPITALS.toString());
 				getContext().system().shutdown();
 				router = router.removeRoutee(getSender());
 			}

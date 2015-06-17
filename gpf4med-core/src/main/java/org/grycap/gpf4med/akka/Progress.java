@@ -2,8 +2,8 @@ package org.grycap.gpf4med.akka;
 
 public class Progress {
 	
-	public String className;
-	public double percent = 0.0;
+	private String className;
+	private double percent = 0.0;
 
     public Progress(String className) {
     	this.className = className;
@@ -17,8 +17,12 @@ public class Progress {
     	this.percent = percent;
     }
     
+    public String getClassName() {
+    	return className;
+    }
+    
     public String toString() {
-    	return className + String.format("\t%s", percent) + "%";
+    	return String.format("%s", percent) + "%";
     }
     
 }

@@ -52,6 +52,7 @@ import akka.actor.SupervisorStrategy;
 import akka.actor.SupervisorStrategy.Directive;
 import akka.actor.UntypedActor;
 import akka.event.LoggingAdapter;
+import akka.japi.Creator;
 import akka.japi.Function;
 
 
@@ -69,16 +70,34 @@ public class HospitalActor extends UntypedActor{
 	private static final Duration TIMEOUT = Duration.create(1, TimeUnit.MINUTES);
 	
 	private static final int MIN_PARTITIONS = 6;
-	private static int NUM_PARTITIONS = 1;
+	private int NUM_PARTITIONS = 1;
 	
 	private static final int MAX_PARTITION_SIZE = 50;
-	private static int PARTITION = 30;
+	private int PARTITION = 30;
 	
-	private static Progress progress = null;
-	private static int currentCount = 0;
-	private static int WORKERS = 1;
+	private Progress progress;
+	private int currentCount = 0;
+	private int WORKERS = 1;
 	
 	private ActorRef parent = null;
+	
+	@Override
+	public void preStart() throws Exception {
+		super.preStart();
+		LOGGER.debug("Actor created");
+	};
+	
+	@Override
+	public void postStop() throws Exception {
+		super.postStop();
+		LOGGER.debug("Actor stopped");
+	}
+	
+	@Override
+	public void preRestart(Throwable reason, scala.Option<Object> message) throws Exception {
+		super.preRestart(reason, message);
+		LOGGER.debug("Actor restarted");		
+	};
 	
 	// Stop HospitalActor children if a critical error occurs
 	// Restart a given HospitalActor child if an error occurs
@@ -97,58 +116,57 @@ public class HospitalActor extends UntypedActor{
 					}
 				}
 	});
-	
-	@Override
-	public void preStart() throws Exception {
-		LOGGER.debug("Actor created");
-	};
-	
-	@Override
-	public void postStop() throws Exception {
-		super.postStop();
-		LOGGER.debug("Actor stopped");
-	}
-	
+
 	@Override
 	public SupervisorStrategy supervisorStrategy() {
 		return strategy;
 	}
 	
-	public static Progress getProgress() {
+	public static Props props() {
+		return Props.create(new Creator<HospitalActor>() {
+			private static final long serialVersionUID = 5450066686827288091L;
+			@Override
+			public HospitalActor create() throws Exception {
+				return new HospitalActor();
+			}
+		});
+	}
+	
+	public Progress getProgress() {
 		return progress;
 	}
 		
 	@Override
 	public void onReceive(Object message) throws CreateWorkerException, Exception {
-		if (message instanceof HospitalMessage) {
-			
+		if (message instanceof HospitalMessage) {			
 			if (parent == null)
 				parent = getSender();
 			
 			HospitalMessage hospitalMessage = (HospitalMessage) message;
-			final String centerName = hospitalMessage.getDicomStorage().getCenterName().replaceAll(" ", "");
-			progress = new Progress(centerName);
+			progress = new Progress(hospitalMessage.getDicomStorage().getCenterName());
+			final String centerName = hospitalMessage.getDicomStorage().getCenterName().replaceAll(" ", "");			
 			File reportsDest = new File(AkkaApplication.INSTANCE.getDocumentsCacheDir(), centerName);
 			reportsDest.mkdir();
 			final BackEnd backend = new BackEnd(hospitalMessage.getDicomStorage().getBackend().toString());			
-			
 			Vector<DICOM_SR_ID> ids = hospitalMessage.getDicomStorage().getDICOM_DSR_IDS();
 			// Determine the size of partition depending on number of ids
 			PARTITION = calculateSizePartition(ids.size());
 			// Determine the number of workers will used 
 			WORKERS = calculateWorkers(ids);
-			
+			// Create workers for efficient download
 			for (int i = 0; i < ids.size(); i += PARTITION) {
 				createWorker(backend, reportsDest, ids, i, i+PARTITION);
-			}
-			
+			}	
 			
 		} else if(message == Work.DONE) {
 			currentCount += 1;		
 			progress.setPercent((100 * currentCount) / WORKERS);
-			System.out.println(progress.toString());
+			if ((currentCount % 5) == 1) {
+				LOGGER.debug("Progress of " + progress.getClassName() + "\t=====> " + progress.toString());
+			}
 			if (currentCount == WORKERS) {
 				parent.tell(Work.DONE, getSelf());
+				getContext().unwatch(getSelf());
 			}
 		} else {
 			unhandled(message);
@@ -167,7 +185,7 @@ public class HospitalActor extends UntypedActor{
 			}
 			ReportDownloaderMessage workerMessage = new ReportDownloaderMessage(backend, sub_ids, reportsDest);
 			getContext().actorOf(Props.create(ReportDownloaderActor.class),
-					"worker_actor_" + randomAlphanumeric(6))
+					"worker_" + randomAlphanumeric(6))
 					.tell(workerMessage, getSelf());
 		} catch (Exception e) {
 			throw new CreateWorkerException("Can not create a worker");

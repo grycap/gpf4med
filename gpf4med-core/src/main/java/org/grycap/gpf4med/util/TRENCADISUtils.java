@@ -179,10 +179,8 @@ public enum TRENCADISUtils {
 	@SuppressWarnings("null")
 	public boolean downloadReports(BackEnd backend, String idReports, String destination) throws Exception {
 		try {
-			long startTime = System.currentTimeMillis();
 			String reportsData = backend.xmlGetAllDICOMSRFiles(idReports,
 					trencadis_session.getX509VOMSCredential());
-			
 			if (reportsData != null || reportsData.length() > 0) {
 				Documents reports = REPORT_XMLB.typeFromXml(reportsData);
 				for (Document report : reports.getDICOMSR()) {
@@ -191,14 +189,9 @@ public enum TRENCADISUtils {
 					REPORT_XMLB.typeToFile(report, new File(newDest + File.separator
 							+ report.getIDTRENCADISReport() + ".xml"));
 				}
-				long endTime = System.currentTimeMillis();
-
-				LOGGER.trace(idReports.split(",").length + " reports ("
-						   + reportsData.length() + " bytes)\t"
-						   + (endTime - startTime) + " millis");
 				return true;
 			} else {
-				LOGGER.trace("Reports not downloaded");
+				LOGGER.error("Reports not downloaded");
 				return false;
 			}
 			

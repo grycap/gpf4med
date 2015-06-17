@@ -217,7 +217,7 @@ public enum DocumentManager implements Closeable2 {
 								AkkaApplication.INSTANCE.createService();								
 								long endAkka = System.currentTimeMillis();
 								
-								LOGGER.info("Time elapsed to download reports using Akka: " + (endAkka - startAkka) + " milliseconds.");
+								LOGGER.info("Time elapsed to download reports: " + (endAkka - startAkka) + " milliseconds.");
 								
 							} catch (Exception e3) {
 								LOGGER.warn("Failed to get reports from TRENCADIS" , e3);
