@@ -68,6 +68,7 @@ public enum TemplateManager implements Closeable2 {
 	public void setup(final @Nullable Collection<URL> urls) {
 		this.dont_use = null;
 		this.urls = urls;
+		
 	}
 
 	@Override
@@ -121,7 +122,7 @@ public enum TemplateManager implements Closeable2 {
 							final URL index = ConfigurationManager.INSTANCE.getTemplatesIndex();
 							urls = Arrays.asList(URLUtils.readIndex(index));
 						}
-						if (ConfigurationManager.INSTANCE.getTrencadisConfigFile() != null
+						if (urls == null && ConfigurationManager.INSTANCE.getTrencadisConfigFile() != null
 							&& ConfigurationManager.INSTANCE.getTrencadisPassword() != null) {
 							urls = null;
 						}

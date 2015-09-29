@@ -39,6 +39,11 @@ import trencadis.infrastructure.services.dicomstorage.backend.BackEnd;
 import akka.actor.UntypedActor;
 import akka.event.LoggingAdapter;
 
+/**
+ * Actor that downloads a given set of reports from a back-end.
+ * @author Lorena Calabuig <locamo@inf.upv.es>
+ *
+ */
 
 public class ReportDownloaderActor extends UntypedActor {
 

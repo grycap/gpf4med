@@ -54,7 +54,7 @@ import akka.pattern.Patterns;
 import akka.util.Timeout;
 
 /**
- * Akka service.
+ * Akka service. Starts efficient download of DICOM reports.
  * @author Erik Torres <etserrano@gmail.com>
  * @author Lorena Calabuig <locamo@inf.upv.es>
  */

@@ -25,7 +25,7 @@ package org.grycap.gpf4med.akka;
 import java.io.File;
 
 /**
- * Main class.
+ * Initialize Akka Service.
  * @author Erik Torres <etserrano@gmail.com>
  * @author Lorena Calabuig <locamo@inf.upv.es>
  */

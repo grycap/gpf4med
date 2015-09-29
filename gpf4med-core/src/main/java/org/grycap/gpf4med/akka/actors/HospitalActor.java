@@ -57,9 +57,7 @@ import akka.japi.Function;
 
 
 /**
- * This actor creates actors to download reports in order to
- * distribute work
- * 
+ * This actor creates worker actors to download reports. 
  * @author Lorena Calabuig <locamo@inf.upv.es>
  *
  */

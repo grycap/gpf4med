@@ -74,7 +74,6 @@ public enum TRENCADISUtils {
 	
 	private TRENCADIS_SESSION createSession() {
 		try {
-			//LOGGER.info("Creating new TRENCADIS session");
 			return new TRENCADIS_SESSION(
 					ConfigurationManager.INSTANCE.getTrencadisConfigFile(),
 					ConfigurationManager.INSTANCE.getTrencadisPassword());
