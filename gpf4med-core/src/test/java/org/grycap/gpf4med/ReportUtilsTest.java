@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Institute for Molecular Imaging Instrumentation (I3M)
+ * Copyright 2015 Institute for Molecular Imaging Instrumentation (I3M)
  * 
  * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by 
  * the European Commission - subsequent versions of the EUPL (the "Licence");
@@ -39,7 +39,7 @@ import org.grycap.gpf4med.util.TestUtils;
 import org.junit.Test;
 
 /**
- * Tests template utilities.
+ * Tests report utilities.
  * @author Erik Torres <ertorser@upv.es>
  */
 public class ReportUtilsTest {
@@ -48,7 +48,7 @@ public class ReportUtilsTest {
 	public void test() {
 		System.out.println("ReportUtilsTest.test()");
 		try {
-			// load a test template
+			// load a test report
 			File reportFile = new File(TestUtils.getTestReportsDirectoy(), "MAMO_1_500.xml");
 			Document report = REPORT_XMLB.typeFromFile(reportFile);
 					
