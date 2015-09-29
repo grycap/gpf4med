@@ -16,13 +16,13 @@
 
 ``$ mvn clean package -pl gpf4med-graph-base``
 
-``$ scp gpf4med-graph-base/target/gpf4med-graph-base-1.1.0.jar dedalo.i3m.upv.es:/usr/local/sw/gpf4med/connectors/1.1.0/``
+``$ scp gpf4med-graph-base/target/gpf4med-graph-base-1.2.0.jar dedalo.i3m.upv.es:/usr/local/sw/gpf4med/connectors/1.2.0/``
 
 ``$ mvn clean package -pl gpf4med-enactor``
 
 ```$ mvn clean install -pl gpf4med-external-deps,gpf4med-core,gpf4med-api,gpf4med-data ; mvn clean package -pl gpf4med-graph-base ; \
-  scp gpf4med-graph-base/target/gpf4med-graph-base-1.1.0.jar \
-  dedalo.i3m.upv.es:/usr/local/sw/gpf4med/connectors/1.1.0/ ; \
+  scp gpf4med-graph-base/target/gpf4med-graph-base-1.2.0.jar \
+  dedalo.i3m.upv.es:/usr/local/sw/gpf4med/connectors/1.2.0/ ; \
   mvn clean install -pl gpf4med-service ; mvn clean package -pl gpf4med-distro ; \
   mvn clean package -pl gpf4med-enactor```
 
