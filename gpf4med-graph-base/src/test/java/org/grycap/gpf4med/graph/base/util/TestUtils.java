@@ -36,6 +36,7 @@ public class TestUtils {
 
 	public static final String TEMPLATES_FOLDER = "templates";
 	public static final String REPORTS_FOLDER = "reports";
+	public static final String REPORTS_TEST_FOLDER = "reports_test/MAMO";
 
 	public static final String RESOURCES_FOLDER;
 	static {
@@ -59,12 +60,19 @@ public class TestUtils {
 		return FileUtils.listFiles(dir, new String[] { "xml" }, false);
 	}
 	
-	public static File getTestReportsDirectoy() {
-		return new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, REPORTS_FOLDER));
+	public static Collection<File> getTestReportFiles() {
+		final File dir = new File(FilenameUtils.concat("/opt/trencadis/files/", REPORTS_TEST_FOLDER));
+		return FileUtils.listFiles(dir, new String[] { "xml" }, false);
 	}
 	
-	public static File getTestTemplatesDirectoy() {
-		return new File(FilenameUtils.concat(AllUnitTests.TEST_RESOURCES_PATH, TEMPLATES_FOLDER));
+	public static Collection<File> getTestReportFiles(String path) {
+		final File dir = new File(path);
+		return FileUtils.listFiles(dir, new String[] { "xml" }, false);
+	}
+	
+	public static Collection<File> getTestTemplateFiles() {
+		final File dir = new File(FilenameUtils.concat("/opt/trencadis/files/", TEMPLATES_FOLDER));
+		return FileUtils.listFiles(dir, new String[] { "xml" }, false);
 	}
 
 }

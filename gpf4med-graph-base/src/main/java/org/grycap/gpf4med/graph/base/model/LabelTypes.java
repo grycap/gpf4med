@@ -36,6 +36,7 @@ public enum LabelTypes implements Label {
 	BREAST,
 	DICOM_REF,
 	LESION,
+	LESION_PROPERTY,
 	OTHER_FINDINGS,
 	BI_RADS,
 	TUMOUR_LOCATION,

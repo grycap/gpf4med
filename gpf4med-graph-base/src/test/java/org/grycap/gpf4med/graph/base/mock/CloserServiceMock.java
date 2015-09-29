@@ -60,8 +60,8 @@ public enum CloserServiceMock implements CloserServiceIf {
 		//DocumentManager.INSTANCE.preload();
 		//register(DocumentManager.INSTANCE);
 		// load graph connector manager and register it for closing
-		GraphConnectorManager.INSTANCE.preload();
-		register(GraphConnectorManager.INSTANCE);
+		//GraphConnectorManager.INSTANCE.preload();
+		//register(GraphConnectorManager.INSTANCE);
 		// load graph graph database handler and register it for closing
 		GraphDatabaseHandler.INSTANCE.preload();
 		register(GraphDatabaseHandler.INSTANCE);

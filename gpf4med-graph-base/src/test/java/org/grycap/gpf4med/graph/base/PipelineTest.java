@@ -27,6 +27,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
@@ -49,22 +50,26 @@ import com.google.common.collect.ImmutableList;
  * @author Erik Torres <ertorser@upv.es>
  */
 public class PipelineTest {
-
+	
+	public static final String MAMO_REPORTS_PATH = "/opt/trencadis/files/reports_test/MAMO";
+	public static final String ECO_REPORTS_PATH  = "/opt/trencadis/files/reports_test/ECO";
+	public static final String RESO_REPORTS_PATH = "/opt/trencadis/files/reports_test/RESO";
+	
 	@Test
-	public void test() {
+	public void test() throws IOException {
 		System.out.println("PipelineTest.test()");
 		File graphvizFile = null;
 		try {
 			// load example templates
-			final Collection<File> templateFiles = TestUtils.getTemplateFiles();
+			final Collection<File> templateFiles = TestUtils.getTestTemplateFiles();
 			final Collection<URL> templateURLs = Arrays.asList(FileUtils.toURLs(templateFiles.toArray(new File[templateFiles.size()])));
 			TemplateManager.INSTANCE.setup(templateURLs);
 			TemplateManager.INSTANCE.preload();
 
-			// load example reports in the graph
+			// load example reports in the graph			
 			GraphDatabaseHandler.INSTANCE.restart();
 			GraphDatabaseHandler.INSTANCE.setConnector(new BaseGraphConnector());
-			final Collection<File> reportFiles = TestUtils.getReportFiles();
+			final Collection<File> reportFiles = TestUtils.getTestReportFiles(MAMO_REPORTS_PATH);
 			final ImmutableList<URL> urls = new ImmutableList.Builder<URL>().add(FileUtils.toURLs(reportFiles.toArray(new File[reportFiles.size()]))).build();
 			Statistics.INSTANCE.setTotalSubmitted(reportFiles.size());
 			// start asynchronously load
@@ -73,19 +78,17 @@ public class PipelineTest {
 					RandomStringUtils.random(8, true, true) + ".dot");
 			assertThat("graphviz file is not null", graphvizFile, notNullValue());
 			final String graphvizStr = FileUtils.readFileToString(graphvizFile);
-			System.out.println(graphvizFile.getAbsolutePath());
 			assertThat("graphviz string is not null", graphvizStr, notNullValue());
 			assertThat("graphviz string is not empty", StringUtils.isNotBlank(graphvizStr));
 			/* uncomment for additional output
 			System.out.println(" >> Graphviz\n" + graphvizStr + "\n"); */
 			
-			FileUtils.copyFile(graphvizFile, new File("/opt/trencadis/graphs/neo4j.dot"));
-			
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
 			fail("PipelineTest.test() failed: " + e.getMessage());
 		} finally {
-			FileUtils.deleteQuietly(graphvizFile);
+			GraphDatabaseHandler.INSTANCE.close();
+			//FileUtils.deleteQuietly(graphvizFile);
 			System.out.println("PipelineTest.test() has finished");
 		}
 	}

@@ -36,9 +36,9 @@ import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.kernel.impl.util.FileUtils;
 import org.neo4j.visualization.graphviz.GraphvizWriter;
 import org.neo4j.walk.Walker;
+import org.apache.commons.io.FileUtils;
 
 /**
  * Tests Graphviz visualization of graphs.
@@ -72,9 +72,9 @@ public class GraphvizTest {
 				johan.setProperty( "name", "!<>Johan '\\n00b' !<>Svensson" );
 				final Relationship emilKNOWStobias = emil.createRelationshipTo(tobias, RelTypes.KNOWS);
 				emilKNOWStobias.setProperty( "since", "2003-08-17" );
-				final Relationship johanKNOWSemil = johan.createRelationshipTo(emil, RelTypes.KNOWS);
-				final Relationship tobiasKNOWSjohan = tobias.createRelationshipTo(johan, RelTypes.KNOWS);
-				final Relationship tobiasWORKS_FORemil = tobias.createRelationshipTo(emil, RelTypes.WORKS_FOR);
+				johan.createRelationshipTo(emil, RelTypes.KNOWS);
+				tobias.createRelationshipTo(johan, RelTypes.KNOWS);
+				tobias.createRelationshipTo(emil, RelTypes.WORKS_FOR);
 				final OutputStream out = new ByteArrayOutputStream();
 				final GraphvizWriter writer = new GraphvizWriter();
 				/* writer.emit(out, Walker.crosscut(emil.traverse(Order.DEPTH_FIRST, StopEvaluator.END_OF_GRAPH, 
@@ -99,7 +99,7 @@ public class GraphvizTest {
 
 	private void clearDb() {
 		try {
-			FileUtils.deleteRecursively(new File(DB_PATH));
+			FileUtils.deleteDirectory(new File(DB_PATH));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

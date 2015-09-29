@@ -52,14 +52,20 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.index.UniqueFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base class that provides general methods for loading nodes in the graph.
  * @author Erik Torres <ertorser@upv.es>
+ * @author Lorena Calabuig <locamo@inf.upv.es>
  */
 public abstract class BaseDocumentCreator {
-
+	
+	private final static Logger LOGGER = LoggerFactory.getLogger(BaseDocumentCreator.class);
+	
 	public static final String ID_PROPERTY = "id";
+	public static final String ID_NUM_PROPERTY = "id";
 	public static final String TYPE_PROPERTY = "type";
 	public static final String DESCRIPTION_PROPERTY = "description";
 	public static final String ACQUISITION_DATE_PROPERTY = "acquisition_date";
@@ -68,13 +74,15 @@ public abstract class BaseDocumentCreator {
 	public static final String ID_LESION_TYPE_PROPERTY = "id_type";
 	public static final String BI_RADS_CLASSIFICATION = "class";
 	public static final String COMPOSITION_PROPERTY = "composition";
+	public static final String VALUE_PROPERTY = "value";
 
 	public static final String PATIENT_NODE = "Patient";
 	public static final String MODALITY_NODE = "Modality";
 	public static final String BI_RADS_NODE = "BI-RADS";
 	public static final String TUMOUR_LOCATION_NODE = "Tumour Location";
 	public static final String FINDING_NODE = "Finding";
-
+	public static final String LESION_PROPERTY_NODE = "Lesion Property";
+	
 	public BaseDocumentCreator() { }
 
 	public Node getOrCreatePatient(final Transaction tx, final GraphDatabaseService graphDb, final Text patient) {
@@ -83,13 +91,16 @@ public abstract class BaseDocumentCreator {
 		final ConceptName conceptName = patient.getCONCEPTNAME();
 		final String id = Id.getId(conceptName);
 		checkState(StringUtils.isNotBlank(id), "Patient concept name is invalid");
+		
 		final UniqueFactory<Node> uniqueFactory = new UniqueFactory.UniqueNodeFactory(graphDb, PATIENT_NODE) {
 			@Override
 			protected void initialize(final Node created, final Map<String, Object> properties) {
-				created.setProperty(ID_PROPERTY, properties.get(ID_PROPERTY));	
+				created.setProperty(ID_PATIENT_PROPERTY, properties.get(ID_PATIENT_PROPERTY));	
 			}
 		};
-		final Node node = uniqueFactory.getOrCreate(ID_PROPERTY, id);
+		final Node node = uniqueFactory.getOrCreate(ID_PATIENT_PROPERTY, patient.getVALUE());
+		node.setProperty(ID_PROPERTY, id);
+		node.setProperty(ID_PATIENT_PROPERTY, patient.getVALUE());
 		if (!node.hasLabel(LabelTypes.PATIENT)) {
 			node.addLabel(LabelTypes.PATIENT);
 		}
@@ -161,7 +172,6 @@ public abstract class BaseDocumentCreator {
 		final Text patient = getPatient(document);
 		if (patient != null) {
 			final Node patientNode = getOrCreatePatient(tx, graphDb, patient);
-			patientNode.setProperty(ID_PATIENT_PROPERTY, patient.getVALUE());
 			final Relationship relationship = patientNode.createRelationshipTo(studyNode, RelTypes.HAS);
 			final Date date = getDate(document);
 			if (date != null) {
@@ -172,7 +182,7 @@ public abstract class BaseDocumentCreator {
 		return studyNode;
 	}
 	
-	public Node createBreastComposition(final Transaction tx, final GraphDatabaseService graphDb, final Container container, final Node parent, final Template template) {
+	public Node getOrCreateBreastComposition(final Transaction tx, final GraphDatabaseService graphDb, final Container container, final Node parent, final Template template) {
 		checkArgument(container != null && container.getCONCEPTNAME() != null, 
 				"Uninitialized or invalid container");
 		final Node breastCompositionNode = graphDb.createNode();
@@ -198,36 +208,113 @@ public abstract class BaseDocumentCreator {
 		return breastCompositionNode;
 	}
 
-	public Node createLesion(final Transaction tx, final GraphDatabaseService graphDb, final Container container, final Node parent) {
+	public Node createLesion(final Transaction tx, final GraphDatabaseService graphDb, final Container container, final Node parent, final Template template) {
 		checkArgument(container != null && container.getCONCEPTNAME() != null, 
 				"Uninitialized or invalid container");
-		String type = null;
 		String id = null;
-		Children item = container.getCHILDREN();
-		if (item.getTEXT() != null) {
-			for (final Text text : item.getTEXT()) {
-				final Text tmp = text;
-				if (tmp.getCONCEPTNAME() != null && "TRMM0006@TRENCADIS_MAMO".equals(Id.getId(tmp.getCONCEPTNAME()))) {
-					id = tmp.getVALUE();
-					break;
-				}
-			}
-		}
+		Children item = container.getCHILDREN();	
+		String description = null;
 		if (item.getCODE() != null) {
 			for (final Code code : item.getCODE()) {
 				final String idCode = Id.getId(code.getCONCEPTNAME());
 				if ("TRMM0007@TRENCADIS_MAMO".equals(idCode)){
-					type = code.getVALUE().getCODEVALUE() + "@" + code.getVALUE().getCODESCHEMA();
+					id = code.getVALUE().getCODEVALUE() + "@" + code.getVALUE().getCODESCHEMA();
+					final ConceptNameTemplate conceptName = new ConceptNameTemplate().withCODEVALUE(code.getVALUE().getCODEVALUE())
+							 .withCODESCHEMA(code.getVALUE().getCODESCHEMA());
+					description = TemplateUtils.getMeaning(conceptName, template, null);
 				}
 			}
 		}
 		checkState(StringUtils.isNotBlank(id), "Uninitialized or invalid lesion id");
 		final Node lesionNode = graphDb.createNode();
-		lesionNode.addLabel(LabelTypes.LESION);
 		lesionNode.setProperty(ID_PROPERTY, id);
-		lesionNode.setProperty(ID_LESION_TYPE_PROPERTY, type);
+		lesionNode.addLabel(LabelTypes.LESION);
+		lesionNode.setProperty(DESCRIPTION_PROPERTY, description);
 		parent.createRelationshipTo(lesionNode, RelTypes.PRESENTS);
 		return lesionNode;
+	}
+	
+	public Node getOrCreateLesionProperty(final Transaction tx, final GraphDatabaseService graphDb, final Code code, final String type, final Node parent, 
+			final Template template) {
+
+		checkArgument(code != null && code.getCONCEPTNAME() != null, "Uninitialized or invalid code field");
+		final Value value = code.getVALUE();
+		final ConceptName conceptNameValue = new ConceptName().withCODEVALUE(value.getCODEVALUE()).withCODESCHEMA(value.getCODESCHEMA());
+
+		final String id = Id.getId(conceptNameValue);
+		checkState(StringUtils.isNotBlank(id), "Finding property id is invalid");
+		final UniqueFactory<Node> uniqueFactory = new UniqueFactory.UniqueNodeFactory(graphDb, LESION_PROPERTY_NODE) {
+			@Override
+			protected void initialize(final Node created, final Map<String, Object> properties) {
+				created.setProperty(ID_PROPERTY, properties.get(ID_PROPERTY));	
+			}
+		};
+		final Node node = uniqueFactory.getOrCreate(ID_PROPERTY, id);
+		if (!node.hasLabel(LabelTypes.LESION_PROPERTY)) {
+			node.addLabel(LabelTypes.LESION_PROPERTY);
+		}
+		if (!node.hasProperty(TYPE_PROPERTY)) {
+			if (StringUtils.isNotBlank(type)) {
+				node.setProperty(TYPE_PROPERTY, type);
+			}
+		}
+		if (!node.hasProperty(DESCRIPTION_PROPERTY)) {
+			ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(conceptNameValue.getCODEVALUE())
+																			   .withCODESCHEMA(conceptNameValue.getCODESCHEMA());
+			final String meaning = TemplateUtils.getMeaning(conceptNameTemplate, template, null);
+			if (StringUtils.isNotBlank(meaning)) {
+				node.setProperty(DESCRIPTION_PROPERTY, meaning);
+			}
+		}
+		parent.createRelationshipTo(node, RelTypes.HAS);
+		return node;
+	}
+	
+	public Node getOrCreateLesionProperty(final Transaction tx, final GraphDatabaseService graphDb, final Num num, final String type, final Node parent, 
+			final Template template) {
+
+		checkArgument(num != null && num.getCONCEPTNAME() != null, "Uninitialized or invalid numeric field");
+		final ConceptName conceptName = num.getCONCEPTNAME();
+		final String value = num.getVALUE();
+		final ConceptName unitMeasurement = new ConceptName().withCODEVALUE(num.getUNITMEASUREMENT().getCODEVALUE())
+															 .withCODESCHEMA(num.getUNITMEASUREMENT().getCODESCHEMA());
+
+		final String id = Id.getId(conceptName);
+		checkState(StringUtils.isNotBlank(id), "Finding property id is invalid");
+		final UniqueFactory<Node> uniqueFactory = new UniqueFactory.UniqueNodeFactory(graphDb, LESION_PROPERTY_NODE) {
+			@Override
+			protected void initialize(final Node created, final Map<String, Object> properties) {
+				created.setProperty(ID_NUM_PROPERTY, properties.get(ID_NUM_PROPERTY));
+			}
+		};
+		
+		final Node node;
+		if ("000000001@UNIT_MEASUREMENT".equals(Id.getId(unitMeasurement))) {  
+			node = uniqueFactory.getOrCreate(ID_NUM_PROPERTY, id + ":" + (valueFromString(value) == 1.0d));
+			node.setProperty(ID_NUM_PROPERTY, id + ":" + (valueFromString(value) == 1.0d));
+			if (!node.hasProperty(VALUE_PROPERTY)) {
+				node.setProperty(VALUE_PROPERTY, valueFromString(value) == 1.0d);
+			}
+		} else if ("000000002@UNIT_MEASUREMENT".equals(Id.getId(unitMeasurement))) {
+			node = uniqueFactory.getOrCreate(ID_NUM_PROPERTY, id + ":" + valueFromString(value));
+			node.setProperty(ID_NUM_PROPERTY, id + ":" + valueFromString(value));
+			if (!node.hasProperty(VALUE_PROPERTY)) {
+				node.setProperty(VALUE_PROPERTY, valueFromString(value));
+			}
+		} else {
+			node = null;
+			LOGGER.warn("Invalid Unit Measurement for " + Id.getId(num.getCONCEPTNAME()));
+		}
+		if (!node.hasLabel(LabelTypes.LESION_PROPERTY)) {
+			node.addLabel(LabelTypes.LESION_PROPERTY);
+		}
+		if (!node.hasProperty(TYPE_PROPERTY)) {
+			if (StringUtils.isNotBlank(type)) {
+				node.setProperty(TYPE_PROPERTY, type);
+			}
+		}
+		parent.createRelationshipTo(node, RelTypes.HAS);
+		return node;
 	}
 
 	public Node createOtherFindings(final Transaction tx, final GraphDatabaseService graphDb,
@@ -239,7 +326,7 @@ public abstract class BaseDocumentCreator {
 		parent.createRelationshipTo(otherNode, RelTypes.PRESENTS);
 		return otherNode;
 	}
-
+	
 	public Node getOrCreateBiRads(final Transaction tx, final GraphDatabaseService graphDb, 
 			final Code code, final Node parent, final Template template) {
 		checkArgument(code != null && code.getVALUE() != null, "Uninitialized or invalid code");
@@ -294,22 +381,32 @@ public abstract class BaseDocumentCreator {
 		}
 		if (!node.hasProperty(DESCRIPTION_PROPERTY)) {
 			ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(conceptName.getCODEVALUE())
-																			   .withCODESCHEMA(conceptName.getCODESCHEMA())
-																			   .withCODEMEANING(conceptName.getCODEMEANING())
-																			   .withCODEMEANING2(conceptName.getCODEMEANING2());
+																			   .withCODESCHEMA(conceptName.getCODESCHEMA());
 			final String meaning = TemplateUtils.getMeaning(conceptNameTemplate, template, null);
 			if (StringUtils.isNotBlank(meaning)) {
-				node.setProperty(DESCRIPTION_PROPERTY, StringUtils.abbreviate(meaning, 20));
+				node.setProperty(DESCRIPTION_PROPERTY, meaning);
 			}
 		}
 		parent.createRelationshipTo(node, RelTypes.LOCATED_IN);
 		return node;
 	}
 	
-	public Node getOrCreateFinding(final Transaction tx, final GraphDatabaseService graphDb, final Num num, final Node parent, 
+	public Node getOrCreateFinding(final Transaction tx, final GraphDatabaseService graphDb, final Object finding, final Node parent, 
 			final Template template) {
-		checkArgument(num != null && num.getCONCEPTNAME() != null, "Uninitialized or invalid numeric field");
-		final ConceptName conceptName = num.getCONCEPTNAME();		
+		final ConceptName conceptName;
+		if (finding instanceof Num) {
+			Num num = (Num) finding;
+			checkArgument(num != null && num.getCONCEPTNAME() != null, "Uninitialized or invalid numeric field");
+			conceptName = num.getCONCEPTNAME();
+		} else if (finding instanceof Code) {
+			Code code = (Code) finding;
+			checkArgument(code != null && code.getCONCEPTNAME() != null, "Uninitialized or invalid code field");
+			conceptName = code.getCONCEPTNAME();
+		} else {
+			conceptName = null;
+			LOGGER.warn("Can not create finding: null value");
+			return null;
+		}
 		final String id = Id.getId(conceptName);
 		checkState(StringUtils.isNotBlank(id), "Finding id is invalid");
 		final UniqueFactory<Node> uniqueFactory = new UniqueFactory.UniqueNodeFactory(graphDb, FINDING_NODE) {
@@ -324,12 +421,10 @@ public abstract class BaseDocumentCreator {
 		}
 		if (!node.hasProperty(DESCRIPTION_PROPERTY)) {
 			ConceptNameTemplate conceptNameTemplate = new ConceptNameTemplate().withCODEVALUE(conceptName.getCODEVALUE())
-																			   .withCODESCHEMA(conceptName.getCODESCHEMA())
-																			   .withCODEMEANING(conceptName.getCODEMEANING())
-																			   .withCODEMEANING2(conceptName.getCODEMEANING2());
+																			   .withCODESCHEMA(conceptName.getCODESCHEMA());
 			final String meaning = TemplateUtils.getMeaning(conceptNameTemplate, template, null);
 			if (StringUtils.isNotBlank(meaning)) {
-				node.setProperty(DESCRIPTION_PROPERTY, StringUtils.abbreviate(meaning, 20));
+				node.setProperty(DESCRIPTION_PROPERTY, meaning);
 			}
 		}
 		parent.createRelationshipTo(node, RelTypes.PRESENTS);

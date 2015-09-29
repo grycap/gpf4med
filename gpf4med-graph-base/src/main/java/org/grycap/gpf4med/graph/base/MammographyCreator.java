@@ -32,7 +32,6 @@ import org.grycap.gpf4med.model.document.Code;
 import org.grycap.gpf4med.model.document.Container;
 import org.grycap.gpf4med.model.document.Document;
 import org.grycap.gpf4med.model.document.Num;
-import org.grycap.gpf4med.model.document.Text;
 import org.grycap.gpf4med.model.template.Template;
 import org.grycap.gpf4med.model.util.Id;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -81,14 +80,6 @@ public class MammographyCreator extends BaseDocumentCreator {
 			// create children nodes
 			if (document.getCONTAINER() != null) {
 				Children children = document.getCONTAINER().getCHILDREN();
-				if (children.getTEXT() != null) {
-					for (final Text text : children.getTEXT()) {
-						if ("TRMM0001@TRENCADIS_MAMO".equals(Id.getId(text.getCONCEPTNAME()))) {
-							getOrCreateDICOMReference(tx, graphDb, text, study);
-						}
-					}
-				}
-				
 				if (children.getCONTAINER() != null) {
 					for (final Container container : children.getCONTAINER()) {
 						final String id = Id.getId(container.getCONCEPTNAME());
@@ -126,7 +117,7 @@ public class MammographyCreator extends BaseDocumentCreator {
 		leftBreastNode.addLabel(LabelTypes.BREAST);
 		leftBreastNode.setProperty(SIDE_PROPERTY, "left");
 		study.createRelationshipTo(leftBreastNode, RelTypes.INCLUDES);
-
+		
 		if (container.getCHILDREN() != null) {
 			Children children = container.getCHILDREN();
 			if (children.getCONTAINER() != null) {
@@ -186,7 +177,7 @@ public class MammographyCreator extends BaseDocumentCreator {
 		checkArgument(container != null && container.getCONCEPTNAME() != null, 
 				"Uninitialized or invalid container");
 		
-		createBreastComposition(tx, graphDb, container, study, template);
+		getOrCreateBreastComposition(tx, graphDb, container, study, template);
 		
 	}
 	
@@ -198,7 +189,7 @@ public class MammographyCreator extends BaseDocumentCreator {
 			final Container container, final Template template) {
 		checkArgument(container != null && container.getCONCEPTNAME() != null, 
 				"Uninitialized or invalid container");
-		final Node lesionNode = createLesion(tx, graphDb, container, breastNode);
+		final Node lesionNode = createLesion(tx, graphDb, container, breastNode, template);
 		Node sizeNode = null;
 		// Load lesions and associated findings
 		Children item = container.getCHILDREN();
@@ -207,7 +198,7 @@ public class MammographyCreator extends BaseDocumentCreator {
 				String idField = Id.getId(num.getCONCEPTNAME());
 				// Existing associated calcifications
 				if ("TRMM0033@TRENCADIS_MAMO".equals(idField) && num.getVALUE() != null) {
-					lesionNode.setProperty(CALCIFICATION_PROPERTY, valueFromString(num.getVALUE()) == 1.0d);
+					getOrCreateLesionProperty(tx, graphDb, num, CALCIFICATION_PROPERTY, lesionNode, template);
 				}
 			}
 		}
@@ -216,23 +207,23 @@ public class MammographyCreator extends BaseDocumentCreator {
 				final String idField = Id.getId(code.getCONCEPTNAME());
 				// Shape
 				if ("TRMM0008@TRENCADIS_MAMO".equals(idField)) {
-					setPropertyNode(lesionNode, SHAPE_PROPERTY, code, template);
+					getOrCreateLesionProperty(tx, graphDb, code, SHAPE_PROPERTY, lesionNode, template);
 				}
 				// Margin
 				else if ("TRMM0009@TRENCADIS_MAMO".equals(idField)) {
-					setPropertyNode(lesionNode, MARGIN_PROPERTY, code, template);
+					getOrCreateLesionProperty(tx, graphDb, code, MARGIN_PROPERTY, lesionNode, template);
 				}
 				// Density
 				else if ("TRMM0010@TRENCADIS_MAMO".equals(idField)) {
-					setPropertyNode(lesionNode, DENSITY_PROPERTY, code, template);
+					getOrCreateLesionProperty(tx, graphDb, code, DENSITY_PROPERTY, lesionNode, template);
 				}
 				// Asymmetry type
 				else if ("TRMM0022@TRENCADIS_MAMO".equals(idField)) {
-					setPropertyNode(lesionNode, ASYMMETRY_PROPERTY, code, template);
+					getOrCreateLesionProperty(tx, graphDb, code, ASYMMETRY_PROPERTY, lesionNode, template);
 				}
 				// Typically benign
 				else if ("RID36038@RADLEX".equals(idField)) {
-					setPropertyNode(lesionNode, BENIGN_PROPERTY, code, template);
+					getOrCreateLesionProperty(tx, graphDb, code, BENIGN_PROPERTY, lesionNode, template);
 				}
 				// BI-RADS category
 				else if ("RID36027@RADLEX".equals(idField)) {
@@ -333,8 +324,9 @@ public class MammographyCreator extends BaseDocumentCreator {
 								getOrCreateLocation(tx, graphDb, num, lesionNode, template);
 							}
 							// Distance from the Nipple
-							else if ("TRMM0012@TRENCADIS_MAMO".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) != null) {
-								lesionNode.setProperty(DISTANCE_TO_NIPPLE_PROPERTY, valueFromString(num.getVALUE()));
+							else if ("TRMM0012@TRENCADIS_MAMO".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) != null
+									&& valueFromString(num.getVALUE()) != 0.0d) {
+								getOrCreateLesionProperty(tx, graphDb, num, DISTANCE_TO_NIPPLE_PROPERTY, lesionNode, template);
 							}
 						}
 					}
@@ -371,11 +363,6 @@ public class MammographyCreator extends BaseDocumentCreator {
 		checkArgument(container != null && container.getCONCEPTNAME() != null, 
 				"Uninitialized or invalid container");
 
-		final Node propertiesNode = graphDb.createNode();
-		propertiesNode.addLabel(LabelTypes.ASSOCIATED_FEATURES);
-		//propertiesNode.setProperty(ID_PROPERTY, id);
-		breastNode.createRelationshipTo(propertiesNode, RelTypes.HAS);
-
 		// load lesions and associated findings
 		Children item = container.getCHILDREN();
 		if (item.getNUM() != null) {
@@ -383,23 +370,23 @@ public class MammographyCreator extends BaseDocumentCreator {
 				final String idField = Id.getId(num.getCONCEPTNAME());
 				// Skin retraction
 				if ("RID34383@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, propertiesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Nipple retraction
 				else if ("RID34269@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, propertiesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Skin thickening
 				else if ("RID34270@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, propertiesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Trabecular thickening
 				else if ("RID34271@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, propertiesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Axillary Adenopathy
 				else if ("RID34272@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, propertiesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 			}
 		}

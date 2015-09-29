@@ -32,7 +32,6 @@ import org.grycap.gpf4med.model.document.Code;
 import org.grycap.gpf4med.model.document.Container;
 import org.grycap.gpf4med.model.document.Document;
 import org.grycap.gpf4med.model.document.Num;
-import org.grycap.gpf4med.model.document.Text;
 import org.grycap.gpf4med.model.template.Template;
 import org.grycap.gpf4med.model.util.Id;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -42,7 +41,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Loads mammograms to the graph.
+ * Loads echographies to the graph.
  * @author Lorena Calabuig <locamo@inf.upv.es>
  */
 public class EcographyCreator extends BaseDocumentCreator {
@@ -82,15 +81,7 @@ public class EcographyCreator extends BaseDocumentCreator {
 			final Node study = createRadiologicalStudy(tx, graphDb, document, modality);			
 			// create children nodes
 			if (document.getCONTAINER() != null) {
-				Children children = document.getCONTAINER().getCHILDREN();
-				if (children.getTEXT() != null) {
-					for (final Text text : children.getTEXT()) {
-						if ("TRMM0001@TRENCADIS_MAMO".equals(Id.getId(text.getCONCEPTNAME()))) {
-							getOrCreateDICOMReference(tx, graphDb, text, study);
-						}
-					}
-				}
-				
+				Children children = document.getCONTAINER().getCHILDREN();				
 				if (children.getCONTAINER() != null) {
 					for (final Container container : children.getCONTAINER()) {
 						final String id = Id.getId(container.getCONCEPTNAME());
@@ -203,7 +194,7 @@ public class EcographyCreator extends BaseDocumentCreator {
 		checkArgument(container != null && container.getCONCEPTNAME() != null, 
 				"Uninitialized or invalid container");
 		
-		createBreastComposition(tx, graphDb, container, study, template);
+		getOrCreateBreastComposition(tx, graphDb, container, study, template);
 		
 	}
 	
@@ -215,7 +206,7 @@ public class EcographyCreator extends BaseDocumentCreator {
 			final Container container, final Template template) {
 		checkArgument(container != null && container.getCONCEPTNAME() != null, 
 				"Uninitialized or invalid container");
-		final Node lesionNode = createLesion(tx, graphDb, container, breastNode);
+		final Node lesionNode = createLesion(tx, graphDb, container, breastNode, template);
 		Node sizeNode = null;
 		// Load lesions and associated findings
 		Children item = container.getCHILDREN();
@@ -224,19 +215,19 @@ public class EcographyCreator extends BaseDocumentCreator {
 				String idField = Id.getId(num.getCONCEPTNAME());
 				// Existing associated calcifications
 				if ("TRMM0033@TRENCADIS_MAMO".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					lesionNode.setProperty(CALCIFICATION_PROPERTY, valueFromString(num.getVALUE()) == 1.0d);
+					getOrCreateLesionProperty(tx, graphDb, num, CALCIFICATION_PROPERTY, lesionNode, template);
 				}
 				// Intraductal Calcification
 				else if ("TRMM0041@TRENCADIS_MAMO".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					lesionNode.setProperty(CALCIFICATION_INTRADUCTAL_PROPERTY, valueFromString(num.getVALUE()) == 1.0d);
+					getOrCreateLesionProperty(tx, graphDb, num, CALCIFICATION_INTRADUCTAL_PROPERTY, lesionNode, template);
 				}
 				// Calcifications in mass
 				else if ("RID34368@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					lesionNode.setProperty(CALCIFICATIONS_IN_MASS_PROPERTY, valueFromString(num.getVALUE()));
+					getOrCreateLesionProperty(tx, graphDb, num, CALCIFICATIONS_IN_MASS_PROPERTY, lesionNode, template);
 				}
 				// Calcifications out of mass
 				else if ("RID36038@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					lesionNode.setProperty(CALCIFICATIONS_OUT_MASS_PROPERTY, valueFromString(num.getVALUE()));
+					getOrCreateLesionProperty(tx, graphDb, num, CALCIFICATIONS_OUT_MASS_PROPERTY, lesionNode, template);
 				}
 			}
 		}
@@ -245,27 +236,27 @@ public class EcographyCreator extends BaseDocumentCreator {
 				final String idField = Id.getId(code.getCONCEPTNAME());
 				// Shape
 				if ("TRMM0008@TRENCADIS_MAMO".equals(idField)) {
-					setPropertyNode(lesionNode, SHAPE_PROPERTY, code, template);
+					getOrCreateLesionProperty(tx, graphDb, code, SHAPE_PROPERTY, lesionNode, template);
 				}
 				// Margin
 				else if ("TRMM0009@TRENCADIS_MAMO".equals(idField)) {
-					setPropertyNode(lesionNode, MARGIN_PROPERTY, code, template);
+					getOrCreateLesionProperty(tx, graphDb, code, MARGIN_PROPERTY, lesionNode, template);
 				}
 				// Orientation 
 				else if ("TRMM0035@TRENCADIS_MAMO".equals(idField)) {
-					setPropertyNode(lesionNode, ORIENTATION_PROPERTY, code, template);
+					getOrCreateLesionProperty(tx, graphDb, code, ORIENTATION_PROPERTY, lesionNode, template);
 				}
 				// Non-Circumscribed Margin Type
 				else if ("TRMM0036@TRENCADIS_MAMO".equals(idField)) {
-					setPropertyNode(lesionNode, NON_CIRCUMSCRIBED_MARGIN_PROPERTY, code, template);
+					getOrCreateLesionProperty(tx, graphDb, code, NON_CIRCUMSCRIBED_MARGIN_PROPERTY, lesionNode, template);
 				}
 				// Echo pattern
 				else if ("TRMM0037@TRENCADIS_MAMO".equals(idField)) {
-					setPropertyNode(lesionNode, ECHO_PATTERN_PROPERTY, code, template);
+					getOrCreateLesionProperty(tx, graphDb, code, ECHO_PATTERN_PROPERTY, lesionNode, template);
 				}
 				// Posterior Features
 				else if ("TRMM0040@TRENCADIS_MAMO".equals(idField)) {
-					setPropertyNode(lesionNode, POSTERIOR_FEATURES_PROPERTY, code, template);
+					getOrCreateLesionProperty(tx, graphDb, code, POSTERIOR_FEATURES_PROPERTY, lesionNode, template);
 				}
 				// BI-RADS category
 				else if ("RID36027@RADLEX".equals(idField)) {
@@ -367,7 +358,7 @@ public class EcographyCreator extends BaseDocumentCreator {
 							}
 							// Distance from the Nipple
 							else if ("TRMM0012@TRENCADIS_MAMO".equals(idNum) && num.getVALUE() != null && valueFromString(num.getVALUE()) != null) {
-								lesionNode.setProperty(DISTANCE_TO_NIPPLE_PROPERTY, valueFromString(num.getVALUE()));
+								getOrCreateLesionProperty(tx, graphDb, num, DISTANCE_TO_NIPPLE_PROPERTY, lesionNode, template);
 							}
 						}
 					}
@@ -385,11 +376,6 @@ public class EcographyCreator extends BaseDocumentCreator {
 		checkArgument(container != null && container.getCONCEPTNAME() != null, 
 				"Uninitialized or invalid container");
 
-		final Node propertiesNode = graphDb.createNode();
-		propertiesNode.addLabel(LabelTypes.ASSOCIATED_FEATURES);
-		//propertiesNode.setProperty(ID_PROPERTY, id);
-		breastNode.createRelationshipTo(propertiesNode, RelTypes.HAS);
-
 		// load associated findings
 		Children item = container.getCHILDREN();
 		if (item.getCODE() != null) {
@@ -397,7 +383,7 @@ public class EcographyCreator extends BaseDocumentCreator {
 				final String idField = Id.getId(code.getCONCEPTNAME());
 				// Skin Changes
 				if ("TRMM0042@TRENCADIS_MAMO".equals(idField) && code.getVALUE() != null) {
-					setPropertyNode(propertiesNode, SKIN_CHANGES_PROPERTY, code, template);
+					getOrCreateFinding(tx, graphDb, code, breastNode, template);
 				}
 			}
 		}
@@ -406,15 +392,15 @@ public class EcographyCreator extends BaseDocumentCreator {
 				final String idField = Id.getId(num.getCONCEPTNAME());
 				// Architectural Distortion
 				if ("RID34261@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, propertiesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Duct Changes
 				else if ("RID34382@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, propertiesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Edema
 				else if ("RID4865@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, propertiesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 			}
 		}
@@ -428,9 +414,6 @@ public class EcographyCreator extends BaseDocumentCreator {
 			final Container container, final Template template) {
 		checkArgument(container != null && container.getCONCEPTNAME() != null, 
 				"Uninitialized or invalid container");
-		final Node specialCasesNode = graphDb.createNode();
-		specialCasesNode.addLabel(LabelTypes.SPECIAL_CASES);
-		breastNode.createRelationshipTo(specialCasesNode, RelTypes.HAS);
 		
 		Children item = container.getCHILDREN();
 		if (item.getNUM() != null) {
@@ -438,47 +421,47 @@ public class EcographyCreator extends BaseDocumentCreator {
 				final String idField = Id.getId(num.getCONCEPTNAME());
 				// Simple Cyst
 				if ("TRMM0057@TRENCADIS_MAMO".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, specialCasesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Postsurgical Fluid Collection
 				else if ("TRMM0055@TRENCADIS_MAMO".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, specialCasesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Fat Necrosis
 				else if ("TRMM0056@TRENCADIS_MAMO".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, specialCasesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Clustered Microcysts
 				if ("RID34371@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, specialCasesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Complicated Cysts
 				else if ("RID34372@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, specialCasesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Mass in or on Skin
 				else if ("RID34373@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, specialCasesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Foreign Body Including Implants
 				else if ("RID5425@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, specialCasesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Intramammary Lymph Node
 				else if ("RID34263@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, specialCasesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Axillary Adenopathy
 				else if ("RID34272@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, specialCasesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Foreign Body Including Implants
 				else if ("RID5425@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, specialCasesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 				// Axillary Adenopathy
 				else if ("RID34272@RADLEX".equals(idField) && num.getVALUE() != null && valueFromString(num.getVALUE()) == 1.0d) {
-					getOrCreateFinding(tx, graphDb, num, specialCasesNode, template);
+					getOrCreateFinding(tx, graphDb, num, breastNode, template);
 				}
 			}
 		}
@@ -487,7 +470,7 @@ public class EcographyCreator extends BaseDocumentCreator {
 				final String idField = Id.getId(code.getCONCEPTNAME());
 				// Vascular Abnormalities
 				if ("TRMM0052@TRENCADIS_MAMO".equals(idField)) {
-					setPropertyNode(specialCasesNode, VASCULAR_ABNORMALITIES_PROPERTY, code, template);
+					getOrCreateFinding(tx, graphDb, code, breastNode, template);
 				}
 			}
 		}

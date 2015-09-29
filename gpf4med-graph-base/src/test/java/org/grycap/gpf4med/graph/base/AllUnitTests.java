@@ -35,8 +35,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-// TODO @SuiteClasses({ PipelineTest.class, GraphvizTest.class })
-@SuiteClasses({ PipelineTest.class })
+@SuiteClasses({ PipelineTest.class, GraphvizTest.class })
 public class AllUnitTests { 
 
 	public static final String ANCHOR_FILENAME = "m2anchor";
